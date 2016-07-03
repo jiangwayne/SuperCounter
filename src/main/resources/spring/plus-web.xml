@@ -41,7 +41,7 @@
 		<!-- Spring MVC页面层FreeMarker的处理类 -->
 		<property name="freemarkerVariables">
 			<map>
-				<entry key="web_addr" value="http://localhost:8080/"></entry>
+				<entry key="base_addr" value="http://localhost:8080"></entry>
 			</map>
 		</property>
 	</bean>

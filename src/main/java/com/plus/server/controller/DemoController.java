@@ -22,7 +22,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 
 @Controller
 @Api("示例")
-@RequestMapping(value = "plus")
+@RequestMapping(value = "gtb")
 public class DemoController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(DemoController.class);
 
@@ -48,6 +48,24 @@ public class DemoController extends BaseController {
 		if(name!= null && city!= null && birthdayDate!= null )
 			userList.add(createUser(name, city, birthdayDate));
 		model.addAttribute("list", userList);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/top", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView top(Model model, String name, String city, String birthdayDate) {
+		ModelAndView mv = new ModelAndView("include/top.ftl");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/menu", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView menu(Model model, String name, String city, String birthdayDate) {
+		ModelAndView mv = new ModelAndView("include/menu.ftl");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/index", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView index(Model model, String name, String city, String birthdayDate) {
+		ModelAndView mv = new ModelAndView("index.ftl");
 		return mv;
 	}
 
