@@ -2,18 +2,14 @@ package com.plus.server.model;
 
 import java.util.Date;
 
-public class User {
+public class EverydayInfo {
     private Long id;
 
     private String name;
 
-    private String passwordHash;
+    private String description;
 
-    private String passwordSalt;
-
-    private Long orgId;
-
-    private String lastLongLat;
+    private String picUrl;
 
     private Integer valid;
 
@@ -37,36 +33,20 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash == null ? null : passwordHash.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
-    public String getPasswordSalt() {
-        return passwordSalt;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getLastLongLat() {
-        return lastLongLat;
-    }
-
-    public void setLastLongLat(String lastLongLat) {
-        this.lastLongLat = lastLongLat == null ? null : lastLongLat.trim();
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 
     public Integer getValid() {

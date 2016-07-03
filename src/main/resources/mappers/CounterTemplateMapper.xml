@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plus.server.dal.CounterTemplateDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.CounterTemplate">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="counter_style_id" jdbcType="BIGINT" property="counterStyleId" />
+    <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
+    <result column="furniture_id" jdbcType="BIGINT" property="furnitureId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, counter_style_id, obj_parent_id, furniture_id, count, valid, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_counter_template
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_counter_template
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.plus.server.model.CounterTemplate">
+    insert into t_counter_template (id, counter_style_id, obj_parent_id, 
+      furniture_id, count, valid, 
+      gmt_create, gmt_modify)
+    values (#{id,jdbcType=BIGINT}, #{counterStyleId,jdbcType=BIGINT}, #{objParentId,jdbcType=BIGINT}, 
+      #{furnitureId,jdbcType=BIGINT}, #{count,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.plus.server.model.CounterTemplate">
+    insert into t_counter_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="counterStyleId != null">
+        counter_style_id,
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id,
+      </if>
+      <if test="furnitureId != null">
+        furniture_id,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="counterStyleId != null">
+        #{counterStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="furnitureId != null">
+        #{furnitureId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.CounterTemplate">
+    update t_counter_template
+    <set>
+      <if test="counterStyleId != null">
+        counter_style_id = #{counterStyleId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="furnitureId != null">
+        furniture_id = #{furnitureId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.CounterTemplate">
+    update t_counter_template
+    set counter_style_id = #{counterStyleId,jdbcType=BIGINT},
+      obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      furniture_id = #{furnitureId,jdbcType=BIGINT},
+      count = #{count,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteLogicByIds">
+    update t_counter_template set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+</mapper>

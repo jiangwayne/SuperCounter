@@ -2,18 +2,18 @@ package com.plus.server.model;
 
 import java.util.Date;
 
-public class User {
+public class DisplayHandbook {
     private Long id;
 
     private String name;
 
-    private String passwordHash;
+    private String description;
 
-    private String passwordSalt;
+    private String picUrl;
 
-    private Long orgId;
+    private Long objParentId;
 
-    private String lastLongLat;
+    private Long parentId;
 
     private Integer valid;
 
@@ -37,36 +37,36 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash == null ? null : passwordHash.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
-    public String getPasswordSalt() {
-        return passwordSalt;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 
-    public Long getOrgId() {
-        return orgId;
+    public Long getObjParentId() {
+        return objParentId;
     }
 
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+    public void setObjParentId(Long objParentId) {
+        this.objParentId = objParentId;
     }
 
-    public String getLastLongLat() {
-        return lastLongLat;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setLastLongLat(String lastLongLat) {
-        this.lastLongLat = lastLongLat == null ? null : lastLongLat.trim();
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Integer getValid() {

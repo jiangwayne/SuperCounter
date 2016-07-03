@@ -2,18 +2,20 @@ package com.plus.server.model;
 
 import java.util.Date;
 
-public class User {
+public class ObjectChild {
     private Long id;
 
     private String name;
 
-    private String passwordHash;
+    private String qrCode;
 
-    private String passwordSalt;
+    private Integer length;
 
-    private Long orgId;
+    private Integer width;
 
-    private String lastLongLat;
+    private Integer height;
+
+    private String picUrl;
 
     private Integer valid;
 
@@ -37,36 +39,44 @@ public class User {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getQrCode() {
+        return qrCode;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash == null ? null : passwordHash.trim();
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode == null ? null : qrCode.trim();
     }
 
-    public String getPasswordSalt() {
-        return passwordSalt;
+    public Integer getLength() {
+        return length;
     }
 
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
+    public void setLength(Integer length) {
+        this.length = length;
     }
 
-    public Long getOrgId() {
-        return orgId;
+    public Integer getWidth() {
+        return width;
     }
 
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+    public void setWidth(Integer width) {
+        this.width = width;
     }
 
-    public String getLastLongLat() {
-        return lastLongLat;
+    public Integer getHeight() {
+        return height;
     }
 
-    public void setLastLongLat(String lastLongLat) {
-        this.lastLongLat = lastLongLat == null ? null : lastLongLat.trim();
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 
     public Integer getValid() {

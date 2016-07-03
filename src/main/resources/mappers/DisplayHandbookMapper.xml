@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plus.server.dal.UserDAO">
-  <resultMap id="BaseResultMap" type="com.plus.server.model.User">
+<mapper namespace="com.plus.server.dal.DisplayHandbookDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.DisplayHandbook">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password_hash" jdbcType="VARCHAR" property="passwordHash" />
-    <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
-    <result column="last_long_lat" jdbcType="VARCHAR" property="lastLongLat" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password_hash, password_salt, org_id, last_long_lat, valid, gmt_create, 
-    gmt_modify
+    id, name, description, pic_url, obj_parent_id, parent_id, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_user
+    from t_display_handbook
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_user
+    delete from t_display_handbook
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.User">
-    insert into t_user (id, name, password_hash, 
-      password_salt, org_id, last_long_lat, 
+  <insert id="insert" parameterType="com.plus.server.model.DisplayHandbook">
+    insert into t_display_handbook (id, name, description, 
+      pic_url, obj_parent_id, parent_id, 
       valid, gmt_create, gmt_modify
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwordHash,jdbcType=VARCHAR}, 
-      #{passwordSalt,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{lastLongLat,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{objParentId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, 
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.User">
-    insert into t_user
+  <insert id="insertSelective" parameterType="com.plus.server.model.DisplayHandbook">
+    insert into t_display_handbook
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -45,17 +44,17 @@
       <if test="name != null">
         name,
       </if>
-      <if test="passwordHash != null">
-        password_hash,
+      <if test="description != null">
+        description,
       </if>
-      <if test="passwordSalt != null">
-        password_salt,
+      <if test="picUrl != null">
+        pic_url,
       </if>
-      <if test="orgId != null">
-        org_id,
+      <if test="objParentId != null">
+        obj_parent_id,
       </if>
-      <if test="lastLongLat != null">
-        last_long_lat,
+      <if test="parentId != null">
+        parent_id,
       </if>
       <if test="valid != null">
         valid,
@@ -74,17 +73,17 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="passwordHash != null">
-        #{passwordHash,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
-      <if test="passwordSalt != null">
-        #{passwordSalt,jdbcType=VARCHAR},
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
       </if>
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
+      <if test="objParentId != null">
+        #{objParentId,jdbcType=BIGINT},
       </if>
-      <if test="lastLongLat != null">
-        #{lastLongLat,jdbcType=VARCHAR},
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -97,23 +96,23 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.User">
-    update t_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.DisplayHandbook">
+    update t_display_handbook
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="passwordHash != null">
-        password_hash = #{passwordHash,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="passwordSalt != null">
-        password_salt = #{passwordSalt,jdbcType=VARCHAR},
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
+      <if test="objParentId != null">
+        obj_parent_id = #{objParentId,jdbcType=BIGINT},
       </if>
-      <if test="lastLongLat != null">
-        last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
@@ -127,19 +126,19 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.User">
-    update t_user
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.DisplayHandbook">
+    update t_display_handbook
     set name = #{name,jdbcType=VARCHAR},
-      password_hash = #{passwordHash,jdbcType=VARCHAR},
-      password_salt = #{passwordSalt,jdbcType=VARCHAR},
-      org_id = #{orgId,jdbcType=BIGINT},
-      last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      parent_id = #{parentId,jdbcType=BIGINT},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">
-    update t_user set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+    update t_display_handbook set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
 </mapper>

@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plus.server.dal.UserDAO">
-  <resultMap id="BaseResultMap" type="com.plus.server.model.User">
+<mapper namespace="com.plus.server.dal.ReceiveRecordDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.ReceiveRecord">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password_hash" jdbcType="VARCHAR" property="passwordHash" />
-    <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="express_id" jdbcType="BIGINT" property="expressId" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
-    <result column="last_long_lat" jdbcType="VARCHAR" property="lastLongLat" />
+    <result column="long_lat" jdbcType="VARCHAR" property="longLat" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password_hash, password_salt, org_id, last_long_lat, valid, gmt_create, 
-    gmt_modify
+    id, user_id, express_id, org_id, long_lat, status, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_user
+    from t_receive_record
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_user
+    delete from t_receive_record
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.User">
-    insert into t_user (id, name, password_hash, 
-      password_salt, org_id, last_long_lat, 
+  <insert id="insert" parameterType="com.plus.server.model.ReceiveRecord">
+    insert into t_receive_record (id, user_id, express_id, 
+      org_id, long_lat, status, 
       valid, gmt_create, gmt_modify
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwordHash,jdbcType=VARCHAR}, 
-      #{passwordSalt,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{lastLongLat,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{expressId,jdbcType=BIGINT}, 
+      #{orgId,jdbcType=BIGINT}, #{longLat,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.User">
-    insert into t_user
+  <insert id="insertSelective" parameterType="com.plus.server.model.ReceiveRecord">
+    insert into t_receive_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="name != null">
-        name,
+      <if test="userId != null">
+        user_id,
       </if>
-      <if test="passwordHash != null">
-        password_hash,
-      </if>
-      <if test="passwordSalt != null">
-        password_salt,
+      <if test="expressId != null">
+        express_id,
       </if>
       <if test="orgId != null">
         org_id,
       </if>
-      <if test="lastLongLat != null">
-        last_long_lat,
+      <if test="longLat != null">
+        long_lat,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="valid != null">
         valid,
@@ -71,20 +70,20 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
       </if>
-      <if test="passwordHash != null">
-        #{passwordHash,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordSalt != null">
-        #{passwordSalt,jdbcType=VARCHAR},
+      <if test="expressId != null">
+        #{expressId,jdbcType=BIGINT},
       </if>
       <if test="orgId != null">
         #{orgId,jdbcType=BIGINT},
       </if>
-      <if test="lastLongLat != null">
-        #{lastLongLat,jdbcType=VARCHAR},
+      <if test="longLat != null">
+        #{longLat,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -97,23 +96,23 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.User">
-    update t_user
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.ReceiveRecord">
+    update t_receive_record
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="passwordHash != null">
-        password_hash = #{passwordHash,jdbcType=VARCHAR},
-      </if>
-      <if test="passwordSalt != null">
-        password_salt = #{passwordSalt,jdbcType=VARCHAR},
+      <if test="expressId != null">
+        express_id = #{expressId,jdbcType=BIGINT},
       </if>
       <if test="orgId != null">
         org_id = #{orgId,jdbcType=BIGINT},
       </if>
-      <if test="lastLongLat != null">
-        last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
+      <if test="longLat != null">
+        long_lat = #{longLat,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
@@ -127,19 +126,19 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.User">
-    update t_user
-    set name = #{name,jdbcType=VARCHAR},
-      password_hash = #{passwordHash,jdbcType=VARCHAR},
-      password_salt = #{passwordSalt,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.ReceiveRecord">
+    update t_receive_record
+    set user_id = #{userId,jdbcType=BIGINT},
+      express_id = #{expressId,jdbcType=BIGINT},
       org_id = #{orgId,jdbcType=BIGINT},
-      last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
+      long_lat = #{longLat,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">
-    update t_user set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+    update t_receive_record set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
 </mapper>

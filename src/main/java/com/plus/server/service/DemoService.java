@@ -1,7 +1,5 @@
 package com.plus.server.service;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +16,6 @@ public class DemoService {
 
 	@Autowired
 	private UserDAO userDao;
-
-	public List<User> queryAllUser() {
-		log.info("查询所有用户");
-		User u = new User();
-		u.setValid(1);
-		return userDao.selectByUser(u);
-	}
 
 	@Transactional
 	public void addUser(User user) {

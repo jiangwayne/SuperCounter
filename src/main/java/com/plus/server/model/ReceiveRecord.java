@@ -2,18 +2,18 @@ package com.plus.server.model;
 
 import java.util.Date;
 
-public class User {
+public class ReceiveRecord {
     private Long id;
 
-    private String name;
+    private Long userId;
 
-    private String passwordHash;
-
-    private String passwordSalt;
+    private Long expressId;
 
     private Long orgId;
 
-    private String lastLongLat;
+    private String longLat;
+
+    private Integer status;
 
     private Integer valid;
 
@@ -29,28 +29,20 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public Long getExpressId() {
+        return expressId;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash == null ? null : passwordHash.trim();
-    }
-
-    public String getPasswordSalt() {
-        return passwordSalt;
-    }
-
-    public void setPasswordSalt(String passwordSalt) {
-        this.passwordSalt = passwordSalt == null ? null : passwordSalt.trim();
+    public void setExpressId(Long expressId) {
+        this.expressId = expressId;
     }
 
     public Long getOrgId() {
@@ -61,12 +53,20 @@ public class User {
         this.orgId = orgId;
     }
 
-    public String getLastLongLat() {
-        return lastLongLat;
+    public String getLongLat() {
+        return longLat;
     }
 
-    public void setLastLongLat(String lastLongLat) {
-        this.lastLongLat = lastLongLat == null ? null : lastLongLat.trim();
+    public void setLongLat(String longLat) {
+        this.longLat = longLat == null ? null : longLat.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getValid() {

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plus.server.dal.OjbOrderDetailsDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.OjbOrderDetails">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
+    <result column="obj_parent_count" jdbcType="INTEGER" property="objParentCount" />
+    <result column="backup_count" jdbcType="INTEGER" property="backupCount" />
+    <result column="in_stock_time" jdbcType="TIMESTAMP" property="inStockTime" />
+    <result column="out_stock_time" jdbcType="TIMESTAMP" property="outStockTime" />
+    <result column="price_cny" jdbcType="INTEGER" property="priceCny" />
+    <result column="price_usd" jdbcType="INTEGER" property="priceUsd" />
+    <result column="price_eur" jdbcType="INTEGER" property="priceEur" />
+    <result column="unit_price_cny" jdbcType="INTEGER" property="unitPriceCny" />
+    <result column="unit_price_usd" jdbcType="INTEGER" property="unitPriceUsd" />
+    <result column="unit_price_eur" jdbcType="INTEGER" property="unitPriceEur" />
+    <result column="final_price_cny" jdbcType="INTEGER" property="finalPriceCny" />
+    <result column="final_price_usd" jdbcType="INTEGER" property="finalPriceUsd" />
+    <result column="final_price_eur" jdbcType="INTEGER" property="finalPriceEur" />
+    <result column="final_unit_price_cny" jdbcType="INTEGER" property="finalUnitPriceCny" />
+    <result column="final_unit_price_usd" jdbcType="INTEGER" property="finalUnitPriceUsd" />
+    <result column="final_unit_price_eur" jdbcType="INTEGER" property="finalUnitPriceEur" />
+    <result column="po_number" jdbcType="VARCHAR" property="poNumber" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, org_id, obj_parent_id, obj_parent_count, backup_count, in_stock_time, 
+    out_stock_time, price_cny, price_usd, price_eur, unit_price_cny, unit_price_usd, 
+    unit_price_eur, final_price_cny, final_price_usd, final_price_eur, final_unit_price_cny, 
+    final_unit_price_usd, final_unit_price_eur, po_number, valid, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ojb_order_details
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_ojb_order_details
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.plus.server.model.OjbOrderDetails">
+    insert into t_ojb_order_details (id, order_id, org_id, 
+      obj_parent_id, obj_parent_count, backup_count, 
+      in_stock_time, out_stock_time, price_cny, 
+      price_usd, price_eur, unit_price_cny, 
+      unit_price_usd, unit_price_eur, final_price_cny, 
+      final_price_usd, final_price_eur, final_unit_price_cny, 
+      final_unit_price_usd, final_unit_price_eur, po_number, 
+      valid, gmt_create, gmt_modify
+      )
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, 
+      #{objParentId,jdbcType=BIGINT}, #{objParentCount,jdbcType=INTEGER}, #{backupCount,jdbcType=INTEGER}, 
+      #{inStockTime,jdbcType=TIMESTAMP}, #{outStockTime,jdbcType=TIMESTAMP}, #{priceCny,jdbcType=INTEGER}, 
+      #{priceUsd,jdbcType=INTEGER}, #{priceEur,jdbcType=INTEGER}, #{unitPriceCny,jdbcType=INTEGER}, 
+      #{unitPriceUsd,jdbcType=INTEGER}, #{unitPriceEur,jdbcType=INTEGER}, #{finalPriceCny,jdbcType=INTEGER}, 
+      #{finalPriceUsd,jdbcType=INTEGER}, #{finalPriceEur,jdbcType=INTEGER}, #{finalUnitPriceCny,jdbcType=INTEGER}, 
+      #{finalUnitPriceUsd,jdbcType=INTEGER}, #{finalUnitPriceEur,jdbcType=INTEGER}, #{poNumber,jdbcType=VARCHAR}, 
+      #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.plus.server.model.OjbOrderDetails">
+    insert into t_ojb_order_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id,
+      </if>
+      <if test="objParentCount != null">
+        obj_parent_count,
+      </if>
+      <if test="backupCount != null">
+        backup_count,
+      </if>
+      <if test="inStockTime != null">
+        in_stock_time,
+      </if>
+      <if test="outStockTime != null">
+        out_stock_time,
+      </if>
+      <if test="priceCny != null">
+        price_cny,
+      </if>
+      <if test="priceUsd != null">
+        price_usd,
+      </if>
+      <if test="priceEur != null">
+        price_eur,
+      </if>
+      <if test="unitPriceCny != null">
+        unit_price_cny,
+      </if>
+      <if test="unitPriceUsd != null">
+        unit_price_usd,
+      </if>
+      <if test="unitPriceEur != null">
+        unit_price_eur,
+      </if>
+      <if test="finalPriceCny != null">
+        final_price_cny,
+      </if>
+      <if test="finalPriceUsd != null">
+        final_price_usd,
+      </if>
+      <if test="finalPriceEur != null">
+        final_price_eur,
+      </if>
+      <if test="finalUnitPriceCny != null">
+        final_unit_price_cny,
+      </if>
+      <if test="finalUnitPriceUsd != null">
+        final_unit_price_usd,
+      </if>
+      <if test="finalUnitPriceEur != null">
+        final_unit_price_eur,
+      </if>
+      <if test="poNumber != null">
+        po_number,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentCount != null">
+        #{objParentCount,jdbcType=INTEGER},
+      </if>
+      <if test="backupCount != null">
+        #{backupCount,jdbcType=INTEGER},
+      </if>
+      <if test="inStockTime != null">
+        #{inStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outStockTime != null">
+        #{outStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceCny != null">
+        #{priceCny,jdbcType=INTEGER},
+      </if>
+      <if test="priceUsd != null">
+        #{priceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="priceEur != null">
+        #{priceEur,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceCny != null">
+        #{unitPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceUsd != null">
+        #{unitPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceEur != null">
+        #{unitPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceCny != null">
+        #{finalPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceUsd != null">
+        #{finalPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceEur != null">
+        #{finalPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceCny != null">
+        #{finalUnitPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceUsd != null">
+        #{finalUnitPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceEur != null">
+        #{finalUnitPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="poNumber != null">
+        #{poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.OjbOrderDetails">
+    update t_ojb_order_details
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentCount != null">
+        obj_parent_count = #{objParentCount,jdbcType=INTEGER},
+      </if>
+      <if test="backupCount != null">
+        backup_count = #{backupCount,jdbcType=INTEGER},
+      </if>
+      <if test="inStockTime != null">
+        in_stock_time = #{inStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="outStockTime != null">
+        out_stock_time = #{outStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceCny != null">
+        price_cny = #{priceCny,jdbcType=INTEGER},
+      </if>
+      <if test="priceUsd != null">
+        price_usd = #{priceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="priceEur != null">
+        price_eur = #{priceEur,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceCny != null">
+        unit_price_cny = #{unitPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceUsd != null">
+        unit_price_usd = #{unitPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="unitPriceEur != null">
+        unit_price_eur = #{unitPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceCny != null">
+        final_price_cny = #{finalPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceUsd != null">
+        final_price_usd = #{finalPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="finalPriceEur != null">
+        final_price_eur = #{finalPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceCny != null">
+        final_unit_price_cny = #{finalUnitPriceCny,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceUsd != null">
+        final_unit_price_usd = #{finalUnitPriceUsd,jdbcType=INTEGER},
+      </if>
+      <if test="finalUnitPriceEur != null">
+        final_unit_price_eur = #{finalUnitPriceEur,jdbcType=INTEGER},
+      </if>
+      <if test="poNumber != null">
+        po_number = #{poNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.OjbOrderDetails">
+    update t_ojb_order_details
+    set order_id = #{orderId,jdbcType=BIGINT},
+      org_id = #{orgId,jdbcType=BIGINT},
+      obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      obj_parent_count = #{objParentCount,jdbcType=INTEGER},
+      backup_count = #{backupCount,jdbcType=INTEGER},
+      in_stock_time = #{inStockTime,jdbcType=TIMESTAMP},
+      out_stock_time = #{outStockTime,jdbcType=TIMESTAMP},
+      price_cny = #{priceCny,jdbcType=INTEGER},
+      price_usd = #{priceUsd,jdbcType=INTEGER},
+      price_eur = #{priceEur,jdbcType=INTEGER},
+      unit_price_cny = #{unitPriceCny,jdbcType=INTEGER},
+      unit_price_usd = #{unitPriceUsd,jdbcType=INTEGER},
+      unit_price_eur = #{unitPriceEur,jdbcType=INTEGER},
+      final_price_cny = #{finalPriceCny,jdbcType=INTEGER},
+      final_price_usd = #{finalPriceUsd,jdbcType=INTEGER},
+      final_price_eur = #{finalPriceEur,jdbcType=INTEGER},
+      final_unit_price_cny = #{finalUnitPriceCny,jdbcType=INTEGER},
+      final_unit_price_usd = #{finalUnitPriceUsd,jdbcType=INTEGER},
+      final_unit_price_eur = #{finalUnitPriceEur,jdbcType=INTEGER},
+      po_number = #{poNumber,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteLogicByIds">
+    update t_ojb_order_details set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+</mapper>
