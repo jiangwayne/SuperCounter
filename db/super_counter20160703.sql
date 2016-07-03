@@ -81,6 +81,7 @@ CREATE TABLE `t_organization` (
   `style_id` bigint(20) DEFAULT NULL COMMENT '柜台样式id',
   `media_type` varchar(64) DEFAULT NULL COMMENT '柜台媒介类型',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '位置经纬度',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -159,6 +160,7 @@ CREATE TABLE `t_object_parent` (
   `width_up` int(11)DEFAULT NULL COMMENT '出血宽',
   `height_up` int(11)DEFAULT NULL COMMENT '出血高',
   `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `content` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '内容',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
