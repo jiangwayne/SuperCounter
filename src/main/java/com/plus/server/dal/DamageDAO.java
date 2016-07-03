@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.Damage;
+import java.util.List;
 
 public interface DamageDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface DamageDAO {
     int insertSelective(Damage record);
 
     Damage selectByPrimaryKey(Long id);
+
+    List<Damage> selectByModel(Damage record);
 
     int updateByPrimaryKeySelective(Damage record);
 

@@ -19,6 +19,34 @@
     from t_parent_child
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.ParentChild" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_parent_child
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="objChildId != null">
+        and obj_child_id = #{objChildId,jdbcType=BIGINT}
+      </if>
+      <if test="objChildCount != null">
+        and obj_child_count = #{objChildCount,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_parent_child
     where id = #{id,jdbcType=BIGINT}

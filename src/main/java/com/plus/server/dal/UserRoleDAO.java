@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.UserRole;
+import java.util.List;
 
 public interface UserRoleDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface UserRoleDAO {
     int insertSelective(UserRole record);
 
     UserRole selectByPrimaryKey(Long id);
+
+    List<UserRole> selectByModel(UserRole record);
 
     int updateByPrimaryKeySelective(UserRole record);
 

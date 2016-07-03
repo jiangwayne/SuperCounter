@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.Organization;
+import java.util.List;
 
 public interface OrganizationDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface OrganizationDAO {
     int insertSelective(Organization record);
 
     Organization selectByPrimaryKey(Long id);
+
+    List<Organization> selectByModel(Organization record);
 
     int updateByPrimaryKeySelective(Organization record);
 

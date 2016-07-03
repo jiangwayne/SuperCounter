@@ -19,6 +19,34 @@
     from t_replenish
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.Replenish" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_replenish
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="fromOrgId != null">
+        and from_org_id = #{fromOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="toOrgId != null">
+        and to_org_id = #{toOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_replenish
     where id = #{id,jdbcType=BIGINT}

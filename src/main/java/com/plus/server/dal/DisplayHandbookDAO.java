@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.DisplayHandbook;
+import java.util.List;
 
 public interface DisplayHandbookDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface DisplayHandbookDAO {
     int insertSelective(DisplayHandbook record);
 
     DisplayHandbook selectByPrimaryKey(Long id);
+
+    List<DisplayHandbook> selectByModel(DisplayHandbook record);
 
     int updateByPrimaryKeySelective(DisplayHandbook record);
 

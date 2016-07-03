@@ -23,6 +23,43 @@
     from t_express
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.Express" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_express
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="fromOrgId != null">
+        and from_org_id = #{fromOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="toOrgId != null">
+        and to_org_id = #{toOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="picUrl != null">
+        and pic_url = #{picUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="expressNumber != null">
+        and express_number = #{expressNumber,jdbcType=VARCHAR}
+      </if>
+      <if test="expressType != null">
+        and express_type = #{expressType,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_express
     where id = #{id,jdbcType=BIGINT}

@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.ObjectParent;
+import java.util.List;
 
 public interface ObjectParentDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface ObjectParentDAO {
     int insertSelective(ObjectParent record);
 
     ObjectParent selectByPrimaryKey(Long id);
+
+    List<ObjectParent> selectByModel(ObjectParent record);
 
     int updateByPrimaryKeySelective(ObjectParent record);
 

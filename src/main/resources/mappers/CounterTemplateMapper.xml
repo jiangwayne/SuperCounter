@@ -20,6 +20,37 @@
     from t_counter_template
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.CounterTemplate" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_counter_template
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="counterStyleId != null">
+        and counter_style_id = #{counterStyleId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="furnitureId != null">
+        and furniture_id = #{furnitureId,jdbcType=BIGINT}
+      </if>
+      <if test="count != null">
+        and count = #{count,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_counter_template
     where id = #{id,jdbcType=BIGINT}

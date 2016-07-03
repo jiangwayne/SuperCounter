@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.OjbOrder;
+import java.util.List;
 
 public interface OjbOrderDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface OjbOrderDAO {
     int insertSelective(OjbOrder record);
 
     OjbOrder selectByPrimaryKey(Long id);
+
+    List<OjbOrder> selectByModel(OjbOrder record);
 
     int updateByPrimaryKeySelective(OjbOrder record);
 

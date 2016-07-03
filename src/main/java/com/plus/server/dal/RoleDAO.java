@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.Role;
+import java.util.List;
 
 public interface RoleDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface RoleDAO {
     int insertSelective(Role record);
 
     Role selectByPrimaryKey(Long id);
+
+    List<Role> selectByModel(Role record);
 
     int updateByPrimaryKeySelective(Role record);
 

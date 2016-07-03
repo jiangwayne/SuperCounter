@@ -19,6 +19,34 @@
     from t_everyday_info
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.EverydayInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_everyday_info
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null">
+        and description = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="picUrl != null">
+        and pic_url = #{picUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_everyday_info
     where id = #{id,jdbcType=BIGINT}

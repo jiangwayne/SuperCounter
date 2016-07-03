@@ -22,6 +22,43 @@
     from t_object_child
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.ObjectChild" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_child
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="qrCode != null">
+        and qr_code = #{qrCode,jdbcType=VARCHAR}
+      </if>
+      <if test="length != null">
+        and length = #{length,jdbcType=INTEGER}
+      </if>
+      <if test="width != null">
+        and width = #{width,jdbcType=INTEGER}
+      </if>
+      <if test="height != null">
+        and height = #{height,jdbcType=INTEGER}
+      </if>
+      <if test="picUrl != null">
+        and pic_url = #{picUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_object_child
     where id = #{id,jdbcType=BIGINT}

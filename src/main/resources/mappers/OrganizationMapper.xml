@@ -27,6 +27,55 @@
     from t_organization
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.Organization" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_organization
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=VARCHAR}
+      </if>
+      <if test="address != null">
+        and address = #{address,jdbcType=VARCHAR}
+      </if>
+      <if test="parentId != null">
+        and parent_id = #{parentId,jdbcType=BIGINT}
+      </if>
+      <if test="phone != null">
+        and phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="email != null">
+        and email = #{email,jdbcType=VARCHAR}
+      </if>
+      <if test="wxUniqueCode != null">
+        and wx_unique_code = #{wxUniqueCode,jdbcType=VARCHAR}
+      </if>
+      <if test="styleId != null">
+        and style_id = #{styleId,jdbcType=BIGINT}
+      </if>
+      <if test="mediaType != null">
+        and media_type = #{mediaType,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="longLat != null">
+        and long_lat = #{longLat,jdbcType=VARCHAR}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_organization
     where id = #{id,jdbcType=BIGINT}

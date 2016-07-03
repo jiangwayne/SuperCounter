@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.CounterTemplate;
+import java.util.List;
 
 public interface CounterTemplateDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface CounterTemplateDAO {
     int insertSelective(CounterTemplate record);
 
     CounterTemplate selectByPrimaryKey(Long id);
+
+    List<CounterTemplate> selectByModel(CounterTemplate record);
 
     int updateByPrimaryKeySelective(CounterTemplate record);
 

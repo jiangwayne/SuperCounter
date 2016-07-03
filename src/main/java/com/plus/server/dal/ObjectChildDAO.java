@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.ObjectChild;
+import java.util.List;
 
 public interface ObjectChildDAO {
     int deleteByPrimaryKey(Long id);
@@ -10,6 +11,8 @@ public interface ObjectChildDAO {
     int insertSelective(ObjectChild record);
 
     ObjectChild selectByPrimaryKey(Long id);
+
+    List<ObjectChild> selectByModel(ObjectChild record);
 
     int updateByPrimaryKeySelective(ObjectChild record);
 

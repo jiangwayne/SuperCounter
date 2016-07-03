@@ -21,6 +21,40 @@
     from t_receive_record
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.ReceiveRecord" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_receive_record
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="expressId != null">
+        and express_id = #{expressId,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="longLat != null">
+        and long_lat = #{longLat,jdbcType=VARCHAR}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_receive_record
     where id = #{id,jdbcType=BIGINT}
