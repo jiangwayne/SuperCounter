@@ -27,6 +27,8 @@ public class ObjectParent {
 
     private String picUrl;
 
+    private String content;
+
     private Integer valid;
 
     private Date gmtCreate;
@@ -127,6 +129,14 @@ public class ObjectParent {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public Integer getValid() {

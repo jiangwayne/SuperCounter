@@ -13,12 +13,13 @@
     <result column="style_id" jdbcType="BIGINT" property="styleId" />
     <result column="media_type" jdbcType="VARCHAR" property="mediaType" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="long_lat" jdbcType="VARCHAR" property="longLat" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
     id, name, type, address, parent_id, phone, email, wx_unique_code, style_id, media_type, 
-    valid, gmt_create, gmt_modify
+    valid, long_lat, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -34,13 +35,13 @@
     insert into t_organization (id, name, type, 
       address, parent_id, phone, 
       email, wx_unique_code, style_id, 
-      media_type, valid, gmt_create, 
-      gmt_modify)
+      media_type, valid, long_lat, 
+      gmt_create, gmt_modify)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{wxUniqueCode,jdbcType=VARCHAR}, #{styleId,jdbcType=BIGINT}, 
-      #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModify,jdbcType=TIMESTAMP})
+      #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.plus.server.model.Organization">
     insert into t_organization
@@ -77,6 +78,9 @@
       </if>
       <if test="valid != null">
         valid,
+      </if>
+      <if test="longLat != null">
+        long_lat,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -119,6 +123,9 @@
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
+      <if test="longLat != null">
+        #{longLat,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -160,6 +167,9 @@
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
+      <if test="longLat != null">
+        long_lat = #{longLat,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -181,6 +191,7 @@
       style_id = #{styleId,jdbcType=BIGINT},
       media_type = #{mediaType,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
+      long_lat = #{longLat,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

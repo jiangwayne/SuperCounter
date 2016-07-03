@@ -25,6 +25,8 @@ public class Organization {
 
     private Integer valid;
 
+    private String longLat;
+
     private Date gmtCreate;
 
     private Date gmtModify;
@@ -115,6 +117,14 @@ public class Organization {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+
+    public String getLongLat() {
+        return longLat;
+    }
+
+    public void setLongLat(String longLat) {
+        this.longLat = longLat == null ? null : longLat.trim();
     }
 
     public Date getGmtCreate() {
