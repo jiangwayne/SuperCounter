@@ -70,7 +70,7 @@ eval("submenu" + sid + ".style.display=\"none\";");
 					<td style="display:none" id='submenu1'><div class=sec_menu style="width:158">
 							<table width=130 height="100" align=center cellpadding=0 cellspacing=0>
 								<tr>
-									<td height=20><a href="${base_addr}/gtb/userList" target="main">用户管理</a></td>
+									<td height=20><a href="${base_addr}/gtb/user/list" target="main">用户管理</a></td>
 								</tr>
 								<tr>
 									<td height=20><a href="${base_addr}/gtb/userList" target="main">陈列手册</a></td>

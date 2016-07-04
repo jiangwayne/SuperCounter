@@ -1,12 +1,17 @@
 package com.plus.server.service;
 
 import com.alibaba.fastjson.JSON;
+import com.plus.server.dal.OrganizationDAO;
 import com.plus.server.dal.UserDAO;
+import com.plus.server.dal.UserRoleDAO;
+import com.plus.server.model.Organization;
 import com.plus.server.model.User;
+import com.plus.server.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,18 +28,35 @@ public class UserService {
     @Autowired
     private UserDAO userDao;
 
-    public void addUser(String name, String pwd) {
+    @Autowired
+    private UserRoleDAO userRoleDAO;
+
+    @Autowired
+    private OrganizationDAO organizationDAO;
+
+    @Transactional
+    public void addUser(String name, String pwd, long roleId, long orgId) {
         User user = new User();
         user.setName(name);
         String password_salt = generateSalt(5);
         String password_hash = getPasswordHash(pwd, password_salt);
         user.setPasswordSalt(password_salt);
         user.setPasswordHash(password_hash);
+        user.setOrgId(orgId);
         user.setValid(1);
         user.setGmtCreate(new Date());
         user.setGmtModify(new Date());
         log.info("新增用户，user=" + JSON.toJSONString(user));
         this.userDao.insert(user);
+
+        UserRole userRole = new UserRole();
+        userRole.setUserId(user.getId());
+        userRole.setRoleId(roleId);
+        userRole.setValid(1);
+        userRole.setGmtCreate(new Date());
+        userRole.setGmtModify(new Date());
+        log.info("新增用户角色，userRole=" + JSON.toJSONString(userRole));
+        this.userRoleDAO.insert(userRole);
     }
 
     public User login(String name, String password) {
@@ -85,19 +107,34 @@ public class UserService {
     }
 
 
-    public List<Map<String,String>> getUserList() {
+    public List<Map<String,String>> getUserList(String keyword) {
         List<Map<String,String>> result = new ArrayList<Map<String, String>>();
         User user = new User();
         user.setValid(1);
         List<User> list = this.userDao.selectByModel(user);
+        UserRole userRole = new UserRole();
+        userRole.setValid(1);
+        List<UserRole> userRoles = this.userRoleDAO.selectByModel(userRole);
+        Map<Long,Long> userRoleMap = new HashMap<Long, Long>();
+        for(UserRole o : userRoles) {
+            userRoleMap.put(o.getUserId(),o.getRoleId());
+        }
+
         for (User u : list) {
             Map<String,String> map = new HashMap<String, String>();
-            map.put("id",user.getId().toString());
-            map.put("name",user.getName());
-            map.put("org_id", user.getOrgId().toString());
-            map.put("last_long_lat",user.getLastLongLat());
-            result.add(map);
+            if(keyword == null || u.getId().toString().contains(keyword) || u.getName().contains(keyword)) {
+                map.put("id", u.getId().toString());
+                map.put("name", u.getName());
+                map.put("org_id", u.getOrgId().toString());
+                map.put("role_id", userRoleMap.get(u.getId()).toString());
+                map.put("last_long_lat", u.getLastLongLat());
+                result.add(map);
+            }
         }
         return result;
+    }
+
+    public User getUser(long id){
+        return userDao.selectByPrimaryKey(id);
     }
 }

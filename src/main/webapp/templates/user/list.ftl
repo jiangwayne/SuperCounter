@@ -58,23 +58,27 @@
 
 </head>
 <BODY leftMargin=0 text=#000000 topMargin=0 marginheight="0" marginwidth="0">
-<form name="xxx" method="post" action="gtb/user/addUser"  class="form_search">
-    <table>
-        <tr>
-            <td>用户名：<input class="input1" id="name" name="name"></td>
-            <td>密码：<input class="input1" id="pwd" name="pwd"></td>
-            <td>确认密码：<input class="input1" id="confirm" name="confirm"></td>
-            <td><input type="submit" value="添加用户"></td>
-        </tr>
-    </table>
-</form>
-<br>
-<div class="form_search">用户信息列表 </div>
+<table>
+    <tr>
+        <td>
+            <form name="xxx" method="post" action="list"  class="form_search">
+                <input class=input1  name="keyword" size=15>
+                <input type="submit" name="Submit" value="查询">
+            </form>
+        </td>
+        <td>
+            <form name="xxx" method="post" action="add"  class="form_search">
+                <input type="submit" name="Submit2" value="添加用户">
+            </form>
+        </td>
+    </tr>
+</table>
 <table border=1>
     <tr>
         <td>id</td>
         <td>用户名</td>
         <td>组织id</td>
+        <td>角色id</td>
         <td>最后一次登录位置</td>
     </tr>
 <#if list??>
@@ -83,6 +87,7 @@
             <td>${s.id?if_exists}</td>
             <td>${s.name?if_exists}</td>
             <td>${s.org_id?if_exists}</td>
+            <td>${s.role_id?if_exists}</td>
             <td>${s.last_long_lat?if_exists}</td>
         </tr>
     </#list>
