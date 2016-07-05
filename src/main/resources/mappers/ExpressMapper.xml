@@ -60,11 +60,48 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.Express" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_express
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="fromOrgId != null">
+        and from_org_id = #{fromOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="toOrgId != null">
+        and to_org_id = #{toOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="expressNumber != null">
+        and express_number like CONCAT('%',#{expressNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="expressType != null">
+        and express_type = #{expressType,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_express
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.Express">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Express" useGeneratedKeys="true">
     insert into t_express (id, from_org_id, to_org_id, 
       pic_url, express_number, express_type, 
       status, valid, gmt_create, 
@@ -74,7 +111,7 @@
       #{status,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.Express">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Express" useGeneratedKeys="true">
     insert into t_express
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

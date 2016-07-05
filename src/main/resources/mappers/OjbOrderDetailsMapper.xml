@@ -118,11 +118,90 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.OjbOrderDetails" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_ojb_order_details
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentCount != null">
+        and obj_parent_count = #{objParentCount,jdbcType=INTEGER}
+      </if>
+      <if test="backupCount != null">
+        and backup_count = #{backupCount,jdbcType=INTEGER}
+      </if>
+      <if test="inStockTime != null">
+        and in_stock_time = #{inStockTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="outStockTime != null">
+        and out_stock_time = #{outStockTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="priceCny != null">
+        and price_cny = #{priceCny,jdbcType=INTEGER}
+      </if>
+      <if test="priceUsd != null">
+        and price_usd = #{priceUsd,jdbcType=INTEGER}
+      </if>
+      <if test="priceEur != null">
+        and price_eur = #{priceEur,jdbcType=INTEGER}
+      </if>
+      <if test="unitPriceCny != null">
+        and unit_price_cny = #{unitPriceCny,jdbcType=INTEGER}
+      </if>
+      <if test="unitPriceUsd != null">
+        and unit_price_usd = #{unitPriceUsd,jdbcType=INTEGER}
+      </if>
+      <if test="unitPriceEur != null">
+        and unit_price_eur = #{unitPriceEur,jdbcType=INTEGER}
+      </if>
+      <if test="finalPriceCny != null">
+        and final_price_cny = #{finalPriceCny,jdbcType=INTEGER}
+      </if>
+      <if test="finalPriceUsd != null">
+        and final_price_usd = #{finalPriceUsd,jdbcType=INTEGER}
+      </if>
+      <if test="finalPriceEur != null">
+        and final_price_eur = #{finalPriceEur,jdbcType=INTEGER}
+      </if>
+      <if test="finalUnitPriceCny != null">
+        and final_unit_price_cny = #{finalUnitPriceCny,jdbcType=INTEGER}
+      </if>
+      <if test="finalUnitPriceUsd != null">
+        and final_unit_price_usd = #{finalUnitPriceUsd,jdbcType=INTEGER}
+      </if>
+      <if test="finalUnitPriceEur != null">
+        and final_unit_price_eur = #{finalUnitPriceEur,jdbcType=INTEGER}
+      </if>
+      <if test="poNumber != null">
+        and po_number like CONCAT('%',#{poNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_ojb_order_details
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.OjbOrderDetails">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.OjbOrderDetails" useGeneratedKeys="true">
     insert into t_ojb_order_details (id, order_id, org_id, 
       obj_parent_id, obj_parent_count, backup_count, 
       in_stock_time, out_stock_time, price_cny, 
@@ -142,7 +221,7 @@
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.OjbOrderDetails">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.OjbOrderDetails" useGeneratedKeys="true">
     insert into t_ojb_order_details
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

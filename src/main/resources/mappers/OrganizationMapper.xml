@@ -76,11 +76,60 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.Organization" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_organization
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="type != null">
+        and type like CONCAT('%',#{type,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="address != null">
+        and address like CONCAT('%',#{address,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="parentId != null">
+        and parent_id = #{parentId,jdbcType=BIGINT}
+      </if>
+      <if test="phone != null">
+        and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="email != null">
+        and email like CONCAT('%',#{email,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="wxUniqueCode != null">
+        and wx_unique_code like CONCAT('%',#{wxUniqueCode,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="styleId != null">
+        and style_id = #{styleId,jdbcType=BIGINT}
+      </if>
+      <if test="mediaType != null">
+        and media_type like CONCAT('%',#{mediaType,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="longLat != null">
+        and long_lat like CONCAT('%',#{longLat,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_organization
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.Organization">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Organization" useGeneratedKeys="true">
     insert into t_organization (id, name, type, 
       address, parent_id, phone, 
       email, wx_unique_code, style_id, 
@@ -92,7 +141,7 @@
       #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.Organization">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Organization" useGeneratedKeys="true">
     insert into t_organization
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -47,11 +47,39 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.EverydayInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_everyday_info
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="description != null">
+        and description like CONCAT('%',#{description,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_everyday_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.EverydayInfo">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.EverydayInfo" useGeneratedKeys="true">
     insert into t_everyday_info (id, name, description, 
       pic_url, valid, gmt_create, 
       gmt_modify)
@@ -59,7 +87,7 @@
       #{picUrl,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.EverydayInfo">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.EverydayInfo" useGeneratedKeys="true">
     insert into t_everyday_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

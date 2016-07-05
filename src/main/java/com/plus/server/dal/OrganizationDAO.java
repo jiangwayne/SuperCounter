@@ -12,6 +12,8 @@ public interface OrganizationDAO {
 
     Organization selectByPrimaryKey(Long id);
 
+    List<Organization> selectByModelLike(Organization record);
+
     List<Organization> selectByModel(Organization record);
 
     int updateByPrimaryKeySelective(Organization record);

@@ -12,6 +12,8 @@ public interface ReplenishDAO {
 
     Replenish selectByPrimaryKey(Long id);
 
+    List<Replenish> selectByModelLike(Replenish record);
+
     List<Replenish> selectByModel(Replenish record);
 
     int updateByPrimaryKeySelective(Replenish record);

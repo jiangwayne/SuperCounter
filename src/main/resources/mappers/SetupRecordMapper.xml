@@ -64,11 +64,51 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.SetupRecord" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_setup_record
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="discription != null">
+        and discription like CONCAT('%',#{discription,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="status != null">
+        and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="longLat != null">
+        and long_lat like CONCAT('%',#{longLat,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_setup_record
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.SetupRecord">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.SetupRecord" useGeneratedKeys="true">
     insert into t_setup_record (id, user_id, obj_parent_id, 
       org_id, pic_url, discription, 
       status, long_lat, valid, 
@@ -78,7 +118,7 @@
       #{status,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.SetupRecord">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.SetupRecord" useGeneratedKeys="true">
     insert into t_setup_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

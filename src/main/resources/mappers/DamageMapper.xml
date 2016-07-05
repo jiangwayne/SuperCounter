@@ -56,11 +56,45 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.Damage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_damage
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="expressId != null">
+        and express_id = #{expressId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="objChildId != null">
+        and obj_child_id = #{objChildId,jdbcType=BIGINT}
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="reason != null">
+        and reason like CONCAT('%',#{reason,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_damage
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.Damage">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Damage" useGeneratedKeys="true">
     insert into t_damage (id, express_id, obj_parent_id, 
       obj_child_id, pic_url, reason, 
       valid, gmt_create, gmt_modify
@@ -70,7 +104,7 @@
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.Damage">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Damage" useGeneratedKeys="true">
     insert into t_damage
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

@@ -55,11 +55,45 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.CounterDetails" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_counter_details
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="furnitureId != null">
+        and furniture_id = #{furnitureId,jdbcType=BIGINT}
+      </if>
+      <if test="count != null">
+        and count = #{count,jdbcType=INTEGER}
+      </if>
+      <if test="siteNo != null">
+        and site_no like CONCAT('%',#{siteNo,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_counter_details
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.CounterDetails">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.CounterDetails" useGeneratedKeys="true">
     insert into t_counter_details (id, org_id, obj_parent_id, 
       furniture_id, count, site_no, 
       valid, gmt_create, gmt_modify
@@ -69,7 +103,7 @@
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.CounterDetails">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.CounterDetails" useGeneratedKeys="true">
     insert into t_counter_details
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

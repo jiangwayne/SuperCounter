@@ -12,6 +12,8 @@ public interface UserRoleDAO {
 
     UserRole selectByPrimaryKey(Long id);
 
+    List<UserRole> selectByModelLike(UserRole record);
+
     List<UserRole> selectByModel(UserRole record);
 
     int updateByPrimaryKeySelective(UserRole record);

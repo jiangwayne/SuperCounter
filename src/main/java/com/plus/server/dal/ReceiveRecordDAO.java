@@ -12,6 +12,8 @@ public interface ReceiveRecordDAO {
 
     ReceiveRecord selectByPrimaryKey(Long id);
 
+    List<ReceiveRecord> selectByModelLike(ReceiveRecord record);
+
     List<ReceiveRecord> selectByModel(ReceiveRecord record);
 
     int updateByPrimaryKeySelective(ReceiveRecord record);

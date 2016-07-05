@@ -12,6 +12,8 @@ public interface StockDAO {
 
     Stock selectByPrimaryKey(Long id);
 
+    List<Stock> selectByModelLike(Stock record);
+
     List<Stock> selectByModel(Stock record);
 
     int updateByPrimaryKeySelective(Stock record);

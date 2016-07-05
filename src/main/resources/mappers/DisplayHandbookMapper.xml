@@ -55,11 +55,45 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.DisplayHandbook" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_display_handbook
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="description != null">
+        and description like CONCAT('%',#{description,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="parentId != null">
+        and parent_id = #{parentId,jdbcType=BIGINT}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_display_handbook
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.DisplayHandbook">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.DisplayHandbook" useGeneratedKeys="true">
     insert into t_display_handbook (id, name, description, 
       pic_url, obj_parent_id, parent_id, 
       valid, gmt_create, gmt_modify
@@ -69,7 +103,7 @@
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.DisplayHandbook">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.DisplayHandbook" useGeneratedKeys="true">
     insert into t_display_handbook
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

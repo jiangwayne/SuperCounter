@@ -25,5 +25,5 @@ public class BaseController {
 		User u = (User) httpRequest.getSession().getAttribute("user");
 		return u;
 	}
-
+	
 }

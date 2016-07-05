@@ -47,11 +47,39 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.ParentChild" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_parent_child
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="objChildId != null">
+        and obj_child_id = #{objChildId,jdbcType=BIGINT}
+      </if>
+      <if test="objChildCount != null">
+        and obj_child_count = #{objChildCount,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_parent_child
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.ParentChild">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ParentChild" useGeneratedKeys="true">
     insert into t_parent_child (id, obj_parent_id, obj_child_id, 
       obj_child_count, valid, gmt_create, 
       gmt_modify)
@@ -59,7 +87,7 @@
       #{objChildCount,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.ParentChild">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ParentChild" useGeneratedKeys="true">
     insert into t_parent_child
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

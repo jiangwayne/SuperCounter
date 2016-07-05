@@ -12,6 +12,8 @@ public interface RoleDAO {
 
     Role selectByPrimaryKey(Long id);
 
+    List<Role> selectByModelLike(Role record);
+
     List<Role> selectByModel(Role record);
 
     int updateByPrimaryKeySelective(Role record);

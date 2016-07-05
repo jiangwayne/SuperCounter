@@ -12,6 +12,8 @@ public interface OjbOrderDetailsDAO {
 
     OjbOrderDetails selectByPrimaryKey(Long id);
 
+    List<OjbOrderDetails> selectByModelLike(OjbOrderDetails record);
+
     List<OjbOrderDetails> selectByModel(OjbOrderDetails record);
 
     int updateByPrimaryKeySelective(OjbOrderDetails record);

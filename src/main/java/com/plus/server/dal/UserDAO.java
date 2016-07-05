@@ -12,6 +12,8 @@ public interface UserDAO {
 
     User selectByPrimaryKey(Long id);
 
+    List<User> selectByModelLike(User record);
+
     List<User> selectByModel(User record);
 
     int updateByPrimaryKeySelective(User record);

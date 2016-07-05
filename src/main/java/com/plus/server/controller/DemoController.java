@@ -51,22 +51,4 @@ public class DemoController extends BaseController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/top", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView top(Model model, String name, String city, String birthdayDate) {
-		ModelAndView mv = new ModelAndView("include/top.ftl");
-		return mv;
-	}
-	
-	@RequestMapping(value = "/menu", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView menu(Model model, String name, String city, String birthdayDate) {
-		ModelAndView mv = new ModelAndView("include/menu.ftl");
-		return mv;
-	}
-	
-	@RequestMapping(value = "/index", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView index(Model model, String name, String city, String birthdayDate) {
-		ModelAndView mv = new ModelAndView("index.ftl");
-		return mv;
-	}
-
 }

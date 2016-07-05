@@ -12,6 +12,8 @@ public interface SetupRecordDAO {
 
     SetupRecord selectByPrimaryKey(Long id);
 
+    List<SetupRecord> selectByModelLike(SetupRecord record);
+
     List<SetupRecord> selectByModel(SetupRecord record);
 
     int updateByPrimaryKeySelective(SetupRecord record);

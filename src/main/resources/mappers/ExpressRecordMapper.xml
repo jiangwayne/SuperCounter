@@ -60,11 +60,48 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.ExpressRecord" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_express_record
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="expressId != null">
+        and express_id = #{expressId,jdbcType=BIGINT}
+      </if>
+      <if test="expressNumber != null">
+        and express_number like CONCAT('%',#{expressNumber,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="receiveSite != null">
+        and receive_site like CONCAT('%',#{receiveSite,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="address != null">
+        and address like CONCAT('%',#{address,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="ipAddress != null">
+        and ip_address like CONCAT('%',#{ipAddress,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="longLat != null">
+        and long_lat like CONCAT('%',#{longLat,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_express_record
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.ExpressRecord">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ExpressRecord" useGeneratedKeys="true">
     insert into t_express_record (id, express_id, express_number, 
       receive_site, address, ip_address, 
       long_lat, valid, gmt_create, 
@@ -74,7 +111,7 @@
       #{longLat,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.ExpressRecord">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ExpressRecord" useGeneratedKeys="true">
     insert into t_express_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

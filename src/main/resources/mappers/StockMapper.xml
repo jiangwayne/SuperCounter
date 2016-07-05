@@ -51,11 +51,42 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.Stock" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_stock
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="goodId != null">
+        and good_id = #{goodId,jdbcType=BIGINT}
+      </if>
+      <if test="goodType != null">
+        and good_type = #{goodType,jdbcType=INTEGER}
+      </if>
+      <if test="goodCount != null">
+        and good_count = #{goodCount,jdbcType=INTEGER}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_stock
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.Stock">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Stock" useGeneratedKeys="true">
     insert into t_stock (id, org_id, good_id, 
       good_type, good_count, valid, 
       gmt_create, gmt_modify)
@@ -63,7 +94,7 @@
       #{goodType,jdbcType=INTEGER}, #{goodCount,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.Stock">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Stock" useGeneratedKeys="true">
     insert into t_stock
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

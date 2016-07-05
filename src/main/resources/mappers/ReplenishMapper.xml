@@ -47,11 +47,39 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.Replenish" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_replenish
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="fromOrgId != null">
+        and from_org_id = #{fromOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="toOrgId != null">
+        and to_org_id = #{toOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="userId != null">
+        and user_id = #{userId,jdbcType=BIGINT}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_replenish
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.Replenish">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Replenish" useGeneratedKeys="true">
     insert into t_replenish (id, from_org_id, to_org_id, 
       user_id, valid, gmt_create, 
       gmt_modify)
@@ -59,7 +87,7 @@
       #{userId,jdbcType=BIGINT}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.Replenish">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Replenish" useGeneratedKeys="true">
     insert into t_replenish
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

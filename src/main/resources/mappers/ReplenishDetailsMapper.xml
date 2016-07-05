@@ -60,11 +60,48 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.ReplenishDetails" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_replenish_details
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="replenishId != null">
+        and replenish_id = #{replenishId,jdbcType=BIGINT}
+      </if>
+      <if test="goodId != null">
+        and good_id = #{goodId,jdbcType=BIGINT}
+      </if>
+      <if test="goodType != null">
+        and good_type = #{goodType,jdbcType=INTEGER}
+      </if>
+      <if test="goodCount != null">
+        and good_count = #{goodCount,jdbcType=INTEGER}
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="discription != null">
+        and discription like CONCAT('%',#{discription,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_replenish_details
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.ReplenishDetails">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ReplenishDetails" useGeneratedKeys="true">
     insert into t_replenish_details (id, replenish_id, good_id, 
       good_type, good_count, pic_url, 
       discription, valid, gmt_create, 
@@ -74,7 +111,7 @@
       #{discription,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.ReplenishDetails">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ReplenishDetails" useGeneratedKeys="true">
     insert into t_replenish_details
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

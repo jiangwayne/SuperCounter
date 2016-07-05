@@ -82,7 +82,7 @@ eval("submenu" + sid + ".style.display=\"none\";");
 									<td height=20><a href="${base_addr}/gtb/userList" target="main">柜台样式</a></td>
 								</tr>
 								<tr>
-									<td height=20><a href="${base_addr}/gtb/userList" target="main">子件列表</a></td>
+									<td height=20><a href="${base_addr}/gtb/child/list" target="main">子件列表</a></td>
 								</tr>
 								<tr>
 									<td height=20><a href="${base_addr}/gtb/userList" target="main">父件列表</a></td>

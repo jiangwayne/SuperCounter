@@ -12,6 +12,8 @@ public interface DamageDAO {
 
     Damage selectByPrimaryKey(Long id);
 
+    List<Damage> selectByModelLike(Damage record);
+
     List<Damage> selectByModel(Damage record);
 
     int updateByPrimaryKeySelective(Damage record);

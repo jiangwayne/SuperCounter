@@ -43,11 +43,36 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.CounterStyle" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_counter_style
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="discription != null">
+        and discription like CONCAT('%',#{discription,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_counter_style
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.CounterStyle">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.CounterStyle" useGeneratedKeys="true">
     insert into t_counter_style (id, name, discription, 
       valid, gmt_create, gmt_modify
       )
@@ -55,7 +80,7 @@
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.CounterStyle">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.CounterStyle" useGeneratedKeys="true">
     insert into t_counter_style
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

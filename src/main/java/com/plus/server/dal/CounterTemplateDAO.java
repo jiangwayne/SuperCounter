@@ -12,6 +12,8 @@ public interface CounterTemplateDAO {
 
     CounterTemplate selectByPrimaryKey(Long id);
 
+    List<CounterTemplate> selectByModelLike(CounterTemplate record);
+
     List<CounterTemplate> selectByModel(CounterTemplate record);
 
     int updateByPrimaryKeySelective(CounterTemplate record);

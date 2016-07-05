@@ -84,11 +84,66 @@
       </if>
     </where>
   </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.ObjectParent" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_parent
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="name != null">
+        and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="qrCode != null">
+        and qr_code like CONCAT('%',#{qrCode,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="type != null">
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="length != null">
+        and length = #{length,jdbcType=INTEGER}
+      </if>
+      <if test="width != null">
+        and width = #{width,jdbcType=INTEGER}
+      </if>
+      <if test="height != null">
+        and height = #{height,jdbcType=INTEGER}
+      </if>
+      <if test="lengthUp != null">
+        and length_up = #{lengthUp,jdbcType=INTEGER}
+      </if>
+      <if test="widthUp != null">
+        and width_up = #{widthUp,jdbcType=INTEGER}
+      </if>
+      <if test="heightUp != null">
+        and height_up = #{heightUp,jdbcType=INTEGER}
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="content != null">
+        and content like CONCAT('%',#{content,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_object_parent
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.plus.server.model.ObjectParent">
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ObjectParent" useGeneratedKeys="true">
     insert into t_object_parent (id, name, qr_code, 
       org_id, type, length, 
       width, height, length_up, 
@@ -102,7 +157,7 @@
       #{content,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.plus.server.model.ObjectParent">
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ObjectParent" useGeneratedKeys="true">
     insert into t_object_parent
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

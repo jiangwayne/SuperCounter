@@ -12,6 +12,8 @@ public interface ExpressDAO {
 
     Express selectByPrimaryKey(Long id);
 
+    List<Express> selectByModelLike(Express record);
+
     List<Express> selectByModel(Express record);
 
     int updateByPrimaryKeySelective(Express record);

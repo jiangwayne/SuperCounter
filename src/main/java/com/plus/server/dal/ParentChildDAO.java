@@ -12,6 +12,8 @@ public interface ParentChildDAO {
 
     ParentChild selectByPrimaryKey(Long id);
 
+    List<ParentChild> selectByModelLike(ParentChild record);
+
     List<ParentChild> selectByModel(ParentChild record);
 
     int updateByPrimaryKeySelective(ParentChild record);

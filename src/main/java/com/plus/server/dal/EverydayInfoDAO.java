@@ -12,6 +12,8 @@ public interface EverydayInfoDAO {
 
     EverydayInfo selectByPrimaryKey(Long id);
 
+    List<EverydayInfo> selectByModelLike(EverydayInfo record);
+
     List<EverydayInfo> selectByModel(EverydayInfo record);
 
     int updateByPrimaryKeySelective(EverydayInfo record);

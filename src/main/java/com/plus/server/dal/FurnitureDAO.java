@@ -12,6 +12,8 @@ public interface FurnitureDAO {
 
     Furniture selectByPrimaryKey(Long id);
 
+    List<Furniture> selectByModelLike(Furniture record);
+
     List<Furniture> selectByModel(Furniture record);
 
     int updateByPrimaryKeySelective(Furniture record);

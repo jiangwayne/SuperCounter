@@ -12,6 +12,8 @@ public interface CounterStyleDAO {
 
     CounterStyle selectByPrimaryKey(Long id);
 
+    List<CounterStyle> selectByModelLike(CounterStyle record);
+
     List<CounterStyle> selectByModel(CounterStyle record);
 
     int updateByPrimaryKeySelective(CounterStyle record);

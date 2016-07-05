@@ -12,6 +12,8 @@ public interface DisplayHandbookDAO {
 
     DisplayHandbook selectByPrimaryKey(Long id);
 
+    List<DisplayHandbook> selectByModelLike(DisplayHandbook record);
+
     List<DisplayHandbook> selectByModel(DisplayHandbook record);
 
     int updateByPrimaryKeySelective(DisplayHandbook record);

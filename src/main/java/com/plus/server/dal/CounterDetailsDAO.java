@@ -12,6 +12,8 @@ public interface CounterDetailsDAO {
 
     CounterDetails selectByPrimaryKey(Long id);
 
+    List<CounterDetails> selectByModelLike(CounterDetails record);
+
     List<CounterDetails> selectByModel(CounterDetails record);
 
     int updateByPrimaryKeySelective(CounterDetails record);

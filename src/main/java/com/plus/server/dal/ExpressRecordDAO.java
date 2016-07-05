@@ -12,6 +12,8 @@ public interface ExpressRecordDAO {
 
     ExpressRecord selectByPrimaryKey(Long id);
 
+    List<ExpressRecord> selectByModelLike(ExpressRecord record);
+
     List<ExpressRecord> selectByModel(ExpressRecord record);
 
     int updateByPrimaryKeySelective(ExpressRecord record);
