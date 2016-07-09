@@ -46,11 +46,13 @@
             <td width="16%" class="tdbg" height="25" align="center">组织：</td>
             <td class="tdbg" height="25" colspan="4">
                 <select name="orgId">
-                    <option value="1">品牌</option>
-                    <option value="2">柜台</option>
-                    <option value="3">供应商</option>
-                    <option value="4">物流</option>
-                    <option value="5">安装商</option>
+                    <select name="parentId">
+                    <#if list??>
+                        <#list list as s>
+                        <option value="${s.id?if_exists}">${s.name?if_exists}
+                        </#list>
+                    </#if>
+                    </select>
                 </select>
             </td>
         </tr>

@@ -134,6 +134,28 @@ public class UserService {
         return result;
     }
 
+    public List<Map<String,String>> getOrganizationList(String keyword) {
+        List<Map<String,String>> result = new ArrayList<Map<String, String>>();
+        Organization organization = new Organization();
+        organization.setValid(1);
+        List<Organization> list = this.organizationDAO.selectByModel(organization);
+        for (Organization o : list) {
+            Map<String,String> map = new HashMap<String, String>();
+            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
+                map.put("id", o.getId().toString());
+                map.put("name", o.getName());
+                map.put("type", o.getType().toString());
+                map.put("address", o.getAddress());
+                map.put("phone",o.getPhone());
+                map.put("media_type", o.getMediaType());
+                map.put("style_id",o.getStyleId().toString());
+                map.put("last_long_lat", o.getLongLat());
+                result.add(map);
+            }
+        }
+        return result;
+    }
+
     public User getUser(long id){
         return userDao.selectByPrimaryKey(id);
     }

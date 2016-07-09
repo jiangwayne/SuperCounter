@@ -26,22 +26,42 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView userList(Model model, String keyword) {
-        ModelAndView mv = new ModelAndView("user/list.ftl");
+        ModelAndView mv = new ModelAndView("list.ftl");
         log.info("keyword={}",keyword);
         model.addAttribute("list", userService.getUserList(keyword));
         return mv;
     }
 
-    @RequestMapping(value = "/add", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/listContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView listContactStaff(Model model, String keyword) {
+        ModelAndView mv = new ModelAndView("user/listContactStaff.ftl");
+        log.info("listContactStaff keyword={}",keyword);
+        model.addAttribute("list", userService.getUserList(keyword));
+        return mv;
+    }
+
+    @RequestMapping(value = "add", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addUser(String name, String pwd, String roleId, String orgId) {
-        ModelAndView mv = new ModelAndView("user/add.ftl");
+        ModelAndView mv = new ModelAndView("add.ftl");
         log.info("name={},pwd={}",name,pwd);
         if(name != null) {
             userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
-            mv = new ModelAndView("user/list.ftl");
+            mv = new ModelAndView("list.ftl");
         }
         return mv;
     }
+
+    @RequestMapping(value = "/addContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView addContactStaff(String name, String pwd, String roleId, String orgId) {
+        ModelAndView mv = new ModelAndView("user/addContactStaff.ftl");
+        log.info("name={},pwd={}",name,pwd);
+        if(name != null) {
+            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
+            mv = new ModelAndView("user/listContactStaff.ftl");
+        }
+        return mv;
+    }
+
 
 
 }

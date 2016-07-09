@@ -1,18 +1,16 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>客户后台管理系统</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>柜台宝管理系统</title>
 </head>
-<frameset id="frame" framespacing="0" border="false" cols="180,*" frameborder="1" scrolling="yes">
-	<frame name="left" scrolling="auto" marginwidth="0" marginheight="0" src="menu">
-	<frameset framespacing="0" border="false" rows="35,*" frameborder="0" scrolling="yes">
-		<frame name="top" scrolling="no" src="top" target="main">
-		<frame name="main" scrolling="auto" src="./add.htm">
-	</frameset>
+<frameset rows="60,*" cols="*" frameborder="NO" border="0" framespacing="0">
+    <frame src="top" name="topFrame" scrolling="NO" noresize="noresize" title="topFrame">
+    <frameset cols="180,*" frameborder="NO" border="0" framespacing="0">
+        <frame src="menu" name="leftFrame" noresize="noresize" title="leftFrame">
+        <frame src="task/order.html" name="mainFrame" title="mainFrame">
+    </frameset>
 </frameset>
-<noframes>
-<body leftmargin="2" topmargin="0" marginwidth="0" marginheight="0">
-<p>你的浏览器版本过低！！！本系统要求IE5及以上版本才能使用本系统。</p>
-</body>
-</noframes>
+
 </html>
