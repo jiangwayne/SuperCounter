@@ -22,8 +22,11 @@
 	<td align="right" class="title2">供应商</td>
 	<td class="con2">
 		<select name="orgId" class="ip" id="orgId">
-		  <option value=1 <#if oc.orgId = 1>selected</#if>>ＨＲ供应商</option>
-		  <option value=2 <#if oc.orgId = 2>selected</#if>>南方加工厂</option>
+			<#if orgList??>
+			<#list orgList as s>
+				<option value="${s.id?if_exists}" <#if oc.orgId = s.id>selected</#if>>${s.name?if_exists}</option>
+			</#list>
+			</#if>
 		</select>
 	</td>
 	</tr>
@@ -100,6 +103,46 @@
     </td>
   </tr>
 </table>
+<#if oc.id??>
+	<div class="icon">包括子件</div> <br>
+	<strong>添加子件：</strong>
+			<select id="addChildIdSelect">  
+				<#if childList??>
+				<#list childList as s>
+					<option value="${s.id?if_exists}" >${s.name?if_exists}</option>
+				</#list>
+				</#if>  
+	        </select>  
+	        数量：<input type="text" id="childCount" class="input1" value="1">
+	        <input name="button" id="button" value="添加" class="blue" type="button" onclick="addChildRel()">
+	<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+	  <tbody><tr class="title1">
+	    <td width="5">&nbsp;</td>
+	    <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
+	    <td width="150">子件名称</td>
+	    <td width="150">数量</td>
+	    <td>图片</td>
+	    <td>二维码</td>
+	    <td align="center" width="150">添加日期</td>
+	    <td align="center" width="150">操作</td>
+	  </tr>
+	  <#if relChildList??>
+		<#list relChildList as s>
+		  <tr class="con">
+		    <td bgcolor="#FFFFFF">&nbsp;</td>
+		    <td bgcolor="#FFFFFF">${s_index+1}</td>
+		    <td bgcolor="#FFFFFF">${s.objectChild.name?if_exists}</td>
+		    <td bgcolor="#FFFFFF">${s.objChildCount?if_exists}</td>
+		    <td bgcolor="#FFFFFF"><img src="${base_addr}/gtb/file/downloadFile?fileName=${s.objectChild.picUrl?if_exists}" height="60" width="60"></td>
+		    <td bgcolor="#FFFFFF"><a href=# onClick="javascript:window.open('${base_addr}/gtb/file/toQRCode?qrCode=${s.objectChild.qrCode?if_exists}','','width=600,height=400,location=no,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes');return false;">${s.objectChild.qrCode?if_exists}</a></td>
+		    <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
+		    <td align="center" bgcolor="#FFFFFF"><a href="javascript:deleteRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a></td>
+		  </tr>
+		</#list>
+		</#if>  
+	  
+	</tbody></table>
+</#if>
 </form>
 </body>
 <script>
@@ -113,7 +156,6 @@
 	        success: function (data) {
 	        	data = formatUpFileRetData(data);
 	        	if(data.success){
-	        		alert("上传成功");
 	        		$('#picUrl').val(data.msg);
 	        		$('#picUrlShow').attr("src","${base_addr}/gtb/file/downloadFile?fileName="+data.msg);
 	        	}
@@ -134,6 +176,52 @@
         }  
        eval( "data = " + data );  
        return data;
+	}
+	function addChildRel(){
+		var childId = $('#addChildIdSelect').val();
+		var count = $('#childCount').val();
+		if(count <= 0){
+			alert("数量不正确");
+		}
+		var parentId = "${oc.id?if_exists}";
+		$.ajax({
+			url: '${base_addr}/gtb/parent/addChildRel' ,
+	        secureuri: false,
+	        data: {childId: childId, parentId: parentId, count: count},
+	        dataType: 'json',
+	        success: function (data) {
+	        	//eval( "data = " + data );
+	        	if(data.success){
+	        		location.reload();
+	        	}else{
+	        		alert("添加失败--"+data.msg);
+	        	}
+	        },
+	        error: function (data) {
+	            alert("添加失败--"+data);
+	        }
+	    });
+	}
+	function deleteRel(id){
+		if(!confirm('确定删除？')){
+			return;
+		}
+		$.ajax({
+			url: '${base_addr}/gtb/parent/deleteChildRel' ,
+	        secureuri: false,
+	        data: {id: id},
+	        dataType: 'json',
+	        success: function (data) {
+	        	//eval( "data = " + data );
+	        	if(data.success){
+	        		alert('删除成功');
+	        		location.reload();
+	        	}
+	        },
+	        error: function (data) {
+	            alert("删除失败--"+data);
+	        }
+	    });
 	}
 </script>
 </html>

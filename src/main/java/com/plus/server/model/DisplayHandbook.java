@@ -21,7 +21,26 @@ public class DisplayHandbook {
 
     private Date gmtModify;
 
-    public Long getId() {
+    private ObjectParent objectParent;
+    private DisplayHandbook parent;
+    
+    public ObjectParent getObjectParent() {
+		return objectParent;
+	}
+
+	public void setObjectParent(ObjectParent objectParent) {
+		this.objectParent = objectParent;
+	}
+
+	public DisplayHandbook getParent() {
+		return parent;
+	}
+
+	public void setParent(DisplayHandbook parent) {
+		this.parent = parent;
+	}
+
+	public Long getId() {
         return id;
     }
 

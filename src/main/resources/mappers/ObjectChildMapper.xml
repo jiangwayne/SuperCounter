@@ -243,4 +243,10 @@
   <update id="deleteLogicByIds">
     update t_object_child set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
+  <select id="selectChildByParentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_child
+    where id in (select obj_child_id from t_parent_child where obj_parent_id = #{parentId})
+  </select>
 </mapper>

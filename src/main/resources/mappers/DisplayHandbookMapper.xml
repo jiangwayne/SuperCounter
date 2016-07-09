@@ -11,6 +11,8 @@
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <association property="objectParent" column="obj_parent_id" select="com.plus.server.dal.ObjectParentDAO.selectByPrimaryKey" ></association>
+  	<association property="parent" column="parent_id" select="com.plus.server.dal.DisplayHandbookDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
     id, name, description, pic_url, obj_parent_id, parent_id, valid, gmt_create, gmt_modify
