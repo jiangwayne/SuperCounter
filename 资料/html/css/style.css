@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ margin:0; padding:0}
+body{ font-family:"微软雅黑"}
+input,select{ font-family:"微软雅黑"}
+img{ border:0}
+ul li{ list-style:none}
+a{ text-decoration:none}
+.pst{ position:relative}
+.loginbox{ position:absolute; background:url(../images/loginbox.png); width:263px; height:331px; right:100px; top:200px; padding:0 7px 0 27px}
+.t1{ font-size:20px; color:#474747; text-align:center; padding:32px 0 0 0}
+.input1{ width:178px; height:36px; line-height:36px; padding:0 0 0 44px; border:0; background:0; color:#979797}
+.input2{ width:83px; height:36px; line-height:36px; padding:0 0 0 44px; border:0; background:0; color:#979797}
+.input3{ width:224px; height:38px; background:#1cb8ff; line-height:38px; text-align:center; color:#fff; font-size:16px; border:0}
+a.a1{ color:#1cb8ff}

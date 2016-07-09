@@ -1,0 +1,25 @@
+﻿/* 下拉菜单 */
+body{ background:#444}
+/*
+a{
+	text-decoration: none; 
+	background: transparent none repeat scroll 0% 0%;
+}
+*/
+
+
+.leftmenu ul li a.one{ height:40px; line-height:40px; display:block; padding:0 0 0 20px; font-size:14px; color:#fff; border-bottom:# solid 1px; font-weight:bold; background:url(../images/xsj.png) no-repeat 150px center; border-bottom:#333 solid 1px}
+
+
+.leftmenu ul.sub-menu{ display:none; padding:0 0 0 0; background:#1f2228; font-size:14px}
+.leftmenu ul.show{ display:block}
+.leftmenu ul.sub-menu a{ color:#e3e3e3}
+.leftmenu ul.sub-menu li{ border-bottom:0; background:none; line-height:34px; background:url(../images/sub.png) no-repeat left 15px; padding:0 0 0 35px}
+.leftmenu ul.threemenu{ padding:0 0 0 13px}
+.leftmenu ul.threemenu li{ border-bottom:0; background:none; line-height:28px; font-size:12px; background:url(../images/sub.png) no-repeat left 12px;}
+
+.leftmenu ul.threemenu li a{ color:#dfdfe0}
+
+
+
+/* 下拉菜单end */
