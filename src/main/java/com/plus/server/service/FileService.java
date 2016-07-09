@@ -24,11 +24,12 @@ public class FileService {
 	 * @param originalFilename
 	 * @param bytes
 	 */
-	public void uploadFileStream(String originalFilename, byte[] bytes) throws Exception{
+	public String uploadFileStream(String originalFilename, byte[] bytes) throws Exception{
 		SimpleDateFormat f = new SimpleDateFormat("yyMMddHHmmss");
 		Date now = new Date();
 		int r = new Random().nextInt(999);
-		File file = new File(filePath+File.separator+f.format(now)+"-"+r+"-"+originalFilename);
+		String thisFilePath = f.format(now)+"-"+r+"-"+originalFilename;
+		File file = new File(filePath+File.separator+thisFilePath);
 		if(file.exists()){
 			throw new Exception("文件名重复");
 		}
@@ -44,6 +45,7 @@ public class FileService {
 					log.info("文件输出流关闭失败");
 				}
 		}
+		return thisFilePath;
 	}
 	
 	/**

@@ -17,6 +17,8 @@ public class ObjectChild {
 
     private String picUrl;
 
+    private String remark;
+
     private Integer valid;
 
     private Date gmtCreate;
@@ -77,6 +79,14 @@ public class ObjectChild {
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public Integer getValid() {

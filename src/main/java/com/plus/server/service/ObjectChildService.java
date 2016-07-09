@@ -1,5 +1,6 @@
 package com.plus.server.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -52,16 +53,20 @@ public class ObjectChildService {
 	@Transactional
 	public void saveOrUpdate(ObjectChild objectChild) {
 		log.info("新增或更新子件，objectChild=" + JSON.toJSONString(objectChild));
+		Date curDate= new Date();
 		if(objectChild.getId() == null){
 			objectChild.setValid(1);
+			objectChild.setGmtCreate(curDate);
 			this.objectChildDAO.insert(objectChild);
 			//生成编码
 			ObjectChild param = new ObjectChild();
 			param.setId(objectChild.getId());
 			param.setQrCode("oc"+objectChild.getId());
+			objectChild.setGmtModify(curDate);
 			this.objectChildDAO.updateByPrimaryKeySelective(param);
 		}else{
 			objectChild.setQrCode(null);//不更新编码
+			objectChild.setGmtModify(curDate);
 			this.objectChildDAO.updateByPrimaryKeySelective(objectChild);
 		}
 	}
