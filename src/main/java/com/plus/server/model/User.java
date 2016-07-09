@@ -15,6 +15,8 @@ public class User {
 
     private String lastLongLat;
 
+    private String comment;
+
     private Integer valid;
 
     private Date gmtCreate;
@@ -75,6 +77,14 @@ public class User {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getGmtCreate() {

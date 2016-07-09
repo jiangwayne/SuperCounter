@@ -7,6 +7,12 @@ public class Furniture {
 
     private String name;
 
+    private String furnitureNo;
+
+    private String comment;
+
+    private Long orgId;
+
     private Integer valid;
 
     private Date gmtCreate;
@@ -35,6 +41,30 @@ public class Furniture {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getFurnitureNo() {
+        return furnitureNo;
+    }
+
+    public void setFurnitureNo(String furnitureNo) {
+        this.furnitureNo = furnitureNo;
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public Date getGmtCreate() {

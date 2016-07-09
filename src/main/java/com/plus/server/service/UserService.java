@@ -107,10 +107,11 @@ public class UserService {
     }
 
 
-    public List<Map<String,String>> getUserList(String keyword) {
+    public List<Map<String,String>> getUserList(Long roleId, String keyword) {
         List<Map<String,String>> result = new ArrayList<Map<String, String>>();
         User user = new User();
         user.setValid(1);
+
         List<User> list = this.userDao.selectByModel(user);
         UserRole userRole = new UserRole();
         userRole.setValid(1);
@@ -120,14 +121,22 @@ public class UserService {
             userRoleMap.put(o.getUserId(),o.getRoleId());
         }
 
+        Map<Long,Organization> organizationMap = Support.getInstance().getOrganizationMap("","");
+
         for (User u : list) {
             Map<String,String> map = new HashMap<String, String>();
-            if(keyword == null || u.getId().toString().contains(keyword) || u.getName().contains(keyword)) {
-                map.put("id", u.getId().toString());
+            Long userId = u.getId();
+            if(!userRoleMap.containsKey(userId) || userRoleMap.get(userId) != roleId){
+                continue; //不属性此角色的用户去掉
+            }
+
+            if(keyword == null || userId.toString().contains(keyword) || u.getName().contains(keyword)) {
+                map.put("id", userId.toString());
                 map.put("name", u.getName());
-                map.put("org_id", u.getOrgId().toString());
-                map.put("role_id", userRoleMap.get(u.getId()).toString());
-                map.put("last_long_lat", u.getLastLongLat());
+                map.put("orgId", u.getOrgId().toString());
+                map.put("orgName",organizationMap.get(u.getOrgId()).getName());
+                map.put("roleId", userRoleMap.get(userId).toString());
+                map.put("comment", u.getComment());
                 result.add(map);
             }
         }

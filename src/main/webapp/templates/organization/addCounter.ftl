@@ -86,7 +86,7 @@
   </tr>
   <tr>
     <td align="right" class="title2">&nbsp;</td>
-    <td class="con2"><input type="submit" name="button4" id="button4" value="添加" class="blue" />
+    <td class="con2"><input type="submit" name="button4" id="button4" value="保存" class="blue" />
     <input type="button" name="button" id="button" value="返回" class="hui" onclick="location.href='listCounter'" /></td>
   </tr>
 </table>

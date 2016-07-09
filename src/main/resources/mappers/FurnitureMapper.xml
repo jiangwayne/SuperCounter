@@ -4,12 +4,15 @@
   <resultMap id="BaseResultMap" type="com.plus.server.model.Furniture">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="furniture_no" jdbcType="VARCHAR" property="furnitureNo" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, valid, gmt_create, gmt_modify
+    id, name, org_id, furniture_no, comment, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,6 +30,15 @@
       </if>
       <if test="name != null">
         and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="furnitureNo != null">
+        and furniture_no = #{furnitureNo,jdbcType=VARCHAR}
+      </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -47,8 +59,17 @@
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
       <if test="name != null">
         and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="furnitureNo != null">
+        and furniture_no like CONCAT('%',#{furnitureNo,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -66,9 +87,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Furniture" useGeneratedKeys="true">
-    insert into t_furniture (id, name, valid, 
+    insert into t_furniture (id, name,org_id,furniture_no, comment, valid,
       gmt_create, gmt_modify)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},#{orgId,jdbcType=BIGINT},#{furnitureNo,jdbcType=VARCHAR},
+     #{comment,jdbcType=VARCHAR},#{valid,jdbcType=INTEGER},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Furniture" useGeneratedKeys="true">
@@ -77,8 +99,17 @@
       <if test="id != null">
         id,
       </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="furnitureNo != null">
+        furniture_no,
+      </if>
+      <if test="comment != null">
+        comment,
       </if>
       <if test="valid != null">
         valid,
@@ -94,8 +125,17 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="furnitureNo != null">
+        #{furnitureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -114,6 +154,15 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="furnitureNo != null">
+        furniture_no = #{furnitureNo,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=INTEGER},
+      </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
@@ -129,6 +178,9 @@
   <update id="updateByPrimaryKey" parameterType="com.plus.server.model.Furniture">
     update t_furniture
     set name = #{name,jdbcType=VARCHAR},
+      furniture_no = #{furnitureNo,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      org_id = #{orgId,jdbcType=INTEGER},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}

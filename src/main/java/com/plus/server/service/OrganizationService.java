@@ -1,15 +1,17 @@
 package com.plus.server.service;
 
+import com.plus.server.common.util.DateUtil;
 import com.plus.server.dal.CounterStyleDAO;
+import com.plus.server.dal.FurnitureDAO;
 import com.plus.server.dal.OrganizationDAO;
 import com.plus.server.model.CounterStyle;
+import com.plus.server.model.Furniture;
 import com.plus.server.model.Organization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.util.*;
 
 /**
@@ -25,6 +27,9 @@ public class OrganizationService {
     @Autowired
     private CounterStyleDAO counterStyleDAO;
 
+    @Autowired
+    private FurnitureDAO furnitureDAO;
+
     public List<Map<String,String>> getBrandList(String keyword) {
         List<Map<String,String>> result = new ArrayList<>();
         Organization organization = new Organization();
@@ -39,26 +44,14 @@ public class OrganizationService {
                 map.put("email", o.getEmail());
                 map.put("phone",o.getPhone());
                 map.put("comment",o.getComment());
-                map.put("gmt_create", DateFormat.getDateInstance().format(o.getGmtCreate()));
+                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
                 result.add(map);
             }
         }
         return result;
     }
 
-    public Map<Long,Organization> getOrganizationMap(String Type, String keyword) {
-        Map<Long,Organization> result = new HashMap<>();
-        Organization organization = new Organization();
-        organization.setValid(1);
-        organization.setType(Type);
-        List<Organization> list = this.organizationDAO.selectByModel(organization);
-        for (Organization o : list) {
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
-                result.put(o.getId(),o);
-            }
-        }
-        return result;
-    }
+
 
     public Map<Long,CounterStyle> getCounterStyleMap(String keyword){
         Map<Long,CounterStyle> result = new HashMap<>();
@@ -131,7 +124,7 @@ public class OrganizationService {
         counterStyle.setValid(1);
         List<CounterStyle> list = this.counterStyleDAO.selectByModel(counterStyle);
 
-        Map<Long,Organization> brandMap = getOrganizationMap("品牌","");
+        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
 
         for (CounterStyle o : list) {
             Map<String,String> map = new HashMap<>();
@@ -142,14 +135,12 @@ public class OrganizationService {
                 map.put("orgId", orgId.toString());
                 map.put("orgName",brandMap.containsKey(orgId) ? brandMap.get(orgId).getName() : "");
                 map.put("comment",o.getDescription());
-                map.put("gmt_create", DateFormat.getDateInstance().format(o.getGmtCreate()));
+                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
                 result.add(map);
             }
         }
         return result;
     }
-
-
 
 
     public void saveCounter(Long id, Long orgId, String mediaType, Long styleId, String name,
@@ -186,7 +177,7 @@ public class OrganizationService {
         organization.setValid(1);
         organization.setType("柜台");
         List<Organization> list = this.organizationDAO.selectByModel(organization);
-        Map<Long,Organization> brandMap = getOrganizationMap("品牌","");
+        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
         Map<Long,CounterStyle> styleMap = getCounterStyleMap("");
         for (Organization o : list) {
             Map<String,String> map = new HashMap<>();
@@ -199,10 +190,57 @@ public class OrganizationService {
                 map.put("mediaType", o.getMediaType());
                 map.put("styleName",styleMap.containsKey(styleId) ? styleMap.get(styleId).getName() : "");
                 map.put("comment",o.getComment());
-                map.put("gmt_create", DateFormat.getDateInstance().format(o.getGmtCreate()));
+                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
                 result.add(map);
             }
         }
         return result;
+    }
+
+    public List<Map<String,String>> getFurnitureList(String keyword) {
+        List<Map<String,String>> result = new ArrayList<>();
+        Furniture furniture = new Furniture();
+        furniture.setValid(1);
+
+        List<Furniture> list = this.furnitureDAO.selectByModel(furniture);
+        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
+        for(Furniture o : list){
+            Map<String,String> map = new HashMap<>();
+            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+                    || o.getFurnitureNo().contains(keyword)){
+                Long orgId = o.getOrgId() == null ? 0 : o.getOrgId();
+                map.put("id",o.getId().toString());
+                map.put("name", o.getName());
+                map.put("orgName",brandMap.containsKey(orgId) ? brandMap.get(orgId).getName() : "");
+                map.put("comment",o.getComment());
+                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
+                result.add(map);
+            }
+        }
+        return result;
+    }
+
+    public void saveFurniture(Long id, Long orgId, String furnitureNo, String name, String comment) {
+        Furniture furniture = new Furniture();
+        if(id > 0) {
+            furniture = furnitureDAO.selectByPrimaryKey(id);
+        }
+        furniture.setName(name);
+        furniture.setFurnitureNo(furnitureNo);
+        furniture.setOrgId(orgId);
+        furniture.setComment(comment);
+
+        furniture.setValid(1);
+        furniture.setGmtModify(new Date());
+        if(id>0) {
+            furnitureDAO.updateByPrimaryKeySelective(furniture);
+        } else {
+            furniture.setGmtCreate(new Date());
+            furnitureDAO.insert(furniture);
+        }
+    }
+
+    public Furniture getFurniture(Long id) {
+        return furnitureDAO.selectByPrimaryKey(id);
     }
 }

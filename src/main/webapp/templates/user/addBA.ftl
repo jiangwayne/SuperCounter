@@ -4,29 +4,43 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>right</title>
-<link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css" />
-<link href="${base_addr}/static/css/right.css" rel="stylesheet" type="text/css" />
-<script src="${base_addr}/static/js/myjs.js"></script>
+    <link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="${base_addr}/static/css/right.css" rel="stylesheet" type="text/css" />
+    <script src="${base_addr}/static/js/myjs.js"></script>
 </head>
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：&nbsp;&gt;&nbsp;添加客服经理</div>
+  <div class="icon">当前位置：&nbsp;&gt;&nbsp;查询BA->编辑BA</div>
 </div>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
+<!--
   <tr>
-    <td width="200" align="right" class="title2"><strong>所属组织</strong></td>
+    <td align="right" class="title2">角色</td>
+    <td class="con2"><select name="select" class="ip" id="select3">
+      <option>BA</option>
+    </select></td>
+  </tr>
+-->
+  <tr>
+    <td width="200" align="right" class="title2"><strong>所属品牌</strong></td>
     <td class="con2"><select name="select1" class="ip" id="select3">
-      <option>宏羽电脑</option>
+      <option>欧莱雅HR</option>
     </select></td>
   </tr>
   <tr>
+    <td width="200" align="right" class="title2"><strong>所属柜台</strong></td>
+    <td class="con2"><select name="select1" class="ip" id="select3">
+      <option>欧莱雅HR柜台</option>
+    </select></td>
+  </tr>  
+  <tr>
     <td align="right" class="title2">用户名</td>
-    <td class="con2"><input name="textfield" type="text" class="input1" id="textfield" value="" size="40" /></td>
+    <td class="con2"><input name="textfield" type="text" class="input1" id="textfield" value="mahui" size="40" /></td>
   </tr>
   <tr>
     <td align="right" class="title2">密码</td>
-    <td class="con2"><input name="textfield3" type="password" class="input1" id="textfield3" value="" size="40" /></td>
+    <td class="con2"><input name="textfield3" type="password" class="input1" id="textfield3" value="111111" size="40" /></td>
   </tr>
     <tr>
     <td align="right" class="title2">姓名</td>

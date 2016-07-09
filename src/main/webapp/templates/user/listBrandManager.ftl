@@ -10,10 +10,10 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：客服经理列表</div>
+  <div class="icon">当前位置：品牌经理列表</div>
 </div>
 <span class="con2">
-<input name="button2" id="button2" value="添加客服" class="blue" onclick="location.href='addContactStaff'" type="button">
+<input name="button2" id="button2" value="添加品牌经理" class="blue" onclick="location.href='addBrandManager'" type="button">
 <br>
 <br>
 </span>
@@ -21,7 +21,7 @@
   <tbody><tr class="title1">
     <td width="5">&nbsp;</td>
     <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
-    <td width="150">客服编号</td>
+    <td width="150">编号</td>
     <td>用户名</td>
     <td align="center">所属组织</td>
     <td align="center">角色类型</td>
@@ -37,11 +37,11 @@
         <td bgcolor="#FFFFFF">${s.id?if_exists}</td>
         <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.orgName?if_exists}</td>
-        <td align="center" bgcolor="#FFFFFF">客服经理</td>
+        <td align="center" bgcolor="#FFFFFF">品牌经理</td>
         <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.gmt_create?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">
-            <a href="addContactStaff?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="addBrandManager"?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
         </td>
     </tr>

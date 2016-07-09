@@ -107,4 +107,30 @@ public class OrganizationController extends BaseController {
         }
         return mv;
     }
+
+    @RequestMapping(value = "/listFurniture", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView listFurniture(Model model, String keyword) {
+        ModelAndView mv = new ModelAndView("organization/listFurniture.ftl");
+        model.addAttribute("list", organizationService.getFurnitureList(keyword));
+        return mv;
+    }
+
+    @RequestMapping(value = "/addFurniture", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView addFurniture(Model model, Long id, Long orgId, String furnitureNo, String name,  String comment) {
+        ModelAndView mv = new ModelAndView("organization/addFurniture.ftl");
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            organizationService.saveFurniture(id, orgId, furnitureNo, name,comment);
+            mv = new ModelAndView("organization/listFurniture.ftl");
+            model.addAttribute("list", organizationService.getFurnitureList(""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("brandList", organizationService.getBrandList(""));
+            if(id>0) {
+                model.addAttribute("model", organizationService.getFurniture(id));
+            }
+        }
+        return mv;
+    }
 }

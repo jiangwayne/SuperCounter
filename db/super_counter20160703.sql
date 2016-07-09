@@ -26,6 +26,7 @@ CREATE TABLE `t_user` (
   `password_salt` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT 'salt',
   `org_id` bigint(20) DEFAULT NULL COMMENT '组织id',
   `last_long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '最后登录时的位置经纬度',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
@@ -64,7 +65,12 @@ CREATE TABLE `t_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `t_role` */
-
+INSERT INTO t_role VALUES (1,'admin',1,now(),now());
+INSERT INTO t_role VALUES (2,'客服经理',1,now(),now());
+INSERT INTO t_role VALUES (3,'品牌经理',1,now(),now());
+INSERT INTO t_role VALUES (4,'供应商管理员',1,now(),now());
+INSERT INTO t_role VALUES (5,'BA',1,now(),now());
+INSERT INTO t_role VALUES (6,'安装工',1,now(),now());
 /*Table structure for table `t_organization` */
 
 DROP TABLE IF EXISTS `t_organization`;
@@ -199,6 +205,9 @@ DROP TABLE IF EXISTS `t_furniture`;
 CREATE TABLE `t_furniture` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '家具名称',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
+  `furniture_no` varchar(64) DEFAULT NULL COMMENT '家具编号',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
