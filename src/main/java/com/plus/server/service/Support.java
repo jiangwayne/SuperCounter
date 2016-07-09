@@ -4,6 +4,7 @@ import com.plus.server.dal.OrganizationDAO;
 import com.plus.server.model.Organization;
 import org.springframework.web.context.ContextLoader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,33 @@ public class Support {
                 result.put(o.getId(),o);
             }
         }
+        return result;
+    }
+
+    public <E> List<E> take(List<E> list, int number){
+        if(number >= list.size()){
+            return list;
+        }
+
+        List<E> result = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            result.add(list.get(i));
+        }
+
+        return result;
+    }
+
+    public <E> List<E> skip(List<E> list, int number){
+        if(number >= list.size()){
+            list.clear();
+            return list;
+        }
+
+        List<E> result = new ArrayList<>();
+        for (int i = number; i < list.size(); i++) {
+            result.add(list.get(i));
+        }
+
         return result;
     }
 }
