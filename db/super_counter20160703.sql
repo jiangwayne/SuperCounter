@@ -135,6 +135,7 @@ CREATE TABLE `t_object_child` (
   `width` int(11)DEFAULT NULL COMMENT '宽',
   `height` int(11)DEFAULT NULL COMMENT '高',
   `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `remark` varchar(4000) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
@@ -162,6 +163,7 @@ CREATE TABLE `t_object_parent` (
   `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
   `content` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '内容',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `remark` varchar(4000) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
