@@ -23,7 +23,6 @@ public class ObjectChildService {
 	@Autowired
 	private ObjectChildDAO objectChildDAO;
 
-	@Transactional
 	public PageInfo<ObjectChild> selectByModel(ObjectChild objectChild, Integer page, Integer pageSize) {
 		log.info("查询子件，objectChild=" + JSON.toJSONString(objectChild));
 		if(page == null || page <= 0){
@@ -40,8 +39,15 @@ public class ObjectChildService {
 		PageInfo<ObjectChild> pageInfo = new PageInfo<ObjectChild>(orderList);
 		return pageInfo;
 	}
+	public List<ObjectChild> selectByModel(ObjectChild objectChild) {
+		log.info("查询子件，objectChild=" + JSON.toJSONString(objectChild));
+		if(objectChild.getValid() == null){
+			objectChild.setValid(1);
+		}
+		List<ObjectChild> orderList = this.objectChildDAO.selectByModelLike(objectChild);
+		return orderList;
+	}
 	
-	@Transactional
 	public ObjectChild selectById(Long id) throws Exception{
 		log.info("查询子件，id=" + id);
 		if(id == null){
@@ -70,5 +76,4 @@ public class ObjectChildService {
 			this.objectChildDAO.updateByPrimaryKeySelective(objectChild);
 		}
 	}
-
 }

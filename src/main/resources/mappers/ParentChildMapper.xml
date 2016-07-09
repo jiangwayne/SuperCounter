@@ -9,6 +9,7 @@
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <association property="objectChild" column="obj_child_id" select="com.plus.server.dal.ObjectChildDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
     id, obj_parent_id, obj_child_id, obj_child_count, valid, gmt_create, gmt_modify

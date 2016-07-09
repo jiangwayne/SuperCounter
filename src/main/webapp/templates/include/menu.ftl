@@ -43,10 +43,10 @@
                 <li><a  href="${base_addr}/gtb/parent/list" target="mainFrame">查询父件</a></li>
                 <li><a  href="${base_addr}/gtb/child/toEdit" target="mainFrame">添加子件</a></li>
                 <li><a  href="${base_addr}/gtb/child/list" target="mainFrame">查询子件</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">添加日常信息</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询日常信息</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">添加陈列手册</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询陈列手册</a></li>
+                <li><a  href="${base_addr}/gtb/everydayInfo/toEdit" target="mainFrame">添加日常信息</a></li>
+                <li><a  href="${base_addr}/gtb/everydayInfo/list" target="mainFrame">查询日常信息</a></li>
+                <li><a  href="${base_addr}/gtb/displayHandbook/toEdit" target="mainFrame">添加陈列手册</a></li>
+                <li><a  href="${base_addr}/gtb/displayHandbook/list" target="mainFrame">查询陈列手册</a></li>
             </ul>
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">任务管理</a>

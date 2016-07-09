@@ -13,10 +13,8 @@ import com.github.pagehelper.PageInfo;
 import com.plus.server.common.vo.resp.BaseResp;
 import com.plus.server.model.ObjectChild;
 import com.plus.server.service.ObjectChildService;
-import com.wordnik.swagger.annotations.Api;
 
 @Controller
-@Api("示例")
 @RequestMapping(value = "gtb/child")
 public class ObjectChildController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(ObjectChildController.class);

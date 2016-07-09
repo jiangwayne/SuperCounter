@@ -13,33 +13,40 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：添加子件</div>
+  <div class="icon">当前位置：添加陈列手册</div>
 </div>
-<form name="form1" method="post" action="${base_addr}/gtb/child/saveOrUpdate">
+<form name="form1" method="post" action="${base_addr}/gtb/displayHandbook/saveOrUpdate">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
 <input type="hidden" name="id" id="id" value="${oc.id?if_exists}">
+	<tr>
+		<td align="right" class="title2">上级</td>
+		<td class="con2">
+			<select name="parentId" class="ip" id="parentId">
+				<option value="" ></option>
+				<#if displayHandbookList??>
+				<#list displayHandbookList as s>
+					<option value="${s.id?if_exists}" <#if oc.parentId = s.id>selected</#if>>${s.name?if_exists}</option>
+				</#list>
+				</#if>
+			</select>
+		</td>
+	</tr>
   <tr>
     <td align="right" class="title2">名称</td>
     <td class="con2"><input type="text" name="name"  class="input1" value="${oc.name?if_exists}" size="40"></td>
   </tr>
   <tr>
-	  <td align="right" class="title2">二维码</td>
+	  <td align="right" class="title2">父件</td>
 	  <td class="con2">
-	  <input type="text" name="qrCode" class="input1" disabled size="40" value="<#if (oc.id??)>${oc.qrCode?if_exists}<#else>(系统自动生成)</#if>">
+	  <select name="objParentId" class="ip" id="objParentId">
+		<#if objParentList??>
+		<#list objParentList as s>
+			<option value="${s.id?if_exists}" <#if oc.objParentId = s.id>selected</#if>>${s.name?if_exists}</option>
+		</#list>
+		</#if>
+	  </select>
 	  </td>
 	</tr>
-  <tr>
-	  <td align="right" class="title2">长</td>
-	  <td class="con2"><input type="text" name="length" class="input1" value="${oc.length?if_exists}" size="40"></td>
-	</tr>
-  <tr>
-    <td align="right" class="title2">宽</td>
-    <td class="con2"><input name="width" type="text" class="input1" id="textfield" value="${oc.width?if_exists}" size="40" /></td>
-  </tr>
-  <tr>
-    <td align="right" class="title2">高</td>
-    <td class="con2"><input name="height" type="text" class="input1" id="textfield" value="${oc.height?if_exists}" size="40" /></td>
-  </tr>    
   <tr>
     <td align="right" class="title2">图片</td>
     <td class="con2">
@@ -50,8 +57,8 @@
     </td>
   </tr>   
   <tr>
-    <td align="right" class="title2">备注</td>
-    <td class="con2"><textarea name="remark" cols="40" rows="5" class="input2" id="textfield2">${oc.remark?if_exists}</textarea></td>
+    <td align="right" class="title2">描述</td>
+    <td class="con2"><textarea name="description" cols="40" rows="5" class="input2" id="textfield2">${oc.description?if_exists}</textarea></td>
   </tr>
   <tr>
     <td align="right" class="title2">&nbsp;</td>

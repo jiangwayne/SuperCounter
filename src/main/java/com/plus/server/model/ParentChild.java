@@ -16,8 +16,18 @@ public class ParentChild {
     private Date gmtCreate;
 
     private Date gmtModify;
+    
+    private ObjectChild objectChild;
 
-    public Long getId() {
+    public ObjectChild getObjectChild() {
+		return objectChild;
+	}
+
+	public void setObjectChild(ObjectChild objectChild) {
+		this.objectChild = objectChild;
+	}
+
+	public Long getId() {
         return id;
     }
 

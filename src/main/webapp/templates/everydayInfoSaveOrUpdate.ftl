@@ -13,9 +13,9 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：添加子件</div>
+  <div class="icon">当前位置：添加日常信息</div>
 </div>
-<form name="form1" method="post" action="${base_addr}/gtb/child/saveOrUpdate">
+<form name="form1" method="post" action="${base_addr}/gtb/everydayInfo/saveOrUpdate">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
 <input type="hidden" name="id" id="id" value="${oc.id?if_exists}">
   <tr>
@@ -23,35 +23,17 @@
     <td class="con2"><input type="text" name="name"  class="input1" value="${oc.name?if_exists}" size="40"></td>
   </tr>
   <tr>
-	  <td align="right" class="title2">二维码</td>
-	  <td class="con2">
-	  <input type="text" name="qrCode" class="input1" disabled size="40" value="<#if (oc.id??)>${oc.qrCode?if_exists}<#else>(系统自动生成)</#if>">
-	  </td>
-	</tr>
-  <tr>
-	  <td align="right" class="title2">长</td>
-	  <td class="con2"><input type="text" name="length" class="input1" value="${oc.length?if_exists}" size="40"></td>
-	</tr>
-  <tr>
-    <td align="right" class="title2">宽</td>
-    <td class="con2"><input name="width" type="text" class="input1" id="textfield" value="${oc.width?if_exists}" size="40" /></td>
-  </tr>
-  <tr>
-    <td align="right" class="title2">高</td>
-    <td class="con2"><input name="height" type="text" class="input1" id="textfield" value="${oc.height?if_exists}" size="40" /></td>
-  </tr>    
-  <tr>
     <td align="right" class="title2">图片</td>
     <td class="con2">
     	<input type="hidden" id="picUrl" name="picUrl" value="${oc.picUrl?if_exists}">
-    	<img width="100" height="100" id="picUrlShow" src="${base_addr}/gtb/file/downloadFile?fileName=${oc.picUrl?if_exists}">
+    	<img width="100" alt="请上传图片" height="100" id="picUrlShow" src="${base_addr}/gtb/file/downloadFile?fileName=${oc.picUrl?if_exists}">
     		<input type="file" id="fileToUpload" name="fileToUpload" >
     		<input type="button" value="上传" onclick="ajaxUploadFile()" /> 
     </td>
   </tr>   
   <tr>
-    <td align="right" class="title2">备注</td>
-    <td class="con2"><textarea name="remark" cols="40" rows="5" class="input2" id="textfield2">${oc.remark?if_exists}</textarea></td>
+    <td align="right" class="title2">描述</td>
+    <td class="con2"><textarea name="description" cols="40" rows="5" class="input2" id="textfield2">${oc.description?if_exists}</textarea></td>
   </tr>
   <tr>
     <td align="right" class="title2">&nbsp;</td>
