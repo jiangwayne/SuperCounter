@@ -23,7 +23,7 @@ import java.util.*;
  */
 @Service
 public class UserService {
-    private static final Logger log = LoggerFactory.getLogger(DemoService.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserDAO userDao;

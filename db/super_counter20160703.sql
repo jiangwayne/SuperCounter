@@ -80,8 +80,10 @@ CREATE TABLE `t_organization` (
   `wx_unique_code` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '微信号',
   `style_id` bigint(20) DEFAULT NULL COMMENT '柜台样式id',
   `media_type` varchar(64) DEFAULT NULL COMMENT '柜台媒介类型',
+  `counter_no` varchar(64) DEFAULT NULL COMMENT '柜台编号',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '位置经纬度',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -96,7 +98,8 @@ DROP TABLE IF EXISTS `t_counter_style`;
 CREATE TABLE `t_counter_style` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '样式名',
-  `discription` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
+  `description` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',

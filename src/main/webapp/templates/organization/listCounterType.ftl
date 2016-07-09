@@ -9,22 +9,19 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：品牌列表</div>
+  <div class="icon">当前位置：柜台样式列表</div>
 </div>
 <span class="con2">
-<input name="button2" id="button2" value="添加品牌" class="blue" onclick="location.href='addBrand'" type="button">
+<input name="button2" id="button2" value="添加柜台样式" class="blue" onclick="location.href='addCounterType'" type="button">
 <br>
 <br>
 </span>
 <table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
-  <tbody>
-  <tr class="title1">
+  <tbody><tr class="title1">
     <td width="5">&nbsp;</td>
     <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
-    <td width="100">编号</td>
-    <td>品牌名</td>
-    <td align="center">客服电话</td>
-    <td align="center">email</td>
+    <td width="150">名称</td>
+    <td>品牌</td>
     <td align="center">备注</td>
     <td align="center" width="150">添加日期</td>
     <td align="center" width="150">操作</td>
@@ -34,18 +31,20 @@
     <tr class="con">
         <td bgcolor="#FFFFFF">&nbsp;</td>
         <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-        <td bgcolor="#FFFFFF">${s.id?if_exists}</td>
         <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
-        <td align="center" bgcolor="#FFFFFF">${s.phone?if_exists}</td>
-        <td align="center" bgcolor="#FFFFFF">${s.email?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.orgName?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.gmt_create?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">
-            <a href="addBrand?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="addCounterType?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
         </td>
     </tr>
     </#list>
   </#if>
-</tbody></table>
+</tbody>
+</table>
+
+
+
 </body></html>

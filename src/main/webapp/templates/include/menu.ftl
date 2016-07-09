@@ -15,7 +15,6 @@
     <ul>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">用户管理</a>
             <ul style="display: block;" class="sub-menu show">
-                <li><a  href="user/list" target="mainFrame">test</a></li>
                 <li><a  href="user/addContactStaff" target="mainFrame">添加客服经理</a></li>
                 <li><a  href="user/listContactStaff" target="mainFrame">查询客服经理</a></li>
                 <li><a  href="user/addBrandManager.html" target="mainFrame">添加品牌经理</a></li>
@@ -30,12 +29,12 @@
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">资源管理</a>
             <ul style="display: block;" class="sub-menu">
-                <li><a  href="org/addBrand.html" target="mainFrame">添加品牌</a></li>
-                <li><a  href="org/listBrand.html" target="mainFrame">查询品牌</a></li>
-                <li><a  href="org/addCounterType.html" target="mainFrame">添加柜台样式</a></li>
-                <li><a  href="org/listCounterType.html" target="mainFrame">查询柜台样式</a></li>
-                <li><a  href="org/addCounter.html" target="mainFrame">添加柜台</a></li>
-                <li><a  href="org/listCounter.html" target="mainFrame">查询柜台</a></li>
+                <#--<li><a  href="org/addBrand" target="mainFrame">添加品牌</a></li>-->
+                <li><a  href="org/listBrand" target="mainFrame">查询品牌</a></li>
+                <#--<li><a  href="org/addCounterType" target="mainFrame">添加柜台样式</a></li>-->
+                <li><a  href="org/listCounterType" target="mainFrame">查询柜台样式</a></li>
+                <#--<li><a  href="org/addCounter" target="mainFrame">添加柜台</a></li>-->
+                <li><a  href="org/listCounter" target="mainFrame">查询柜台</a></li>
                 <li><a  href="org/addFurniture.html" target="mainFrame">添加家具</a></li>
                 <li><a  href="org/listFurniture.html" target="mainFrame">查询家具</a></li>
                 <li><a  href="org/addSupplier.html" target="mainFrame">添加供应商</a></li>

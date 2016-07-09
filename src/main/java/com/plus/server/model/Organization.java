@@ -27,6 +27,10 @@ public class Organization {
 
     private String longLat;
 
+    private String comment;
+
+    private String counterNo;
+
     private Date gmtCreate;
 
     private Date gmtModify;
@@ -125,6 +129,22 @@ public class Organization {
 
     public void setLongLat(String longLat) {
         this.longLat = longLat == null ? null : longLat.trim();
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getCounterNo() {
+        return counterNo;
+    }
+
+    public void setCounterNo(String counterNo) {
+        this.counterNo = counterNo;
     }
 
     public Date getGmtCreate() {

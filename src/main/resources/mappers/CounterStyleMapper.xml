@@ -3,14 +3,15 @@
 <mapper namespace="com.plus.server.dal.CounterStyleDAO">
   <resultMap id="BaseResultMap" type="com.plus.server.model.CounterStyle">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="discription" jdbcType="VARCHAR" property="discription" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, discription, valid, gmt_create, gmt_modify
+    id, org_id, name, description, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -26,11 +27,14 @@
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
       <if test="name != null">
         and name = #{name,jdbcType=VARCHAR}
       </if>
-      <if test="discription != null">
-        and discription = #{discription,jdbcType=VARCHAR}
+      <if test="description != null">
+        and description = #{description,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -51,11 +55,14 @@
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
+      <if test="orgId != null">
+        and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
       <if test="name != null">
         and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
       </if>
-      <if test="discription != null">
-        and discription like CONCAT('%',#{discription,jdbcType=VARCHAR},'%')
+      <if test="description != null">
+        and description like CONCAT('%',#{description,jdbcType=VARCHAR},'%')
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -73,10 +80,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.CounterStyle" useGeneratedKeys="true">
-    insert into t_counter_style (id, name, discription, 
+    insert into t_counter_style (id, org_id, name, description,
       valid, gmt_create, gmt_modify
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{discription,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -86,11 +93,14 @@
       <if test="id != null">
         id,
       </if>
+      <if test="orgId != null">
+        org_id,
+      </if>
       <if test="name != null">
         name,
       </if>
-      <if test="discription != null">
-        discription,
+      <if test="description != null">
+        description,
       </if>
       <if test="valid != null">
         valid,
@@ -106,11 +116,14 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="discription != null">
-        #{discription,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -126,11 +139,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.CounterStyle">
     update t_counter_style
     <set>
+      <if test="orgId != null">
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="discription != null">
-        discription = #{discription,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
@@ -147,8 +163,9 @@
   <update id="updateByPrimaryKey" parameterType="com.plus.server.model.CounterStyle">
     update t_counter_style
     set name = #{name,jdbcType=VARCHAR},
-      discription = #{discription,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
+      org_id = #{orgId,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
