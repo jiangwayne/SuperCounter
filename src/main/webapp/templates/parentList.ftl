@@ -10,10 +10,10 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：子件列表</div>
+  <div class="icon">当前位置：父件列表</div>
 </div>
 <span class="con2">
-<input name="button2" id="button2" value="添加子件" class="blue" onclick="location.href='toEdit'" type="button">
+<input name="button2" id="button2" value="添加父件" class="blue" onclick="location.href='toEdit'" type="button">
 <br>
 <br>
 </span>
@@ -80,7 +80,7 @@ function deleteOne(id){
 		return;
 	}
 	$.ajax({
-		url: '${base_addr}/gtb/child/delete' ,
+		url: '${base_addr}/gtb/parent/delete' ,
         secureuri: false,
         data: {id: id},
         dataType: 'text',

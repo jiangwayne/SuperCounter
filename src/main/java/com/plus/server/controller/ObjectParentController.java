@@ -5,37 +5,38 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.plus.server.common.vo.resp.BaseResp;
-import com.plus.server.model.ObjectChild;
-import com.plus.server.service.ObjectChildService;
+import com.plus.server.model.ObjectParent;
+import com.plus.server.service.ObjectParentService;
 import com.wordnik.swagger.annotations.Api;
 
 @Controller
 @Api("示例")
-@RequestMapping(value = "gtb/child")
-public class ObjectChildController extends BaseController {
-	private static final Logger log = LoggerFactory.getLogger(ObjectChildController.class);
+@RequestMapping(value = "gtb/parent")
+public class ObjectParentController extends BaseController {
+	private static final Logger log = LoggerFactory.getLogger(ObjectParentController.class);
 
 	@Autowired
-	private ObjectChildService objectChildService;
+	private ObjectParentService objectParentService;
 
 	@RequestMapping(value = "/list")
 	public ModelAndView list(Model model, String name, String qrCode, Integer page, Integer pageSize) {
-		ModelAndView mv = new ModelAndView("childList.ftl");
+		ModelAndView mv = new ModelAndView("parentList.ftl");
 		model.addAttribute("name", name);
 		model.addAttribute("qrCode", qrCode);
 
-		ObjectChild objectChild = new ObjectChild();
+		ObjectParent objectParent = new ObjectParent();
 		if(name != null  && !"".equals(name))
-			objectChild.setName(name);
+			objectParent.setName(name);
 		if(qrCode != null  && !"".equals(qrCode))
-			objectChild.setQrCode(qrCode);
-		PageInfo<ObjectChild> pageInfo = objectChildService.selectByModel(objectChild,page,pageSize);
+			objectParent.setQrCode(qrCode);
+		PageInfo<ObjectParent> pageInfo = objectParentService.selectByModel(objectParent,page,pageSize);
 		model.addAttribute("list", pageInfo.getList());
 		model.addAttribute("pages",pageInfo.getPages());
 		model.addAttribute("page",pageInfo.getPageNum());
@@ -45,43 +46,33 @@ public class ObjectChildController extends BaseController {
 
 	@RequestMapping(value = "/toEdit")
 	public ModelAndView toEdit(Model model, Long id) {
-		ModelAndView mv = new ModelAndView("childSaveOrUpdate.ftl");
+		ModelAndView mv = new ModelAndView("parentSaveOrUpdate.ftl");
 		if(id != null){
-			ObjectChild objectChild = null;
+			ObjectParent objectParent = null;
 			try {
-				objectChild = objectChildService.selectById(id);
+				objectParent = objectParentService.selectById(id);
 			} catch (Exception e) {
 				log.error("",e);
 			}
-			model.addAttribute("oc", objectChild);
+			model.addAttribute("oc", objectParent);
 		}
 		return mv;
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate")
-	public ModelAndView saveOrUpdate(Model model, Long id, String name,
-			String remark,String qrCode, Integer length, Integer width,
-			Integer height, String picUrl) {
-		ObjectChild objectChild = new ObjectChild();
-		objectChild.setId(id);
-		objectChild.setName(name);
-		objectChild.setQrCode(qrCode);
-		objectChild.setLength(length);
-		objectChild.setHeight(height);
-		objectChild.setRemark(remark);
-		objectChild.setWidth(width);
-		objectChild.setPicUrl(picUrl);
-		objectChildService.saveOrUpdate(objectChild);
+	public ModelAndView saveOrUpdate(Model model, ObjectParent objectParent) {
+		objectParentService.saveOrUpdate(objectParent);
 		return list(model, null, null,null,null);
 	}
+	
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public BaseResp delete(Model model, Long id) {
 		BaseResp ret = new BaseResp();
-		ObjectChild objectChild = new ObjectChild();
-		objectChild.setId(id);
-		objectChild.setValid(-1);
-		objectChildService.saveOrUpdate(objectChild);
+		ObjectParent objectParent = new ObjectParent();
+		objectParent.setId(id);
+		objectParent.setValid(-1);
+		objectParentService.saveOrUpdate(objectParent);
 		ret.setSuccess(true);
 		return ret;
 	}

@@ -5,7 +5,7 @@
     <title>left</title>
     <link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css">
     <link href="${base_addr}/static/css/left.css" rel="stylesheet" type="text/css">
-
+	<script src="${base_addr}/static/js/jquery-1.3.2.min.js"></script>
     <script src="${base_addr}/static/js/leftmenu.js" type="text/javascript"></script>
 
 </head>
@@ -39,10 +39,10 @@
                 <li><a  href="org/listFurniture.html" target="mainFrame">查询家具</a></li>
                 <li><a  href="org/addSupplier.html" target="mainFrame">添加供应商</a></li>
                 <li><a  href="org/listSupplier.html" target="mainFrame">查询供应商</a></li>
-                <li><a  href="org/addParentTool.html" target="mainFrame">添加父件</a></li>
-                <li><a  href="org/listParentTool.html" target="mainFrame">查询父件</a></li>
-                <li><a  href="org/addSubTool.html" target="mainFrame">添加子件</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询子件</a></li>
+                <li><a  href="${base_addr}/gtb/parent/toEdit" target="mainFrame">添加父件</a></li>
+                <li><a  href="${base_addr}/gtb/parent/list" target="mainFrame">查询父件</a></li>
+                <li><a  href="${base_addr}/gtb/child/toEdit" target="mainFrame">添加子件</a></li>
+                <li><a  href="${base_addr}/gtb/child/list" target="mainFrame">查询子件</a></li>
                 <li><a  href="org/listSubTool.html" target="mainFrame">添加日常信息</a></li>
                 <li><a  href="org/listSubTool.html" target="mainFrame">查询日常信息</a></li>
                 <li><a  href="org/listSubTool.html" target="mainFrame">添加陈列手册</a></li>

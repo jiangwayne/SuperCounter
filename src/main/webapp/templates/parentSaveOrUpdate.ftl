@@ -13,11 +13,30 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：添加子件</div>
+  <div class="icon">当前位置：添加父件</div>
 </div>
-<form name="form1" method="post" action="${base_addr}/gtb/child/saveOrUpdate">
+<form id="form1" method="get" action="${base_addr}/gtb/parent/saveOrUpdate">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
 <input type="hidden" name="id" id="id" value="${oc.id?if_exists}">
+	<tr>
+	<td align="right" class="title2">供应商</td>
+	<td class="con2">
+		<select name="orgId" class="ip" id="orgId">
+		  <option value=1 <#if oc.orgId = 1>selected</#if>>ＨＲ供应商</option>
+		  <option value=2 <#if oc.orgId = 2>selected</#if>>南方加工厂</option>
+		</select>
+	</td>
+	</tr>
+	<tr>
+		<td align="right" class="title2">类型</td>
+		<td class="con2">
+			<select name="type" class="ip" id="type">
+			  <option value=1 <#if oc.type = 1>selected</#if>>图片</option>
+			  <option value=2 <#if oc.type = 2>selected</#if>>道具</option>
+			  <option value=3 <#if oc.type = 3>selected</#if>>灯片</option>
+			</select>
+		</td>
+	</tr>
   <tr>
     <td align="right" class="title2">名称</td>
     <td class="con2"><input type="text" name="name"  class="input1" value="${oc.name?if_exists}" size="40"></td>
@@ -39,7 +58,27 @@
   <tr>
     <td align="right" class="title2">高</td>
     <td class="con2"><input name="height" type="text" class="input1" id="textfield" value="${oc.height?if_exists}" size="40" /></td>
-  </tr>    
+  </tr>
+  <tr>
+	  <td align="right" class="title2">出血长</td>
+	  <td class="con2"><input type="text" name="lengthUp" class="input1" value="${oc.lengthUp?if_exists}" size="40"></td>
+	</tr>
+	<tr>
+		<td align="right" class="title2">出血宽</td>
+		<td class="con2"><input name="widthUp" type="text" class="input1" id="textfield" value="${oc.widthUp?if_exists}" size="40" /></td>
+	</tr>
+	<tr>
+		<td align="right" class="title2">出血高</td>
+		<td class="con2"><input name="heightUp" type="text" class="input1" id="textfield" value="${oc.heightUp?if_exists}" size="40" /></td>
+	</tr>
+	<tr>
+		<td align="right" class="title2">材质</td>
+		<td class="con2"><input name="content" type="text" class="input1" id="textfield" value="${oc.content?if_exists}" size="40" /></td>
+	</tr>
+	<tr>
+		<td align="right" class="title2">内容</td>
+		<td class="con2"><input name="material" type="text" class="input1" id="textfield" value="${oc.material?if_exists}" size="40" /></td>
+	</tr>
   <tr>
     <td align="right" class="title2">图片</td>
     <td class="con2">
@@ -64,10 +103,6 @@
 </form>
 </body>
 <script>
-	function submitForm(){
-		alert('提交表单');
-		$("#form1").submit();
-	}
 	function ajaxUploadFile(){
 		$.ajaxFileUpload({
 			url: '${base_addr}/gtb/file/uploadFile' ,

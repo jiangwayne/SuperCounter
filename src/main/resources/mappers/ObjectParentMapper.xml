@@ -14,14 +14,16 @@
     <result column="width_up" jdbcType="INTEGER" property="widthUp" />
     <result column="height_up" jdbcType="INTEGER" property="heightUp" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
     id, name, qr_code, org_id, type, length, width, height, length_up, width_up, height_up, 
-    pic_url, content, valid, gmt_create, gmt_modify
+    pic_url, material, content, valid, remark, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -70,11 +72,17 @@
       <if test="picUrl != null">
         and pic_url = #{picUrl,jdbcType=VARCHAR}
       </if>
+      <if test="material != null">
+        and material = #{material,jdbcType=VARCHAR}
+      </if>
       <if test="content != null">
         and content = #{content,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null">
+        and remark = #{remark,jdbcType=VARCHAR}
       </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
@@ -125,11 +133,17 @@
       <if test="picUrl != null">
         and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
       </if>
+      <if test="material != null">
+        and material like CONCAT('%',#{material,jdbcType=VARCHAR},'%')
+      </if>
       <if test="content != null">
         and content like CONCAT('%',#{content,jdbcType=VARCHAR},'%')
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="remark != null">
+        and remark like CONCAT('%',#{remark,jdbcType=VARCHAR},'%')
       </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
@@ -148,14 +162,16 @@
       org_id, type, length, 
       width, height, length_up, 
       width_up, height_up, pic_url, 
-      content, valid, gmt_create, 
-      gmt_modify)
+      material, content, valid, 
+      remark, gmt_create, gmt_modify
+      )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, 
       #{orgId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{length,jdbcType=INTEGER}, 
       #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{lengthUp,jdbcType=INTEGER}, 
       #{widthUp,jdbcType=INTEGER}, #{heightUp,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModify,jdbcType=TIMESTAMP})
+      #{material,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ObjectParent" useGeneratedKeys="true">
     insert into t_object_parent
@@ -196,11 +212,17 @@
       <if test="picUrl != null">
         pic_url,
       </if>
+      <if test="material != null">
+        material,
+      </if>
       <if test="content != null">
         content,
       </if>
       <if test="valid != null">
         valid,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -246,11 +268,17 @@
       <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -296,11 +324,17 @@
       <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -324,8 +358,10 @@
       width_up = #{widthUp,jdbcType=INTEGER},
       height_up = #{heightUp,jdbcType=INTEGER},
       pic_url = #{picUrl,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
