@@ -27,9 +27,13 @@ public class ObjectParent {
 
     private String picUrl;
 
+    private String material;
+
     private String content;
 
     private Integer valid;
+
+    private String remark;
 
     private Date gmtCreate;
 
@@ -131,6 +135,14 @@ public class ObjectParent {
         this.picUrl = picUrl == null ? null : picUrl.trim();
     }
 
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material == null ? null : material.trim();
+    }
+
     public String getContent() {
         return content;
     }
@@ -145,6 +157,14 @@ public class ObjectParent {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public Date getGmtCreate() {

@@ -1,7 +1,8 @@
 package com.plus.server.dal;
 
-import com.plus.server.model.ObjectParent;
 import java.util.List;
+
+import com.plus.server.model.ObjectParent;
 
 public interface ObjectParentDAO {
     int deleteByPrimaryKey(Long id);

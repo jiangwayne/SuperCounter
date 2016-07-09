@@ -9,12 +9,13 @@
     <result column="width" jdbcType="INTEGER" property="width" />
     <result column="height" jdbcType="INTEGER" property="height" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, qr_code, length, width, height, pic_url, valid, gmt_create, gmt_modify
+    id, name, qr_code, length, width, height, pic_url, remark, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -47,6 +48,9 @@
       </if>
       <if test="picUrl != null">
         and pic_url = #{picUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="remark != null">
+        and remark = #{remark,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -85,6 +89,9 @@
       <if test="picUrl != null">
         and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
       </if>
+      <if test="remark != null">
+        and remark like CONCAT('%',#{remark,jdbcType=VARCHAR},'%')
+      </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
@@ -103,12 +110,12 @@
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ObjectChild" useGeneratedKeys="true">
     insert into t_object_child (id, name, qr_code, 
       length, width, height, 
-      pic_url, valid, gmt_create, 
-      gmt_modify)
+      pic_url, remark, valid, 
+      gmt_create, gmt_modify)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, 
       #{length,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
-      #{picUrl,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModify,jdbcType=TIMESTAMP})
+      #{picUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ObjectChild" useGeneratedKeys="true">
     insert into t_object_child
@@ -133,6 +140,9 @@
       </if>
       <if test="picUrl != null">
         pic_url,
+      </if>
+      <if test="remark != null">
+        remark,
       </if>
       <if test="valid != null">
         valid,
@@ -166,6 +176,9 @@
       <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
@@ -198,6 +211,9 @@
       <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
@@ -218,6 +234,7 @@
       width = #{width,jdbcType=INTEGER},
       height = #{height,jdbcType=INTEGER},
       pic_url = #{picUrl,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
@@ -226,4 +243,10 @@
   <update id="deleteLogicByIds">
     update t_object_child set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
+  <select id="selectChildByParentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_child
+    where id in (select obj_child_id from t_parent_child where obj_parent_id = #{parentId})
+  </select>
 </mapper>

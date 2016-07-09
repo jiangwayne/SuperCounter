@@ -14,12 +14,14 @@
     <result column="media_type" jdbcType="VARCHAR" property="mediaType" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="long_lat" jdbcType="VARCHAR" property="longLat" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="counter_no" jdbcType="VARCHAR" property="counterNo" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
     id, name, type, address, parent_id, phone, email, wx_unique_code, style_id, media_type, 
-    valid, long_lat, gmt_create, gmt_modify
+    valid, long_lat,comment, gmt_create, gmt_modify,counter_no
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -74,6 +76,9 @@
       <if test="gmtModify != null">
         and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
       </if>
+      <if test="counterNo != null">
+        and counter_no = #{counterNo,jdbcType=VARCHAR}
+      </if>
     </where>
   </select>
   <select id="selectByModelLike" parameterType="com.plus.server.model.Organization" resultMap="BaseResultMap">
@@ -123,6 +128,9 @@
       <if test="gmtModify != null">
         and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
       </if>
+      <if test="counterNo != null">
+        and counter_no like CONCAT('%',#{counterNo,jdbcType=VARCHAR},'%')
+      </if>
     </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -133,13 +141,14 @@
     insert into t_organization (id, name, type, 
       address, parent_id, phone, 
       email, wx_unique_code, style_id, 
-      media_type, valid, long_lat, 
-      gmt_create, gmt_modify)
+      media_type, valid, long_lat,comment,
+      gmt_create, gmt_modify,counter_no)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{wxUniqueCode,jdbcType=VARCHAR}, #{styleId,jdbcType=BIGINT}, 
-      #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+      #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR},
+      #{comment,jdbcType=VARCHAR},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP},#{counterNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Organization" useGeneratedKeys="true">
     insert into t_organization
@@ -180,11 +189,17 @@
       <if test="longLat != null">
         long_lat,
       </if>
+      <if test="comment != null">
+        comment,
+      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
       <if test="gmtModify != null">
         gmt_modify,
+      </if>
+      <if test="counterNo != null">
+        counter_no,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -224,11 +239,17 @@
       <if test="longLat != null">
         #{longLat,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModify != null">
         #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="counterNo != null">
+        #{counterNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -268,11 +289,17 @@
       <if test="longLat != null">
         long_lat = #{longLat,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModify != null">
         gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+      <if test="counterNo != null">
+        counter_no = #{counterNo,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -290,8 +317,10 @@
       media_type = #{mediaType,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       long_lat = #{longLat,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      counter_no = #{counterNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">

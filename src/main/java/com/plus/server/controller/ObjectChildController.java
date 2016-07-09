@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.plus.server.common.vo.resp.BaseResp;
 import com.plus.server.model.ObjectChild;
 import com.plus.server.service.ObjectChildService;
-import com.wordnik.swagger.annotations.Api;
 
 @Controller
-@Api("示例")
 @RequestMapping(value = "gtb/child")
 public class ObjectChildController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(ObjectChildController.class);
@@ -57,19 +57,31 @@ public class ObjectChildController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/saveOrUpdate")
-	public ModelAndView saveOrUpdate(Model model, Long id, String name, String qrCode, Integer length, Integer width,
+	public ModelAndView saveOrUpdate(Model model, Long id, String name,
+			String remark,String qrCode, Integer length, Integer width,
 			Integer height, String picUrl) {
-		ModelAndView mv = new ModelAndView("include/menu.ftl");
 		ObjectChild objectChild = new ObjectChild();
 		objectChild.setId(id);
 		objectChild.setName(name);
 		objectChild.setQrCode(qrCode);
 		objectChild.setLength(length);
 		objectChild.setHeight(height);
+		objectChild.setRemark(remark);
 		objectChild.setWidth(width);
 		objectChild.setPicUrl(picUrl);
 		objectChildService.saveOrUpdate(objectChild);
 		return list(model, null, null,null,null);
+	}
+	@RequestMapping(value = "/delete")
+	@ResponseBody
+	public BaseResp delete(Model model, Long id) {
+		BaseResp ret = new BaseResp();
+		ObjectChild objectChild = new ObjectChild();
+		objectChild.setId(id);
+		objectChild.setValid(-1);
+		objectChildService.saveOrUpdate(objectChild);
+		ret.setSuccess(true);
+		return ret;
 	}
 
 }

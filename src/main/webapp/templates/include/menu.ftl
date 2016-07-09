@@ -5,9 +5,8 @@
     <title>left</title>
     <link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css">
     <link href="${base_addr}/static/css/left.css" rel="stylesheet" type="text/css">
-
+	<script src="${base_addr}/static/js/jquery-1.3.2.min.js"></script>
     <script src="${base_addr}/static/js/leftmenu.js" type="text/javascript"></script>
-
 </head>
 
 <body>
@@ -15,39 +14,38 @@
     <ul>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">用户管理</a>
             <ul style="display: block;" class="sub-menu show">
-                <li><a  href="user/list" target="mainFrame">test</a></li>
-                <li><a  href="user/addContactStaff" target="mainFrame">添加客服经理</a></li>
-                <li><a  href="user/listContactStaff" target="mainFrame">查询客服经理</a></li>
-                <li><a  href="user/addBrandManager.html" target="mainFrame">添加品牌经理</a></li>
-                <li><a  href="user/listBrandManager.html" target="mainFrame">查询品牌经理</a></li>
-                <li><a  href="user/addSupplier.html" target="mainFrame">添加供应商管理员</a></li>
-                <li><a  href="user/listSupplier.html" target="mainFrame">查询供应商管理员</a></li>
-                <li><a  href="user/addBA.html" target="mainFrame">添加BA</a></li>
-                <li><a  href="user/listBA.html" target="mainFrame">查询BA</a></li>
-                <li><a  href="user/addErector.html" target="mainFrame">添加安装工</a></li>
-                <li><a  href="user/listErector.html" target="mainFrame">查询安装工</a></li>
+                <#--<li><a  href="user/addContactStaff" target="mainFrame">添加客服经理</a></li>-->
+                <li><a  href="user/listContactStaff" target="mainFrame">客服经理</a></li>
+                <#--<li><a  href="user/addBrandManager.html" target="mainFrame">添加品牌经理</a></li>-->
+                <li><a  href="user/listBrandManager" target="mainFrame">品牌经理</a></li>
+                <#--<li><a  href="user/addSupplier.html" target="mainFrame">添加供应商管理员</a></li>-->
+                <li><a  href="user/listSupplier" target="mainFrame">供应商管理员</a></li>
+                <#--<li><a  href="user/addBA.html" target="mainFrame">添加BA</a></li>-->
+                <li><a  href="user/listBA" target="mainFrame">BA</a></li>
+                <#--<li><a  href="user/addErector.html" target="mainFrame">添加安装工</a></li>-->
+                <li><a  href="user/listErector" target="mainFrame">安装工</a></li>
             </ul>
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">资源管理</a>
             <ul style="display: block;" class="sub-menu">
-                <li><a  href="org/addBrand.html" target="mainFrame">添加品牌</a></li>
-                <li><a  href="org/listBrand.html" target="mainFrame">查询品牌</a></li>
-                <li><a  href="org/addCounterType.html" target="mainFrame">添加柜台样式</a></li>
-                <li><a  href="org/listCounterType.html" target="mainFrame">查询柜台样式</a></li>
-                <li><a  href="org/addCounter.html" target="mainFrame">添加柜台</a></li>
-                <li><a  href="org/listCounter.html" target="mainFrame">查询柜台</a></li>
-                <li><a  href="org/addFurniture.html" target="mainFrame">添加家具</a></li>
-                <li><a  href="org/listFurniture.html" target="mainFrame">查询家具</a></li>
+                <#--<li><a  href="org/addBrand" target="mainFrame">添加品牌</a></li>-->
+                <li><a  href="org/listBrand" target="mainFrame">品牌</a></li>
+                <#--<li><a  href="org/addCounterType" target="mainFrame">添加柜台样式</a></li>-->
+                <li><a  href="org/listCounterType" target="mainFrame">柜台样式</a></li>
+                <#--<li><a  href="org/addCounter" target="mainFrame">添加柜台</a></li>-->
+                <li><a  href="org/listCounter" target="mainFrame">柜台</a></li>
+                <#--<li><a  href="org/addFurniture" target="mainFrame">添加家具</a></li>-->
+                <li><a  href="org/listFurniture" target="mainFrame">家具</a></li>
                 <li><a  href="org/addSupplier.html" target="mainFrame">添加供应商</a></li>
                 <li><a  href="org/listSupplier.html" target="mainFrame">查询供应商</a></li>
-                <li><a  href="org/addParentTool.html" target="mainFrame">添加父件</a></li>
-                <li><a  href="org/listParentTool.html" target="mainFrame">查询父件</a></li>
-                <li><a  href="org/addSubTool.html" target="mainFrame">添加子件</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询子件</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">添加日常信息</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询日常信息</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">添加陈列手册</a></li>
-                <li><a  href="org/listSubTool.html" target="mainFrame">查询陈列手册</a></li>
+                <li><a  href="${base_addr}/gtb/parent/toEdit" target="mainFrame">添加父件</a></li>
+                <li><a  href="${base_addr}/gtb/parent/list" target="mainFrame">查询父件</a></li>
+                <li><a  href="${base_addr}/gtb/child/toEdit" target="mainFrame">添加子件</a></li>
+                <li><a  href="${base_addr}/gtb/child/list" target="mainFrame">查询子件</a></li>
+                <li><a  href="${base_addr}/gtb/everydayInfo/toEdit" target="mainFrame">添加日常信息</a></li>
+                <li><a  href="${base_addr}/gtb/everydayInfo/list" target="mainFrame">查询日常信息</a></li>
+                <li><a  href="${base_addr}/gtb/displayHandbook/toEdit" target="mainFrame">添加陈列手册</a></li>
+                <li><a  href="${base_addr}/gtb/displayHandbook/list" target="mainFrame">查询陈列手册</a></li>
             </ul>
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">任务管理</a>

@@ -13,7 +13,7 @@
   <div class="icon">当前位置：客服经理列表</div>
 </div>
 <span class="con2">
-<input name="button2" id="button2" value="添加客服" class="blue" onclick="location.href='addContactStaff.html'" type="button">
+<input name="button2" id="button2" value="添加客服" class="blue" onclick="location.href='addContactStaff'" type="button">
 <br>
 <br>
 </span>
@@ -29,141 +29,23 @@
     <td align="center" width="150">添加日期</td>
     <td align="center" width="150">操作</td>
   </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-<tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">00001</td>
-    <td bgcolor="#FFFFFF">mahui</td>
-    <td align="center" bgcolor="#FFFFFF">治睿</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">客服经理客服经理客服经理客服经理客服经理客服经理客服经理</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="editContactStaff.html" target="_self"><img src="../images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-  </tr>
-  
-  
+  <#if list??>
+    <#list list as s>
+    <tr class="con">
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+        <td bgcolor="#FFFFFF">${s.id?if_exists}</td>
+        <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.orgName?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">客服经理</td>
+        <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.gmt_create?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">
+            <a href="addContactStaff?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+        </td>
+    </tr>
+    </#list>
+  </#if>
 </tbody></table>
-
-
 </body></html>

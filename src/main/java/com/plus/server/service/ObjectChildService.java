@@ -1,5 +1,6 @@
 package com.plus.server.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,7 +23,6 @@ public class ObjectChildService {
 	@Autowired
 	private ObjectChildDAO objectChildDAO;
 
-	@Transactional
 	public PageInfo<ObjectChild> selectByModel(ObjectChild objectChild, Integer page, Integer pageSize) {
 		log.info("查询子件，objectChild=" + JSON.toJSONString(objectChild));
 		if(page == null || page <= 0){
@@ -39,8 +39,15 @@ public class ObjectChildService {
 		PageInfo<ObjectChild> pageInfo = new PageInfo<ObjectChild>(orderList);
 		return pageInfo;
 	}
+	public List<ObjectChild> selectByModel(ObjectChild objectChild) {
+		log.info("查询子件，objectChild=" + JSON.toJSONString(objectChild));
+		if(objectChild.getValid() == null){
+			objectChild.setValid(1);
+		}
+		List<ObjectChild> orderList = this.objectChildDAO.selectByModelLike(objectChild);
+		return orderList;
+	}
 	
-	@Transactional
 	public ObjectChild selectById(Long id) throws Exception{
 		log.info("查询子件，id=" + id);
 		if(id == null){
@@ -52,18 +59,21 @@ public class ObjectChildService {
 	@Transactional
 	public void saveOrUpdate(ObjectChild objectChild) {
 		log.info("新增或更新子件，objectChild=" + JSON.toJSONString(objectChild));
+		Date curDate= new Date();
 		if(objectChild.getId() == null){
 			objectChild.setValid(1);
+			objectChild.setGmtCreate(curDate);
 			this.objectChildDAO.insert(objectChild);
 			//生成编码
 			ObjectChild param = new ObjectChild();
 			param.setId(objectChild.getId());
 			param.setQrCode("oc"+objectChild.getId());
+			objectChild.setGmtModify(curDate);
 			this.objectChildDAO.updateByPrimaryKeySelective(param);
 		}else{
 			objectChild.setQrCode(null);//不更新编码
+			objectChild.setGmtModify(curDate);
 			this.objectChildDAO.updateByPrimaryKeySelective(objectChild);
 		}
 	}
-
 }

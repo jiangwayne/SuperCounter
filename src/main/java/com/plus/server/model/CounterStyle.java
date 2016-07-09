@@ -7,7 +7,9 @@ public class CounterStyle {
 
     private String name;
 
-    private String discription;
+    private Long orgId;
+
+    private String description;
 
     private Integer valid;
 
@@ -31,12 +33,20 @@ public class CounterStyle {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDiscription(String discription) {
-        this.discription = discription == null ? null : discription.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public Integer getValid() {

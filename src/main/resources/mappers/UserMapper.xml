@@ -8,12 +8,13 @@
     <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="last_long_lat" jdbcType="VARCHAR" property="lastLongLat" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password_hash, password_salt, org_id, last_long_lat, valid, gmt_create, 
+    id, name, password_hash, password_salt, org_id, last_long_lat, comment, valid, gmt_create,
     gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -44,6 +45,9 @@
       </if>
       <if test="lastLongLat != null">
         and last_long_lat = #{lastLongLat,jdbcType=VARCHAR}
+      </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -79,6 +83,9 @@
       <if test="lastLongLat != null">
         and last_long_lat like CONCAT('%',#{lastLongLat,jdbcType=VARCHAR},'%')
       </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
+      </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
@@ -96,11 +103,11 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.User" useGeneratedKeys="true">
     insert into t_user (id, name, password_hash, 
-      password_salt, org_id, last_long_lat, 
+      password_salt, org_id, last_long_lat, comment,
       valid, gmt_create, gmt_modify
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwordHash,jdbcType=VARCHAR}, 
-      #{passwordSalt,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{lastLongLat,jdbcType=VARCHAR}, 
+      #{passwordSalt,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{lastLongLat,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR},
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -124,6 +131,9 @@
       </if>
       <if test="lastLongLat != null">
         last_long_lat,
+      </if>
+      <if test="comment != null">
+        comment,
       </if>
       <if test="valid != null">
         valid,
@@ -154,6 +164,9 @@
       <if test="lastLongLat != null">
         #{lastLongLat,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
@@ -183,6 +196,9 @@
       <if test="lastLongLat != null">
         last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
@@ -202,6 +218,7 @@
       password_salt = #{passwordSalt,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=BIGINT},
       last_long_lat = #{lastLongLat,jdbcType=VARCHAR},
+      comment = #{coment,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}

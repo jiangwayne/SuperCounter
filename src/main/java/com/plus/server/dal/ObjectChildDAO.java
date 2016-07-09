@@ -1,6 +1,7 @@
 package com.plus.server.dal;
 
 import com.plus.server.model.ObjectChild;
+
 import java.util.List;
 
 public interface ObjectChildDAO {
@@ -19,4 +20,6 @@ public interface ObjectChildDAO {
     int updateByPrimaryKeySelective(ObjectChild record);
 
     int updateByPrimaryKey(ObjectChild record);
+    
+    List<ObjectChild> selectChildByParentId(Long parentId);
 }
