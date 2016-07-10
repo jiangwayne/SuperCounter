@@ -5,17 +5,19 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="from_org_id" jdbcType="BIGINT" property="fromOrgId" />
     <result column="to_org_id" jdbcType="BIGINT" property="toOrgId" />
+    <result column="order_counter_id" jdbcType="BIGINT" property="orderCounterId" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="express_number" jdbcType="VARCHAR" property="expressNumber" />
     <result column="express_type" jdbcType="INTEGER" property="expressType" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, from_org_id, to_org_id, pic_url, express_number, express_type, status, valid, 
-    gmt_create, gmt_modify
+    id, from_org_id, to_org_id, order_counter_id, pic_url, express_number, express_type, 
+    status, comment, valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -37,6 +39,9 @@
       <if test="toOrgId != null">
         and to_org_id = #{toOrgId,jdbcType=BIGINT}
       </if>
+      <if test="orderCounterId != null">
+        and order_counter_id = #{orderCounterId,jdbcType=BIGINT}
+      </if>
       <if test="picUrl != null">
         and pic_url = #{picUrl,jdbcType=VARCHAR}
       </if>
@@ -48,6 +53,9 @@
       </if>
       <if test="status != null">
         and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -74,6 +82,9 @@
       <if test="toOrgId != null">
         and to_org_id = #{toOrgId,jdbcType=BIGINT}
       </if>
+      <if test="orderCounterId != null">
+        and order_counter_id = #{orderCounterId,jdbcType=BIGINT}
+      </if>
       <if test="picUrl != null">
         and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
       </if>
@@ -85,6 +96,9 @@
       </if>
       <if test="status != null">
         and status = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -103,13 +117,15 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.Express" useGeneratedKeys="true">
     insert into t_express (id, from_org_id, to_org_id, 
-      pic_url, express_number, express_type, 
-      status, valid, gmt_create, 
-      gmt_modify)
+      order_counter_id, pic_url, express_number, 
+      express_type, status, comment, 
+      valid, gmt_create, gmt_modify
+      )
     values (#{id,jdbcType=BIGINT}, #{fromOrgId,jdbcType=BIGINT}, #{toOrgId,jdbcType=BIGINT}, 
-      #{picUrl,jdbcType=VARCHAR}, #{expressNumber,jdbcType=VARCHAR}, #{expressType,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModify,jdbcType=TIMESTAMP})
+      #{orderCounterId,jdbcType=BIGINT}, #{picUrl,jdbcType=VARCHAR}, #{expressNumber,jdbcType=VARCHAR}, 
+      #{expressType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Express" useGeneratedKeys="true">
     insert into t_express
@@ -123,6 +139,9 @@
       <if test="toOrgId != null">
         to_org_id,
       </if>
+      <if test="orderCounterId != null">
+        order_counter_id,
+      </if>
       <if test="picUrl != null">
         pic_url,
       </if>
@@ -134,6 +153,9 @@
       </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="comment != null">
+        comment,
       </if>
       <if test="valid != null">
         valid,
@@ -155,6 +177,9 @@
       <if test="toOrgId != null">
         #{toOrgId,jdbcType=BIGINT},
       </if>
+      <if test="orderCounterId != null">
+        #{orderCounterId,jdbcType=BIGINT},
+      </if>
       <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
       </if>
@@ -166,6 +191,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -187,6 +215,9 @@
       <if test="toOrgId != null">
         to_org_id = #{toOrgId,jdbcType=BIGINT},
       </if>
+      <if test="orderCounterId != null">
+        order_counter_id = #{orderCounterId,jdbcType=BIGINT},
+      </if>
       <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
@@ -198,6 +229,9 @@
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
@@ -215,10 +249,12 @@
     update t_express
     set from_org_id = #{fromOrgId,jdbcType=BIGINT},
       to_org_id = #{toOrgId,jdbcType=BIGINT},
+      order_counter_id = #{orderCounterId,jdbcType=BIGINT},
       pic_url = #{picUrl,jdbcType=VARCHAR},
       express_number = #{expressNumber,jdbcType=VARCHAR},
       express_type = #{expressType,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
