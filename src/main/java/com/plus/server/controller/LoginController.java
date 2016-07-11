@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Api("登录")
-@RequestMapping(value = "login")
+@RequestMapping(value = "/login")
 public class LoginController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
@@ -26,18 +26,21 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(String name, String pwd) {
-        //ModelAndView mv = new ModelAndView("user/login.ftl");
-        ModelAndView mv = new ModelAndView("index.ftl");
+        ModelAndView mv = new ModelAndView("user/login.ftl");
+        //ModelAndView mv = new ModelAndView("index.ftl");
         if(name == null || name.equals("") || pwd == null || pwd.equals("")) {
             return mv;
         }
         else {
             log.info("name={},pwd={}",name,pwd);
-            User u = userService.login(name,pwd);
-            if(u != null){
-                this.httpSession.setAttribute("user", u);
-                mv = new ModelAndView("index.ftl");
-            }
+            mv = new ModelAndView("redirect:/gtb/index.ftl");
+
+            //return mv;
+//            User u = userService.login(name,pwd);
+//            if(u != null){
+//                this.httpSession.setAttribute("user", u);
+//                mv = new ModelAndView("index.ftl");
+//            }
         }
         return mv;
     }

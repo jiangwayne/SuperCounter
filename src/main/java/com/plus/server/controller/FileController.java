@@ -27,7 +27,7 @@ import com.wordnik.swagger.annotations.Api;
 
 @Controller
 @Api("示例")
-@RequestMapping(value = "gtb/file")
+@RequestMapping(value = "/gtb/file")
 public class FileController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(FileController.class);
 	@Autowired

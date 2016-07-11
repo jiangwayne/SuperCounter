@@ -15,7 +15,7 @@ import com.plus.server.model.EverydayInfo;
 import com.plus.server.service.EverydayInfoService;
 
 @Controller
-@RequestMapping(value = "gtb/everydayInfo")
+@RequestMapping(value = "/gtb/everydayInfo")
 public class EverydayInfoController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(EverydayInfoController.class);
 

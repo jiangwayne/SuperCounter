@@ -1,9 +1,6 @@
 package com.plus.server.controller;
 
-import com.plus.server.model.Organization;
 import com.plus.server.service.OrganizationService;
-import com.plus.server.service.Support;
-import com.plus.server.service.UserService;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Api("组织")
-@RequestMapping(value = "gtb/org")
+@RequestMapping(value = "/gtb/org")
 public class OrganizationController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(OrganizationController.class);
     @Autowired

@@ -12,7 +12,7 @@ import com.wordnik.swagger.annotations.Api;
 
 @Controller
 @Api("示例")
-@RequestMapping(value = "gtb")
+@RequestMapping(value = "/gtb")
 public class IndexController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(IndexController.class);
 

@@ -21,7 +21,7 @@ import com.plus.server.service.ObjectChildService;
 import com.plus.server.service.ObjectParentService;
 
 @Controller
-@RequestMapping(value = "gtb/parent")
+@RequestMapping(value = "/gtb/parent")
 public class ObjectParentController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(ObjectParentController.class);
 

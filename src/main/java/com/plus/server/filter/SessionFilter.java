@@ -31,6 +31,7 @@ public class SessionFilter implements Filter {
 		if (!url.matches("^.*/login.*$") && !url.matches("^.*/index.*$")) {
 			if (httpRequest.getSession().getAttribute("user") == null) {
 				//httpResponse.setStatus(401);
+				//httpResponse.sendRedirect("index.html");
 			}
 		}
 		if (httpResponse.getStatus() == 200) {

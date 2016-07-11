@@ -19,7 +19,7 @@ import com.plus.server.service.DisplayHandbookService;
 import com.plus.server.service.ObjectParentService;
 
 @Controller
-@RequestMapping(value = "gtb/displayHandbook")
+@RequestMapping(value = "/gtb/displayHandbook")
 public class DisplayHandbookController extends BaseController {
 	private static final Logger log = LoggerFactory.getLogger(DisplayHandbookController.class);
 

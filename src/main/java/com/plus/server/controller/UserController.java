@@ -18,22 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Api("用户")
-@RequestMapping(value = "gtb/user")
+@RequestMapping(value = "/gtb/user")
 public class UserController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
-//    @RequestMapping(value = "add", method = {RequestMethod.GET,RequestMethod.POST})
-//    public ModelAndView addUser(String name, String pwd, String roleId, String orgId) {
-//        ModelAndView mv = new ModelAndView("add.ftl");
-//        log.info("name={},pwd={}",name,pwd);
-//        if(name != null) {
-//            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
-//            mv = new ModelAndView("list.ftl");
-//        }
-//        return mv;
-//    }
 
     @RequestMapping(value = "/listContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView listContactStaff(Model model, String keyword) {
