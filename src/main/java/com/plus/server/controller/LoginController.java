@@ -24,10 +24,11 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST})
+    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView login(String name, String pwd) {
-        ModelAndView mv = new ModelAndView("user/login.ftl");
-        if(name.equals("") || pwd.equals("")) {
+        //ModelAndView mv = new ModelAndView("user/login.ftl");
+        ModelAndView mv = new ModelAndView("index.ftl");
+        if(name == null || name.equals("") || pwd == null || pwd.equals("")) {
             return mv;
         }
         else {
@@ -41,5 +42,11 @@ public class LoginController extends BaseController {
         return mv;
     }
 
+    @RequestMapping(value = "/loginOut",method = {RequestMethod.GET})
+    public ModelAndView loginOut(Model model) {
+        ModelAndView mv = new ModelAndView("index.ftl");
+        this.httpSession.removeAttribute("user");
+        return mv;
+    }
 
 }

@@ -9,6 +9,8 @@ public class Express {
 
     private Long toOrgId;
 
+    private Long orderCounterId;
+
     private String picUrl;
 
     private String expressNumber;
@@ -16,6 +18,8 @@ public class Express {
     private Integer expressType;
 
     private Integer status;
+
+    private String comment;
 
     private Integer valid;
 
@@ -45,6 +49,14 @@ public class Express {
 
     public void setToOrgId(Long toOrgId) {
         this.toOrgId = toOrgId;
+    }
+
+    public Long getOrderCounterId() {
+        return orderCounterId;
+    }
+
+    public void setOrderCounterId(Long orderCounterId) {
+        this.orderCounterId = orderCounterId;
     }
 
     public String getPicUrl() {
@@ -77,6 +89,14 @@ public class Express {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 
     public Integer getValid() {

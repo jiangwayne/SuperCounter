@@ -33,20 +33,20 @@ public class CounterStyle {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
     public Long getOrgId() {
         return orgId;
     }
 
     public void setOrgId(Long orgId) {
         this.orgId = orgId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public Integer getValid() {

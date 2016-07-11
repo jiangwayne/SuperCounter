@@ -3,9 +3,9 @@
 <mapper namespace="com.plus.server.dal.SetupRecordDAO">
   <resultMap id="BaseResultMap" type="com.plus.server.model.SetupRecord">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="order_setup_id" jdbcType="BIGINT" property="orderSetupId" />
+    <result column="user_setup_id" jdbcType="BIGINT" property="userSetupId" />
     <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="discription" jdbcType="VARCHAR" property="discription" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -15,8 +15,8 @@
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, obj_parent_id, org_id, pic_url, discription, status, long_lat, valid, 
-    gmt_create, gmt_modify
+    id, order_setup_id, user_setup_id, obj_parent_id, pic_url, discription, status, long_lat, 
+    valid, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -32,14 +32,14 @@
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
-      <if test="userId != null">
-        and user_id = #{userId,jdbcType=BIGINT}
+      <if test="orderSetupId != null">
+        and order_setup_id = #{orderSetupId,jdbcType=BIGINT}
+      </if>
+      <if test="userSetupId != null">
+        and user_setup_id = #{userSetupId,jdbcType=BIGINT}
       </if>
       <if test="objParentId != null">
         and obj_parent_id = #{objParentId,jdbcType=BIGINT}
-      </if>
-      <if test="orgId != null">
-        and org_id = #{orgId,jdbcType=BIGINT}
       </if>
       <if test="picUrl != null">
         and pic_url = #{picUrl,jdbcType=VARCHAR}
@@ -72,14 +72,14 @@
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
-      <if test="userId != null">
-        and user_id = #{userId,jdbcType=BIGINT}
+      <if test="orderSetupId != null">
+        and order_setup_id = #{orderSetupId,jdbcType=BIGINT}
+      </if>
+      <if test="userSetupId != null">
+        and user_setup_id = #{userSetupId,jdbcType=BIGINT}
       </if>
       <if test="objParentId != null">
         and obj_parent_id = #{objParentId,jdbcType=BIGINT}
-      </if>
-      <if test="orgId != null">
-        and org_id = #{orgId,jdbcType=BIGINT}
       </if>
       <if test="picUrl != null">
         and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
@@ -109,12 +109,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.SetupRecord" useGeneratedKeys="true">
-    insert into t_setup_record (id, user_id, obj_parent_id, 
-      org_id, pic_url, discription, 
+    insert into t_setup_record (id, order_setup_id, user_setup_id, 
+      obj_parent_id, pic_url, discription, 
       status, long_lat, valid, 
       gmt_create, gmt_modify)
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{objParentId,jdbcType=BIGINT}, 
-      #{orgId,jdbcType=BIGINT}, #{picUrl,jdbcType=VARCHAR}, #{discription,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{orderSetupId,jdbcType=BIGINT}, #{userSetupId,jdbcType=BIGINT}, 
+      #{objParentId,jdbcType=BIGINT}, #{picUrl,jdbcType=VARCHAR}, #{discription,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
@@ -124,14 +124,14 @@
       <if test="id != null">
         id,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="orderSetupId != null">
+        order_setup_id,
+      </if>
+      <if test="userSetupId != null">
+        user_setup_id,
       </if>
       <if test="objParentId != null">
         obj_parent_id,
-      </if>
-      <if test="orgId != null">
-        org_id,
       </if>
       <if test="picUrl != null">
         pic_url,
@@ -159,14 +159,14 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+      <if test="orderSetupId != null">
+        #{orderSetupId,jdbcType=BIGINT},
+      </if>
+      <if test="userSetupId != null">
+        #{userSetupId,jdbcType=BIGINT},
       </if>
       <if test="objParentId != null">
         #{objParentId,jdbcType=BIGINT},
-      </if>
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
       </if>
       <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
@@ -194,14 +194,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.SetupRecord">
     update t_setup_record
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="orderSetupId != null">
+        order_setup_id = #{orderSetupId,jdbcType=BIGINT},
+      </if>
+      <if test="userSetupId != null">
+        user_setup_id = #{userSetupId,jdbcType=BIGINT},
       </if>
       <if test="objParentId != null">
         obj_parent_id = #{objParentId,jdbcType=BIGINT},
-      </if>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
       </if>
       <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
@@ -229,9 +229,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.plus.server.model.SetupRecord">
     update t_setup_record
-    set user_id = #{userId,jdbcType=BIGINT},
+    set order_setup_id = #{orderSetupId,jdbcType=BIGINT},
+      user_setup_id = #{userSetupId,jdbcType=BIGINT},
       obj_parent_id = #{objParentId,jdbcType=BIGINT},
-      org_id = #{orgId,jdbcType=BIGINT},
       pic_url = #{picUrl,jdbcType=VARCHAR},
       discription = #{discription,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

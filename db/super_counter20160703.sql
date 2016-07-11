@@ -28,6 +28,9 @@ CREATE TABLE `t_user` (
   `last_long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '最后登录时的位置经纬度',
   `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `brand_ids` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '品牌ids(逗号分隔)',
+  `state` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '省份',
+  `city` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '城市',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -90,6 +93,9 @@ CREATE TABLE `t_organization` (
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '位置经纬度',
   `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `brand_ids` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '品牌ids(逗号分隔)',
+  `state` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '省份',
+  `city` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '城市',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -261,10 +267,12 @@ CREATE TABLE `t_express` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `from_org_id` bigint(20) DEFAULT NULL COMMENT '供应商id',
   `to_org_id` bigint(20) DEFAULT NULL COMMENT '柜台id或供应商id',
+  `order_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台订单id',
   `pic_url` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '12张图片url',
   `express_number` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '快递单号',
   `express_type` int(11) DEFAULT NULL COMMENT '快递类型（1：系统快递，2：申通快递',
   `status` int(11) DEFAULT NULL COMMENT '1：待发货，2：待收货，3：待安装，4：已拒收，5：暂存，6：安装完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
@@ -273,23 +281,58 @@ CREATE TABLE `t_express` (
 
 /*Data for the table `t_express` */
 
-/*Table structure for table `t_express_details` */
 
-DROP TABLE IF EXISTS `t_express_details`;
+/*Table structure for table `t_express_box` */
 
-CREATE TABLE `t_express_details` (
+DROP TABLE IF EXISTS `t_express_box`;
+
+CREATE TABLE `t_express_box` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `express_id` bigint(20) DEFAULT NULL COMMENT '快递箱id',
-  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
-  `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
-  `status` int(11) DEFAULT NULL COMMENT '1：待发货，2：待收货，3：待安装，4：已拒收，5：暂存，6：安装完成',
+  `express_id` bigint(20) DEFAULT NULL COMMENT '快递单id',
+--  `order_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台订单id',
+--  `pic_url` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '12张图片url',
+  `express_box_number` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '快递箱号',
+  `qr_code` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '二维码',
+--  `express_type` int(11) DEFAULT NULL COMMENT '快递类型（1：系统快递，2：申通快递',
+--  `status` int(11) DEFAULT NULL COMMENT '1：待发货，2：待收货，3：待安装，4：已拒收，5：暂存，6：安装完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-/*Data for the table `t_express_details` */
+/*Data for the table `t_express_box` */
+
+
+
+
+
+
+/*Table structure for table `t_express_box_details` */
+
+DROP TABLE IF EXISTS `t_express_box_details`;
+
+CREATE TABLE `t_express_box_details` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `express_box_id` bigint(20) DEFAULT NULL COMMENT '快递箱id',
+  `express_id` bigint(20) DEFAULT NULL COMMENT '快递单id',
+  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
+  `obj_parent_count` int(11) DEFAULT NULL COMMENT '父件数量',
+--  `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `status` int(11) DEFAULT NULL COMMENT '1：待发货，2：待收货，3：待安装，4：已拒收，5：暂存，6：安装完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_express_box_details` */
+
+
+
+
 
 /*Table structure for table `t_express_record` */
 
@@ -330,26 +373,6 @@ CREATE TABLE `t_receive_record` (
 
 /*Data for the table `t_receive_record` */
 
-/*Table structure for table `t_setup_record` */
-
-DROP TABLE IF EXISTS `t_setup_record`;
-
-CREATE TABLE `t_setup_record` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
-  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
-  `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
-  `discription` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
-  `status` int(11) DEFAULT NULL COMMENT '状态',
-  `long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '经纬度',
-  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
-  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
-  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
-/*Data for the table `t_setup_record` */
 
 /*Table structure for table `t_damage` */
 
@@ -407,32 +430,99 @@ CREATE TABLE `t_replenish_details` (
 
 /*Data for the table `t_replenish_details` */
 
-/*Table structure for table `t_ojb_order` */
+/*Table structure for table `t_order` */
 
-DROP TABLE IF EXISTS `t_ojb_order`;
+DROP TABLE IF EXISTS `t_order`;
 
-CREATE TABLE `t_ojb_order` (
+CREATE TABLE `t_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `org_id` bigint(20) DEFAULT NULL COMMENT '供应商id',
-  `name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '名称',
+  `order_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '订单编号',
   `user_id` bigint(20) DEFAULT NULL COMMENT '下单人id',
-  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成',
+  `org_brand_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
+--  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成, 4:待收货， 5：待安装， 6：补货中，7：已完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-/*Data for the table `t_ojb_order` */
+/*Data for the table `t_order` */
 
-/*Table structure for table `t_ojb_order_details` */
+/*Table structure for table `t_order_counter` */
 
-DROP TABLE IF EXISTS `t_ojb_order_details`;
+DROP TABLE IF EXISTS `t_order_counter`;
 
-CREATE TABLE `t_ojb_order_details` (
+CREATE TABLE `t_order_counter` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) DEFAULT NULL COMMENT '生产加工单id',
-  `org_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
+  `order_id` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `org_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
+  `order_counter_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '柜台订单编号',
+--  `user_id` bigint(20) DEFAULT NULL COMMENT '下单人id',
+--  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成, 4:待收货， 5：待安装， 6：补货中，7：已完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_order_counter` */
+
+
+/*Table structure for table `t_order_counter_detail` */
+
+DROP TABLE IF EXISTS `t_order_counter_detail`;
+
+CREATE TABLE `t_order_counter_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `order_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台订单id',
+  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
+--  `order_counter_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '柜台订单编号',
+  `obj_parent_count` int(11) DEFAULT NULL COMMENT '父件数量',
+--  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成, 4:待收货， 5：待安装， 6：补货中，7：已完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_order_counter_detail` */
+
+
+
+/*Table structure for table `t_order_supplier` */
+
+DROP TABLE IF EXISTS `t_order_supplier`;
+
+CREATE TABLE `t_order_supplier` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `org_supplier_id` bigint(20) DEFAULT NULL COMMENT '供应商组织id',
+  `order_supplier_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '供应商订单编号',
+--  `user_id` bigint(20) DEFAULT NULL COMMENT '下单人id',
+--  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成, 4:待收货， 5：待安装， 6：补货中，7：已完成',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_order_supplier` */
+
+
+/*Table structure for table `t_order_supplier_detail` */
+
+DROP TABLE IF EXISTS `t_order_supplier_detail`;
+
+CREATE TABLE `t_order_supplier_detail` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `order_supplier_id` bigint(20) DEFAULT NULL COMMENT '生产加工单id',
+--  `org_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
   `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
   `obj_parent_count` int(11) DEFAULT NULL COMMENT '父件数量',
   `backup_count` int(11) DEFAULT NULL COMMENT '备份数量',
@@ -451,13 +541,74 @@ CREATE TABLE `t_ojb_order_details` (
   `final_unit_price_usd` int(11) DEFAULT NULL COMMENT '最终单价-美元',
   `final_unit_price_eur` int(11) DEFAULT NULL COMMENT '最终单价-欧元',
   `po_number` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'PO号',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-/*Data for the table `t_ojb_order_details` */
+/*Data for the table `t_order_supplier_detail` */
+
+
+
+
+/*Table structure for table `t_order_setup` */
+
+DROP TABLE IF EXISTS `t_order_setup`;
+
+CREATE TABLE `t_order_setup` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `damage_id` bigint(20) DEFAULT NULL COMMENT '补货单id',
+  `order_counter_ids` varchar(512) DEFAULT NULL COMMENT '柜台订单id（逗号分隔）',
+  `org_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
+  `user_setup_id` bigint(20) DEFAULT NULL COMMENT '安装工id',
+--  `order_counter_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '柜台订单编号',
+--  `user_id` bigint(20) DEFAULT NULL COMMENT '下单人id',
+--  `status` int(11) DEFAULT NULL COMMENT '1：未开始，2：生产中，3：生产完成, 4:待收货， 5：待安装， 6：补货中，7：已完成',
+  `setup_time` datetime DEFAULT NULL COMMENT '安装时间',
+  `task_type` int(11) DEFAULT NULL COMMENT '任务类型(1:上市任务，2：上市补货任务，3：日常补货任务)',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `pic_url` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '12图片url',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_order_setup` */
+
+
+/*Table structure for table `t_setup_record` */
+
+DROP TABLE IF EXISTS `t_setup_record`;
+
+CREATE TABLE `t_setup_record` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_setup_id` bigint(20) DEFAULT NULL COMMENT '安装工订单id',
+  `user_setup_id` bigint(20) DEFAULT NULL COMMENT '安装工id',
+  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
+--  `org_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
+  `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `discription` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `status` int(11) DEFAULT NULL COMMENT '状态',
+  `long_lat` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '经纬度',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+/*Data for the table `t_setup_record` */
+
+
+
+
+
+
+
+
 
 /*Table structure for table `t_display_handbook` */
 

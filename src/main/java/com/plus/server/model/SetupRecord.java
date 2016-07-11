@@ -5,11 +5,11 @@ import java.util.Date;
 public class SetupRecord {
     private Long id;
 
-    private Long userId;
+    private Long orderSetupId;
+
+    private Long userSetupId;
 
     private Long objParentId;
-
-    private Long orgId;
 
     private String picUrl;
 
@@ -33,12 +33,20 @@ public class SetupRecord {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getOrderSetupId() {
+        return orderSetupId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setOrderSetupId(Long orderSetupId) {
+        this.orderSetupId = orderSetupId;
+    }
+
+    public Long getUserSetupId() {
+        return userSetupId;
+    }
+
+    public void setUserSetupId(Long userSetupId) {
+        this.userSetupId = userSetupId;
     }
 
     public Long getObjParentId() {
@@ -47,14 +55,6 @@ public class SetupRecord {
 
     public void setObjParentId(Long objParentId) {
         this.objParentId = objParentId;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
     }
 
     public String getPicUrl() {

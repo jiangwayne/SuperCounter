@@ -12,16 +12,19 @@
     <result column="wx_unique_code" jdbcType="VARCHAR" property="wxUniqueCode" />
     <result column="style_id" jdbcType="BIGINT" property="styleId" />
     <result column="media_type" jdbcType="VARCHAR" property="mediaType" />
+    <result column="counter_no" jdbcType="VARCHAR" property="counterNo" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="long_lat" jdbcType="VARCHAR" property="longLat" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="counter_no" jdbcType="VARCHAR" property="counterNo" />
+    <result column="brand_ids" jdbcType="VARCHAR" property="brandIds" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
     id, name, type, address, parent_id, phone, email, wx_unique_code, style_id, media_type, 
-    valid, long_lat,comment, gmt_create, gmt_modify,counter_no
+    counter_no, valid, long_lat, comment, brand_ids, state, city, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -64,20 +67,32 @@
       <if test="mediaType != null">
         and media_type = #{mediaType,jdbcType=VARCHAR}
       </if>
+      <if test="counterNo != null">
+        and counter_no = #{counterNo,jdbcType=VARCHAR}
+      </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
       <if test="longLat != null">
         and long_lat = #{longLat,jdbcType=VARCHAR}
       </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
+      </if>
+      <if test="brandIds != null">
+        and brand_ids = #{brandIds,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        and state = #{state,jdbcType=VARCHAR}
+      </if>
+      <if test="city != null">
+        and city = #{city,jdbcType=VARCHAR}
+      </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
       </if>
       <if test="gmtModify != null">
         and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
-      </if>
-      <if test="counterNo != null">
-        and counter_no = #{counterNo,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
@@ -116,20 +131,32 @@
       <if test="mediaType != null">
         and media_type like CONCAT('%',#{mediaType,jdbcType=VARCHAR},'%')
       </if>
+      <if test="counterNo != null">
+        and counter_no like CONCAT('%',#{counterNo,jdbcType=VARCHAR},'%')
+      </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
       <if test="longLat != null">
         and long_lat like CONCAT('%',#{longLat,jdbcType=VARCHAR},'%')
       </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="brandIds != null">
+        and brand_ids like CONCAT('%',#{brandIds,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="state != null">
+        and state like CONCAT('%',#{state,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="city != null">
+        and city like CONCAT('%',#{city,jdbcType=VARCHAR},'%')
+      </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
       </if>
       <if test="gmtModify != null">
         and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
-      </if>
-      <if test="counterNo != null">
-        and counter_no like CONCAT('%',#{counterNo,jdbcType=VARCHAR},'%')
       </if>
     </where>
   </select>
@@ -141,14 +168,17 @@
     insert into t_organization (id, name, type, 
       address, parent_id, phone, 
       email, wx_unique_code, style_id, 
-      media_type, valid, long_lat,comment,
-      gmt_create, gmt_modify,counter_no)
+      media_type, counter_no, valid, 
+      long_lat, comment, brand_ids, 
+      state, city, gmt_create, 
+      gmt_modify)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{address,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{wxUniqueCode,jdbcType=VARCHAR}, #{styleId,jdbcType=BIGINT}, 
-      #{mediaType,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{longLat,jdbcType=VARCHAR},
-      #{comment,jdbcType=VARCHAR},
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP},#{counterNo,jdbcType=VARCHAR})
+      #{mediaType,jdbcType=VARCHAR}, #{counterNo,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+      #{longLat,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{brandIds,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.Organization" useGeneratedKeys="true">
     insert into t_organization
@@ -183,6 +213,9 @@
       <if test="mediaType != null">
         media_type,
       </if>
+      <if test="counterNo != null">
+        counter_no,
+      </if>
       <if test="valid != null">
         valid,
       </if>
@@ -192,14 +225,20 @@
       <if test="comment != null">
         comment,
       </if>
+      <if test="brandIds != null">
+        brand_ids,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
       <if test="gmtModify != null">
         gmt_modify,
-      </if>
-      <if test="counterNo != null">
-        counter_no,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -233,6 +272,9 @@
       <if test="mediaType != null">
         #{mediaType,jdbcType=VARCHAR},
       </if>
+      <if test="counterNo != null">
+        #{counterNo,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
@@ -242,14 +284,20 @@
       <if test="comment != null">
         #{comment,jdbcType=VARCHAR},
       </if>
+      <if test="brandIds != null">
+        #{brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModify != null">
         #{gmtModify,jdbcType=TIMESTAMP},
-      </if>
-      <if test="counterNo != null">
-        #{counterNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -283,6 +331,9 @@
       <if test="mediaType != null">
         media_type = #{mediaType,jdbcType=VARCHAR},
       </if>
+      <if test="counterNo != null">
+        counter_no = #{counterNo,jdbcType=VARCHAR},
+      </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
@@ -292,14 +343,20 @@
       <if test="comment != null">
         comment = #{comment,jdbcType=VARCHAR},
       </if>
+      <if test="brandIds != null">
+        brand_ids = #{brandIds,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModify != null">
         gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
-      </if>
-      <if test="counterNo != null">
-        counter_no = #{counterNo,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -315,12 +372,15 @@
       wx_unique_code = #{wxUniqueCode,jdbcType=VARCHAR},
       style_id = #{styleId,jdbcType=BIGINT},
       media_type = #{mediaType,jdbcType=VARCHAR},
+      counter_no = #{counterNo,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       long_lat = #{longLat,jdbcType=VARCHAR},
       comment = #{comment,jdbcType=VARCHAR},
+      brand_ids = #{brandIds,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
-      counter_no = #{counterNo,jdbcType=VARCHAR}
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">

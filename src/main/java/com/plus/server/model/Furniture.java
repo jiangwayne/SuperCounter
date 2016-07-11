@@ -7,11 +7,11 @@ public class Furniture {
 
     private String name;
 
+    private Long orgId;
+
     private String furnitureNo;
 
     private String comment;
-
-    private Long orgId;
 
     private Integer valid;
 
@@ -35,20 +35,12 @@ public class Furniture {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getValid() {
-        return valid;
+    public Long getOrgId() {
+        return orgId;
     }
 
-    public void setValid(Integer valid) {
-        this.valid = valid;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 
     public String getFurnitureNo() {
@@ -56,15 +48,23 @@ public class Furniture {
     }
 
     public void setFurnitureNo(String furnitureNo) {
-        this.furnitureNo = furnitureNo;
+        this.furnitureNo = furnitureNo == null ? null : furnitureNo.trim();
     }
 
-    public Long getOrgId() {
-        return orgId;
+    public String getComment() {
+        return comment;
     }
 
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
+    }
+
+    public Integer getValid() {
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
     }
 
     public Date getGmtCreate() {

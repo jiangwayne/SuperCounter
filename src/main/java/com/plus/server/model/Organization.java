@@ -23,13 +23,19 @@ public class Organization {
 
     private String mediaType;
 
+    private String counterNo;
+
     private Integer valid;
 
     private String longLat;
 
     private String comment;
 
-    private String counterNo;
+    private String brandIds;
+
+    private String state;
+
+    private String city;
 
     private Date gmtCreate;
 
@@ -115,6 +121,14 @@ public class Organization {
         this.mediaType = mediaType == null ? null : mediaType.trim();
     }
 
+    public String getCounterNo() {
+        return counterNo;
+    }
+
+    public void setCounterNo(String counterNo) {
+        this.counterNo = counterNo == null ? null : counterNo.trim();
+    }
+
     public Integer getValid() {
         return valid;
     }
@@ -136,15 +150,31 @@ public class Organization {
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.comment = comment == null ? null : comment.trim();
     }
 
-    public String getCounterNo() {
-        return counterNo;
+    public String getBrandIds() {
+        return brandIds;
     }
 
-    public void setCounterNo(String counterNo) {
-        this.counterNo = counterNo;
+    public void setBrandIds(String brandIds) {
+        this.brandIds = brandIds == null ? null : brandIds.trim();
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
     }
 
     public Date getGmtCreate() {

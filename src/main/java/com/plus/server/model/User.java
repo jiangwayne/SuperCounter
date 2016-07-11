@@ -19,6 +19,12 @@ public class User {
 
     private Integer valid;
 
+    private String brandIds;
+
+    private String state;
+
+    private String city;
+
     private Date gmtCreate;
 
     private Date gmtModify;
@@ -71,6 +77,14 @@ public class User {
         this.lastLongLat = lastLongLat == null ? null : lastLongLat.trim();
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
+    }
+
     public Integer getValid() {
         return valid;
     }
@@ -79,12 +93,28 @@ public class User {
         this.valid = valid;
     }
 
-    public String getComment() {
-        return comment;
+    public String getBrandIds() {
+        return brandIds;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setBrandIds(String brandIds) {
+        this.brandIds = brandIds == null ? null : brandIds.trim();
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
     }
 
     public Date getGmtCreate() {
