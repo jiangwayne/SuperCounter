@@ -28,7 +28,7 @@ body{ padding:12px 15px}
 	DISPLAY: block
 }
 /* end */
-
+.alertPageTime{border:#000 solid 1px;font-size:20px; width: 240px;  height:90px; line-height:25px;  border:#dedede solid 1px; margin-bottom:12px;margin-left: 900px;margin-top: -450px;z-index:9999;overflow: visible;background:#559aea;}
 .tit1{ line-height:32px; font-size:14px; text-align:center; font-weight:bold}
 .wzcontent{width:798px; padding:20px; background:#fff; border:#b3c5d9 solid 1px; margin:30px auto; line-height:30px; font-size:14px}
 .wztitle{ border-bottom:#ccc solid 1px; margin-bottom:12px; font-size:18px; padding:0 0 5px 0}

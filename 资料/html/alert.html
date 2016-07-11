@@ -10,10 +10,28 @@
 </head>
 
 <body>
+
+
+
 <div class="loc">
   <div class="icon">提示&nbsp;</div>
 </div>
-<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+
+<!--
+  <table width="100%">
+  	<tr>
+  		<td width="70%"></td>
+  		<td width="100" class="alertPageTime">
+  			
+
+  		</td>
+  		<td width="10%"></td>
+  	</tr>
+  </table>
+-->
+
+<table style="overflow: hidden;clear:both;" class="bgg" border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody>
   <tr class="title1">
     <td width="5">&nbsp;</td>
@@ -21,18 +39,14 @@
     <td width="150">编号</td>
     <td>类型</td>
     <td>描述</td>
-    <td align="center" width="150">创建日期</td>
-    <td align="center" width="150">操作</td>
+
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
     <td width="150">报价单提示</td>
     <td width="150">编号</td>
-    <td>类型</td>
+    <td width="40">类型</td>
     <td> <font color="red">报价单还没输入报价及单价</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -40,9 +54,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">报价单明天将出货，报价单还没输入最终报价及最终单价</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -50,9 +61,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">报价单还未输入PO号</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -60,9 +68,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">生产加工单还未输入预入库完成日期</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -70,9 +75,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">生产加工单还未输入预出库完成日期</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -80,9 +82,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">今天是预出库完成日期</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
     <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -90,9 +89,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">预出库完成日期已过，还未出库</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -100,9 +96,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">父件编号8687668所需组装子件库存已满足任务单号98678，请组装父件入库</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -110,9 +103,6 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">任务单8687987678,完装结束，提交了补货单，请安排处理</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="5">&nbsp;</td>
@@ -120,12 +110,40 @@
     <td width="150">9798608698</td>
     <td>类型</td>
     <td ><font color="red">柜台8967989,提交了日常补货单，请安排处理</font></td>
-    <td align="center" width="150">创建日期</td>
-    
-    <td align="center" width="150">操作</td>
   </tr>  
   
 </tbody></table>
+<br>
+<div class="alertPageTime" align="center">
+<div style="margin-top:7px;">
+HR上市时间倒计时记录<br>
+<div class="closewd" id="timeshow">10:00:00</div>  				
+<script type="text/javascript">
+var time=new Date();
+time.setHours(10);
+time.setMinutes(30);
+time.setSeconds(0);
+var timeout;
+var timeshow=document.getElementById("timeshow");
+function countdown(){
+var hour=time.getHours();
+var min=time.getMinutes();
+var second=time.getSeconds();
+if(hour=="0"&&min=="0"&&second=="0"){alert("Time Out!");clearInterval(timeout);}
+time.setSeconds(second-1);
+hour<10?hour="0"+hour:hour;
+min<10?min="0"+min:min;
+second<10?second="0"+second:second;
+timeshow.innerHTML=hour+":"+min+":"+second;
+}
+ timeout= setInterval(countdown,1000);
+</script>
+时 分 秒<br>
+
+</div>  				
+</div>
+
+</div>
 
 
 </body></html>
