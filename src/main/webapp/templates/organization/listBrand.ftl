@@ -39,7 +39,7 @@
         <td align="center" bgcolor="#FFFFFF">${s.phone?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.email?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
-        <td align="center" bgcolor="#FFFFFF">${s.gmt_create?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">
             <a href="addBrand?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>

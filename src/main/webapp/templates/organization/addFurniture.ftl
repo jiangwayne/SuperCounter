@@ -17,7 +17,7 @@
 
 <body>
 <div class="loc">
-  <div class="icon">当前位置：家具管理&nbsp;&gt;&nbsp;添加家具</div>
+    <div class="icon">当前位置：&nbsp;&gt;&nbsp;家具管理->编辑家具</div>
 </div>
 <form action="addFurniture" method="post">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">

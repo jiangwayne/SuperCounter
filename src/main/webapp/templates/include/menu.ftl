@@ -15,29 +15,29 @@
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">用户管理</a>
             <ul style="display: block;" class="sub-menu show">
                 <#--<li><a  href="user/addContactStaff" target="mainFrame">添加客服经理</a></li>-->
-                <li><a  href="user/listContactStaff" target="mainFrame">客服经理</a></li>
-                <#--<li><a  href="user/addBrandManager.html" target="mainFrame">添加品牌经理</a></li>-->
-                <li><a  href="user/listBrandManager" target="mainFrame">品牌经理</a></li>
-                <#--<li><a  href="user/addSupplier.html" target="mainFrame">添加供应商管理员</a></li>-->
-                <li><a  href="user/listSupplier" target="mainFrame">供应商管理员</a></li>
-                <#--<li><a  href="user/addBA.html" target="mainFrame">添加BA</a></li>-->
-                <li><a  href="user/listBA" target="mainFrame">BA</a></li>
-                <#--<li><a  href="user/addErector.html" target="mainFrame">添加安装工</a></li>-->
-                <li><a  href="user/listErector" target="mainFrame">安装工</a></li>
+                <li><a  href="${base_addr}/gtb/user/listContactStaff" target="mainFrame">客服经理</a></li>
+                <#--<li><a  href="user/addBrandManager" target="mainFrame">添加品牌经理</a></li>-->
+                <li><a  href="${base_addr}/gtb/user/listBrandManager" target="mainFrame">品牌经理</a></li>
+                <#--<li><a  href="user/addSupplier" target="mainFrame">添加供应商管理员</a></li>-->
+                <li><a  href="${base_addr}/gtb/user/listSupplier" target="mainFrame">供应商管理员</a></li>
+                <#--<li><a  href="user/addBA" target="mainFrame">添加BA</a></li>-->
+                <li><a  href="${base_addr}/gtb/user/listBA" target="mainFrame">BA</a></li>
+                <#--<li><a  href="user/addErector" target="mainFrame">添加安装工</a></li>-->
+                <li><a  href="${base_addr}/gtb/user/listErector" target="mainFrame">安装工</a></li>
             </ul>
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">资源管理</a>
             <ul style="display: block;" class="sub-menu">
                 <#--<li><a  href="org/addBrand" target="mainFrame">添加品牌</a></li>-->
-                <li><a  href="org/listBrand" target="mainFrame">品牌</a></li>
+                <li><a  href="${base_addr}/gtb/org/listBrand" target="mainFrame">品牌</a></li>
                 <#--<li><a  href="org/addCounterType" target="mainFrame">添加柜台样式</a></li>-->
-                <li><a  href="org/listCounterType" target="mainFrame">柜台样式</a></li>
+                <li><a  href="${base_addr}/gtb/org/listCounterType" target="mainFrame">柜台样式</a></li>
                 <#--<li><a  href="org/addCounter" target="mainFrame">添加柜台</a></li>-->
-                <li><a  href="org/listCounter" target="mainFrame">柜台</a></li>
+                <li><a  href="${base_addr}/gtb/org/listCounter" target="mainFrame">柜台</a></li>
                 <#--<li><a  href="org/addFurniture" target="mainFrame">添加家具</a></li>-->
-                <li><a  href="org/listFurniture" target="mainFrame">家具</a></li>
-                <li><a  href="org/addSupplier.html" target="mainFrame">添加供应商</a></li>
-                <li><a  href="org/listSupplier.html" target="mainFrame">查询供应商</a></li>
+                <li><a  href="${base_addr}/gtb/org/listFurniture" target="mainFrame">家具</a></li>
+                <#--<li><a  href="org/addSupplier" target="mainFrame">添加供应商</a></li>-->
+                <li><a  href="${base_addr}/gtb/org/listSupplier" target="mainFrame">供应商</a></li>
                 <li><a  href="${base_addr}/gtb/parent/toEdit" target="mainFrame">添加父件</a></li>
                 <li><a  href="${base_addr}/gtb/parent/list" target="mainFrame">查询父件</a></li>
                 <li><a  href="${base_addr}/gtb/child/toEdit" target="mainFrame">添加子件</a></li>

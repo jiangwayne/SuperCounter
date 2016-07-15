@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="com.plus.server.model.User">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="password_hash" jdbcType="VARCHAR" property="passwordHash" />
     <result column="password_salt" jdbcType="VARCHAR" property="passwordSalt" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
@@ -17,7 +19,7 @@
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, password_hash, password_salt, org_id, last_long_lat, comment, valid, brand_ids, 
+    id, name, full_name, phone,password_hash, password_salt, org_id, last_long_lat, comment, valid, brand_ids,
     state, city, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -36,6 +38,12 @@
       </if>
       <if test="name != null">
         and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="fullName != null">
+        and full_name = #{fullName,jdbcType=VARCHAR}
+      </if>
+      <if test="phone != null">
+        and phone = #{phone,jdbcType=VARCHAR}
       </if>
       <if test="passwordHash != null">
         and password_hash = #{passwordHash,jdbcType=VARCHAR}
@@ -83,6 +91,12 @@
       <if test="name != null">
         and name like CONCAT('%',#{name,jdbcType=VARCHAR},'%')
       </if>
+      <if test="fullName != null">
+        and full_name like CONCAT('%',#{fullName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="phone != null">
+        and phone like CONCAT('%',#{phone,jdbcType=VARCHAR},'%')
+      </if>
       <if test="passwordHash != null">
         and password_hash like CONCAT('%',#{passwordHash,jdbcType=VARCHAR},'%')
       </if>
@@ -123,12 +137,12 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.User" useGeneratedKeys="true">
-    insert into t_user (id, name, password_hash, 
+    insert into t_user (id, name, full_name, phone,password_hash,
       password_salt, org_id, last_long_lat, 
       comment, valid, brand_ids, 
       state, city, gmt_create, 
       gmt_modify)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{passwordHash,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{passwordHash,jdbcType=VARCHAR},
       #{passwordSalt,jdbcType=VARCHAR}, #{orgId,jdbcType=BIGINT}, #{lastLongLat,jdbcType=VARCHAR}, 
       #{comment,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{brandIds,jdbcType=VARCHAR}, 
       #{state,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
@@ -142,6 +156,12 @@
       </if>
       <if test="name != null">
         name,
+      </if>
+      <if test="fullName != null">
+        full_name,
+      </if>
+      <if test="phone != null">
+        phone,
       </if>
       <if test="passwordHash != null">
         password_hash,
@@ -184,6 +204,12 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
       <if test="passwordHash != null">
         #{passwordHash,jdbcType=VARCHAR},
       </if>
@@ -225,6 +251,12 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
       <if test="passwordHash != null">
         password_hash = #{passwordHash,jdbcType=VARCHAR},
       </if>
@@ -264,6 +296,8 @@
   <update id="updateByPrimaryKey" parameterType="com.plus.server.model.User">
     update t_user
     set name = #{name,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
       password_hash = #{passwordHash,jdbcType=VARCHAR},
       password_salt = #{passwordSalt,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=BIGINT},

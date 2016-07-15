@@ -22,6 +22,8 @@ DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '用户名',
+  `full_name` varchar(64) DEFAULT NULL COMMENT '姓名',
+  `phone` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '电话',
   `password_hash` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '加密后的密码',
   `password_salt` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT 'salt',
   `org_id` bigint(20) DEFAULT NULL COMMENT '组织id',
@@ -81,7 +83,7 @@ DROP TABLE IF EXISTS `t_organization`;
 CREATE TABLE `t_organization` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '组织名',
-  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)',
+  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(admin,品牌，柜台，供应商，物流公司，安装公司)',
   `address` varchar(256) DEFAULT NULL COMMENT '地址',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父组织id',
   `phone` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '电话',
@@ -102,6 +104,9 @@ CREATE TABLE `t_organization` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `t_organization` */
+INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (1,'admin','admin',1,now(),now());
+INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (2,'安装公司A','安装公司',1,now(),now());
+
 
 /*Table structure for table `t_counter_style` */
 

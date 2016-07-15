@@ -1,6 +1,7 @@
 package com.plus.server.service;
 
 import com.alibaba.fastjson.JSON;
+import com.plus.server.common.util.DateUtil;
 import com.plus.server.dal.OrganizationDAO;
 import com.plus.server.dal.UserDAO;
 import com.plus.server.dal.UserRoleDAO;
@@ -31,32 +32,46 @@ public class UserService {
     @Autowired
     private UserRoleDAO userRoleDAO;
 
-    @Autowired
-    private OrganizationDAO organizationDAO;
+//    @Autowired
+//    private OrganizationDAO organizationDAO;
 
     @Transactional
-    public void addUser(String name, String pwd, long roleId, long orgId) {
+    public void saveUser(Long id, String brandIds, Long orgId, String name, String pwd, String fullName,
+                         Long roleId, String phone, String comment) {
         User user = new User();
+        if(id > 0) {
+            user = userDao.selectByPrimaryKey(id);
+        }
+        else{ //新用户才需要设密码
+            String password_salt = generateSalt(5);
+            String password_hash = getPasswordHash(pwd, password_salt);
+            user.setPasswordSalt(password_salt);
+            user.setPasswordHash(password_hash);
+        }
         user.setName(name);
-        String password_salt = generateSalt(5);
-        String password_hash = getPasswordHash(pwd, password_salt);
-        user.setPasswordSalt(password_salt);
-        user.setPasswordHash(password_hash);
+        user.setBrandIds(brandIds);
         user.setOrgId(orgId);
+        user.setFullName(fullName);
+        user.setPhone(phone);
+        user.setComment(comment);
+
         user.setValid(1);
         user.setGmtCreate(new Date());
         user.setGmtModify(new Date());
-        log.info("新增用户，user=" + JSON.toJSONString(user));
-        this.userDao.insert(user);
-
-        UserRole userRole = new UserRole();
-        userRole.setUserId(user.getId());
-        userRole.setRoleId(roleId);
-        userRole.setValid(1);
-        userRole.setGmtCreate(new Date());
-        userRole.setGmtModify(new Date());
-        log.info("新增用户角色，userRole=" + JSON.toJSONString(userRole));
-        this.userRoleDAO.insert(userRole);
+        if(id>0) {
+            userDao.updateByPrimaryKeySelective(user);
+        } else {
+            log.info("新增用户，user=" + JSON.toJSONString(user));
+            this.userDao.insert(user);
+            UserRole userRole = new UserRole();
+            userRole.setUserId(user.getId());
+            userRole.setRoleId(roleId);
+            userRole.setValid(1);
+            userRole.setGmtCreate(new Date());
+            userRole.setGmtModify(new Date());
+            log.info("新增用户角色，userRole=" + JSON.toJSONString(userRole));
+            this.userRoleDAO.insert(userRole);
+        }
     }
 
     public User login(String name, String password) {
@@ -108,7 +123,7 @@ public class UserService {
 
 
     public List<Map<String,String>> getUserList(Long roleId, String keyword) {
-        List<Map<String,String>> result = new ArrayList<Map<String, String>>();
+        List<Map<String,String>> result = new ArrayList<>();
         User user = new User();
         user.setValid(1);
 
@@ -116,7 +131,7 @@ public class UserService {
         UserRole userRole = new UserRole();
         userRole.setValid(1);
         List<UserRole> userRoles = this.userRoleDAO.selectByModel(userRole);
-        Map<Long,Long> userRoleMap = new HashMap<Long, Long>();
+        Map<Long,Long> userRoleMap = new HashMap<>();
         for(UserRole o : userRoles) {
             userRoleMap.put(o.getUserId(),o.getRoleId());
         }
@@ -124,7 +139,7 @@ public class UserService {
         Map<Long,Organization> organizationMap = Support.getInstance().getOrganizationMap("","");
 
         for (User u : list) {
-            Map<String,String> map = new HashMap<String, String>();
+            Map<String,String> map = new HashMap<>();
             Long userId = u.getId();
             if(!userRoleMap.containsKey(userId) || userRoleMap.get(userId) != roleId){
                 continue; //不属性此角色的用户去掉
@@ -137,35 +152,27 @@ public class UserService {
                 map.put("orgName",organizationMap.get(u.getOrgId()).getName());
                 map.put("roleId", userRoleMap.get(userId).toString());
                 map.put("comment", u.getComment());
+                map.put("gmtCreate", DateUtil.toDateString(u.getGmtCreate()));
                 result.add(map);
             }
         }
         return result;
     }
 
-    public List<Map<String,String>> getOrganizationList(String keyword) {
-        List<Map<String,String>> result = new ArrayList<Map<String, String>>();
-        Organization organization = new Organization();
-        organization.setValid(1);
-        List<Organization> list = this.organizationDAO.selectByModel(organization);
-        for (Organization o : list) {
-            Map<String,String> map = new HashMap<String, String>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
-                map.put("id", o.getId().toString());
-                map.put("name", o.getName());
-                map.put("type", o.getType().toString());
-                map.put("address", o.getAddress());
-                map.put("phone",o.getPhone());
-                map.put("media_type", o.getMediaType());
-                map.put("style_id",o.getStyleId().toString());
-                map.put("last_long_lat", o.getLongLat());
-                result.add(map);
-            }
-        }
-        return result;
-    }
 
     public User getUser(long id){
         return userDao.selectByPrimaryKey(id);
+    }
+
+    public List<Map<String,String>> getBrandList(String keyword) {
+        return Support.getInstance().getBrandList(keyword);
+    }
+
+    public List<Map<String,String>> getCounterList(String keyword) {
+        return Support.getInstance().getCounterList(keyword);
+    }
+
+    public List<Map<String,String>> getOrganizationList(String type, String keyword){
+        return Support.getInstance().getOrganizationList(type,keyword);
     }
 }

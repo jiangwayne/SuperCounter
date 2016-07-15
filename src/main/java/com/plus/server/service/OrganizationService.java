@@ -31,41 +31,14 @@ public class OrganizationService {
     private FurnitureDAO furnitureDAO;
 
     public List<Map<String,String>> getBrandList(String keyword) {
-        List<Map<String,String>> result = new ArrayList<>();
-        Organization organization = new Organization();
-        organization.setValid(1);
-        organization.setType("品牌");
-        List<Organization> list = this.organizationDAO.selectByModel(organization);
-        for (Organization o : list) {
-            Map<String,String> map = new HashMap<>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
-                map.put("id", o.getId().toString());
-                map.put("name", o.getName());
-                map.put("email", o.getEmail());
-                map.put("phone",o.getPhone());
-                map.put("comment",o.getComment());
-                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
-                result.add(map);
-            }
-        }
-        return result;
+        return Support.getInstance().getBrandList(keyword);
     }
 
 
 
-    public Map<Long,CounterStyle> getCounterStyleMap(String keyword){
-        Map<Long,CounterStyle> result = new HashMap<>();
-        CounterStyle counterStyle = new CounterStyle();
-        counterStyle.setValid(1);
-
-        List<CounterStyle> list = this.counterStyleDAO.selectByModel(counterStyle);
-        for(CounterStyle o : list){
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
-                result.put(o.getId(),o);
-            }
-        }
-        return result;
-    }
+//    public Map<Long,CounterStyle> getCounterStyleMap(String keyword){
+//        return Support.getInstance().getCounterStyleMap(keyword);
+//    }
 
     public Organization getOrg(Long id) {
         return organizationDAO.selectByPrimaryKey(id);
@@ -135,7 +108,7 @@ public class OrganizationService {
                 map.put("orgId", orgId.toString());
                 map.put("orgName",brandMap.containsKey(orgId) ? brandMap.get(orgId).getName() : "");
                 map.put("comment",o.getDescription());
-                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
+                map.put("gmtCreate", DateUtil.toDateString(o.getGmtCreate()));
                 result.add(map);
             }
         }
@@ -168,33 +141,10 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
-
     }
 
     public List<Map<String,String>> getCounterList(String keyword) {
-        List<Map<String,String>> result = new ArrayList<>();
-        Organization organization = new Organization();
-        organization.setValid(1);
-        organization.setType("柜台");
-        List<Organization> list = this.organizationDAO.selectByModel(organization);
-        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
-        Map<Long,CounterStyle> styleMap = getCounterStyleMap("");
-        for (Organization o : list) {
-            Map<String,String> map = new HashMap<>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
-                Long parenId = o.getParentId() == null ? 0 : o.getParentId();
-                Long styleId = o.getStyleId() == null ? 0 : o.getStyleId();
-                map.put("id", o.getId().toString());
-                map.put("name", o.getName());
-                map.put("orgName",brandMap.containsKey(parenId) ? brandMap.get(parenId).getName() : "");
-                map.put("mediaType", o.getMediaType());
-                map.put("styleName",styleMap.containsKey(styleId) ? styleMap.get(styleId).getName() : "");
-                map.put("comment",o.getComment());
-                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
-                result.add(map);
-            }
-        }
-        return result;
+        return Support.getInstance().getCounterList(keyword);
     }
 
     public List<Map<String,String>> getFurnitureList(String keyword) {
@@ -213,7 +163,7 @@ public class OrganizationService {
                 map.put("name", o.getName());
                 map.put("orgName",brandMap.containsKey(orgId) ? brandMap.get(orgId).getName() : "");
                 map.put("comment",o.getComment());
-                map.put("gmt_create", DateUtil.toDateString(o.getGmtCreate()));
+                map.put("gmtCreate", DateUtil.toDateString(o.getGmtCreate()));
                 result.add(map);
             }
         }
@@ -242,5 +192,34 @@ public class OrganizationService {
 
     public Furniture getFurniture(Long id) {
         return furnitureDAO.selectByPrimaryKey(id);
+    }
+
+    public List<Map<String,String>> getSupplierList(String keyword){
+        return Support.getInstance().getOrganizationList("供应商",keyword);
+    }
+
+    public void saveSupplier(Long id, String brandIds, String name, String address,
+                             String longLat, String phone, String email, String comment) {
+        Organization organization = new Organization();
+        if(id > 0) {
+            organization = organizationDAO.selectByPrimaryKey(id);
+        }
+        organization.setBrandIds(brandIds);
+        organization.setName(name);
+        organization.setType("供应商");
+        organization.setPhone(phone);
+        organization.setEmail(email);
+        organization.setAddress(address);
+        organization.setLongLat(longLat);
+        organization.setComment(comment);
+
+        organization.setValid(1);
+        organization.setGmtModify(new Date());
+        if(id>0) {
+            organizationDAO.updateByPrimaryKeySelective(organization);
+        } else {
+            organization.setGmtCreate(new Date());
+            organizationDAO.insert(organization);
+        }
     }
 }

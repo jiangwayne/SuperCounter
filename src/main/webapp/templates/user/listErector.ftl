@@ -5,7 +5,6 @@
     <link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css" />
     <link href="${base_addr}/static/css/right.css" rel="stylesheet" type="text/css" />
     <script src="${base_addr}/static/js/myjs.js"></script>
-
 </head>
 
 <body>
@@ -39,9 +38,9 @@
         <td align="center" bgcolor="#FFFFFF">${s.orgName?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">安装工</td>
         <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
-        <td align="center" bgcolor="#FFFFFF">${s.gmt_create?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">
-            <a href="addErector"?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="addErector?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
         </td>
     </tr>

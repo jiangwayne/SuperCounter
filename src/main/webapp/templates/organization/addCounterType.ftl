@@ -53,5 +53,70 @@
     </tr>
   </table>
 </form>
+<br>
+<hr>
+<br>
+<div class="icon">包括家具</div>
+<br>
+<strong>添加家具：</strong>
+
+<select id="brand2" class="ip" id="select3">
+    <#if brandList??>
+        <#list brandList as s>
+            <option value="${s.id?if_exists}">${s.name?if_exists}</option>
+        </#list>
+    </#if>
+</select>
+<form action="addCounterType"
+<select name="furniture">
+
+</select>
+<input name="button" id="button" value="添加" class="blue" type="button">
+
+<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody><tr class="title1">
+        <td width="5">&nbsp;</td>
+        <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
+        <td width="150">家具编号</td>
+        <td>家具名称</td>
+        <td align="center" width="150">添加日期</td>
+        <td align="center" width="150">操作</td>
+    </tr>
+    <tr class="con">
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
+        <td bgcolor="#FFFFFF">衣柜</td>
+        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
+        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
+    </tr>
+    <tr class="con">
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
+        <td bgcolor="#FFFFFF">衣柜</td>
+        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
+        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
+    </tr>
+    <tr class="con">
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
+        <td bgcolor="#FFFFFF">衣柜</td>
+        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
+        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
+    </tr>
+    <tr class="con">
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+        <td bgcolor="#FFFFFF"><span class="con2">
+      <input name="button" id="button" value="全部删除" class="blue" type="button">
+    </span></td>
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td bgcolor="#FFFFFF">&nbsp;</td>
+        <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
+    </tr>
+    </tbody></table>
+
 </body>
 </html>

@@ -7,6 +7,10 @@ public class User {
 
     private String name;
 
+    private String fullName;
+
+    private String phone;
+
     private String passwordHash;
 
     private String passwordSalt;
@@ -43,6 +47,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPasswordHash() {

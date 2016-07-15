@@ -1,5 +1,6 @@
 package com.plus.server.controller;
 
+import com.plus.server.service.Support;
 import com.plus.server.service.UserService;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -34,40 +35,50 @@ public class UserController extends BaseController {
 
 
     @RequestMapping(value = "/addContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView addContactStaff(Model model, Long id, String name, String pwd, String roleId, String orgId) {
+    public ModelAndView addContactStaff(Model model, Long id, String brandIds, String name, String pwd,
+                                        String fullName, String phone, String comment) {
         ModelAndView mv = new ModelAndView("user/addContactStaff.ftl");
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
-//        if(requestMethod.equals("POST")){
-//            userService.saveUser(id, orgId, mediaType, styleId,
-//                    name,  address,  longLat,  phone, counterNo,  comment);
-//            mv = new ModelAndView("organization/listCounter.ftl");
-//            model.addAttribute("list", organizationService.getCounterList(""));
-//            return mv;
-//        } else if(requestMethod.equals("GET")){
-//            model.addAttribute("brandList", organizationService.getBrandList(""));
-//            model.addAttribute("styleList", organizationService.getCounterStyleList(""));
-//            if(id>0) {
-//                model.addAttribute("model", organizationService.getOrg(id));
-//            }
-//        }
+        if(requestMethod.equals("POST")){
+            userService.saveUser(id, brandIds, 1l, name, pwd,
+                    fullName, 2L, phone,  comment); //客服经理role=2,orgId=1(admin)
+            mv = new ModelAndView("user/listContactStaff.ftl");
+            model.addAttribute("list", userService.getUserList(2l, ""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("brandList", userService.getBrandList(""));
+            if(id>0) {
+                model.addAttribute("model", userService.getUser(id));
+            }
+        }
         return mv;
     }
 
 
     @RequestMapping(value = "/listBA", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView listBA(Model model, String keyword) {
+    public ModelAndView listBA(Model model,String keyword) {
         ModelAndView mv = new ModelAndView("user/listBA.ftl");
         model.addAttribute("list", userService.getUserList(5l, keyword));
         return mv;
     }
 
     @RequestMapping(value = "/addBA", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView addBA(String name, String pwd, String roleId, String orgId) {
+    public ModelAndView addBA(Model model, Long id, Long orgId, String name, String pwd,
+                              String fullName, String phone, String comment) {
         ModelAndView mv = new ModelAndView("user/addBA.ftl");
-        if(name != null) {
-            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
-            mv = new ModelAndView("user/listContactStaff.ftl");
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            userService.saveUser(id, "", orgId,name,pwd,fullName,5l,phone,comment);
+            mv = new ModelAndView("user/listBA.ftl");
+            model.addAttribute("list", userService.getUserList(5l, ""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("counterList", userService.getCounterList(""));
+            if(id>0) {
+                model.addAttribute("model", userService.getUser(id));
+            }
         }
         return mv;
     }
@@ -79,12 +90,23 @@ public class UserController extends BaseController {
         return mv;
     }
 
-    @RequestMapping(value = "/addBrandManage", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView addBrandManage(String name, String pwd, String roleId, String orgId) {
-        ModelAndView mv = new ModelAndView("user/addBrandManage.ftl");
-        if(name != null) {
-            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
-            mv = new ModelAndView("user/listBrandManage.ftl");
+    @RequestMapping(value = "/addBrandManager", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView addBrandManage(Model model, Long id, String brandIds, String name, String pwd,
+                                       String fullName, String phone, String comment) {
+        ModelAndView mv = new ModelAndView("user/addBrandManager.ftl");
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            userService.saveUser(id, brandIds, 1l, name, pwd,
+                     fullName, 3l, phone,  comment);//品牌经理role=3,orgId=1(admin)
+            mv = new ModelAndView("user/listBrandManager.ftl");
+            model.addAttribute("list", userService.getUserList(3l, ""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("brandList", userService.getBrandList(""));
+            if(id>0) {
+                model.addAttribute("model", userService.getUser(id));
+            }
         }
         return mv;
     }
@@ -97,12 +119,21 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/addErector", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView addErector(String name, String pwd, String roleId, String orgId) {
+    public ModelAndView addErector(Model model, Long id, Long orgId, String name,
+                                   String pwd, String fullName,String phone,String comment) {
         ModelAndView mv = new ModelAndView("user/addErector.ftl");
-        log.info("name={},pwd={}",name,pwd);
-        if(name != null) {
-            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            userService.saveUser(id, "", orgId,name,pwd,fullName,6l,phone,comment);
             mv = new ModelAndView("user/listErector.ftl");
+            model.addAttribute("list", userService.getUserList(6l, ""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("erectorOrgList", userService.getOrganizationList("安装公司",""));
+            if(id>0) {
+                model.addAttribute("model", userService.getUser(id));
+            }
         }
         return mv;
     }
@@ -110,19 +141,29 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/listSupplier", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView listSupplier(Model model, String keyword) {
         ModelAndView mv = new ModelAndView("user/listSupplier.ftl");
-        log.info("listContactStaff keyword={}",keyword);
         model.addAttribute("list", userService.getUserList(4l, keyword));
         return mv;
     }
 
 
     @RequestMapping(value = "/addSupplier", method = {RequestMethod.GET,RequestMethod.POST})
-    public ModelAndView addSupplier(String name, String pwd, String roleId, String orgId) {
+    public ModelAndView addSupplier(Model model, Long id, String brandIds, Long orgId, String name, String pwd,
+                                    String fullName, String phone, String comment) {
         ModelAndView mv = new ModelAndView("user/addSupplier.ftl");
-        log.info("name={},pwd={}",name,pwd);
-        if(name != null) {
-            userService.addUser(name, pwd, Long.parseLong(roleId), Long.parseLong(orgId));
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            userService.saveUser(id, brandIds, orgId, name,pwd,
+                    fullName,4l,phone,comment);//品牌经理role=4,orgId=供应商id
             mv = new ModelAndView("user/listSupplier.ftl");
+            model.addAttribute("list", userService.getUserList(4l, ""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("brandList", userService.getBrandList(""));
+            model.addAttribute("supplierList", Support.getInstance().getOrganizationList("供应商",""));
+            if(id>0) {
+                model.addAttribute("model", userService.getUser(id));
+            }
         }
         return mv;
     }
