@@ -46,18 +46,18 @@
     </#list>
   </#if>
   
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-    <td bgcolor="#FFFFFF"><span class="con2">
-      <input name="button" id="button" value="全部删除" class="blue" type="button">
-    </span></td>
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
-  </tr>
+  <#--<tr class="con">-->
+    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
+    <#--<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>-->
+    <#--<td bgcolor="#FFFFFF"><span class="con2">-->
+      <#--<input name="button" id="button" value="全部删除" class="blue" type="button">-->
+    <#--</span></td>-->
+    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
+    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
+    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
+    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
+    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;</td>-->
+  <#--</tr>-->
 </tbody></table>
 
 

@@ -43,7 +43,7 @@ public class Support {
         }
         List<Organization> list = this.organizationDAO.selectByModel(organization);
         for (Organization o : list) {
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
                 result.put(o.getId(),o);
             }
         }
@@ -54,11 +54,11 @@ public class Support {
         List<Map<String,String>> result = new ArrayList<>();
         Organization organization = new Organization();
         organization.setValid(1);
-        organization.setType("品牌");
+        organization.setType("1");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         List<Organization> list = this.organizationDAO.selectByModel(organization);
         for (Organization o : list) {
             Map<String,String> map = new HashMap<>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
                 map.put("id", o.getId().toString());
                 map.put("name", o.getName());
                 map.put("email", o.getEmail());
@@ -81,7 +81,7 @@ public class Support {
         List<Organization> list = this.organizationDAO.selectByModel(organization);
         for (Organization o : list) {
             Map<String,String> map = new HashMap<>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
                 map.put("id", o.getId().toString());
                 map.put("name", o.getName());
                 map.put("type", o.getType().toString());
@@ -117,13 +117,13 @@ public class Support {
         List<Map<String,String>> result = new ArrayList<>();
         Organization organization = new Organization();
         organization.setValid(1);
-        organization.setType("柜台");
+        organization.setType("2");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         List<Organization> list = this.organizationDAO.selectByModel(organization);
-        Map<Long,Organization> brandMap = getOrganizationMap("品牌","");
+        Map<Long,Organization> brandMap = getOrganizationMap("1","");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         Map<Long,CounterStyle> styleMap = getCounterStyleMap("");
         for (Organization o : list) {
             Map<String,String> map = new HashMap<>();
-            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)) {
                 Long parenId = o.getParentId() == null ? 0 : o.getParentId();
                 Long styleId = o.getStyleId() == null ? 0 : o.getStyleId();
                 map.put("id", o.getId().toString());

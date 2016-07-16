@@ -1,12 +1,8 @@
 package com.plus.server.service;
 
 import com.plus.server.common.util.DateUtil;
-import com.plus.server.dal.CounterStyleDAO;
-import com.plus.server.dal.FurnitureDAO;
-import com.plus.server.dal.OrganizationDAO;
-import com.plus.server.model.CounterStyle;
-import com.plus.server.model.Furniture;
-import com.plus.server.model.Organization;
+import com.plus.server.dal.*;
+import com.plus.server.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +26,13 @@ public class OrganizationService {
     @Autowired
     private FurnitureDAO furnitureDAO;
 
+    @Autowired
+    private CounterTemplateDAO counterTemplateDAO;
+
+
+    @Autowired
+    private ObjectParentDAO objectParentDAO;
+
     public List<Map<String,String>> getBrandList(String keyword) {
         return Support.getInstance().getBrandList(keyword);
     }
@@ -51,7 +54,7 @@ public class OrganizationService {
         }
         organization.setParentId(0L);
         organization.setName(name);
-        organization.setType("品牌");
+        organization.setType("1");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         organization.setPhone(phone);
         organization.setWxUniqueCode(wx);
         organization.setEmail(email);
@@ -97,7 +100,7 @@ public class OrganizationService {
         counterStyle.setValid(1);
         List<CounterStyle> list = this.counterStyleDAO.selectByModel(counterStyle);
 
-        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
+        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("1","");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
 
         for (CounterStyle o : list) {
             Map<String,String> map = new HashMap<>();
@@ -124,7 +127,7 @@ public class OrganizationService {
         }
         organization.setParentId(orgId);
         organization.setName(name);
-        organization.setType("柜台");
+        organization.setType("2");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         organization.setPhone(phone);
         organization.setAddress(address);
         organization.setLongLat(longLat);
@@ -153,7 +156,7 @@ public class OrganizationService {
         furniture.setValid(1);
 
         List<Furniture> list = this.furnitureDAO.selectByModel(furniture);
-        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("品牌","");
+        Map<Long,Organization> brandMap = Support.getInstance().getOrganizationMap("1","");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         for(Furniture o : list){
             Map<String,String> map = new HashMap<>();
             if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
@@ -169,6 +172,58 @@ public class OrganizationService {
         }
         return result;
     }
+
+
+    public List<Furniture> getFurnitureList2(Long brandId,String keyword) {
+        List<Furniture> result = new ArrayList<>();
+        Furniture furniture = new Furniture();
+        furniture.setValid(1);
+        if(brandId > 0) {
+            furniture.setOrgId(brandId);
+        }
+        List<Furniture> list = this.furnitureDAO.selectByModel(furniture);
+        for(Furniture o : list){
+            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+                    || o.getFurnitureNo().contains(keyword)){
+                result.add(o);
+            }
+        }
+        return result;
+    }
+
+    public Map<Long, Furniture> getFurnitureMap2(Long brandId,String keyword) {
+        Map<Long, Furniture> result = new HashMap<>();
+        Furniture furniture = new Furniture();
+        furniture.setValid(1);
+        if(brandId > 0) {
+            furniture.setOrgId(brandId);
+        }
+        List<Furniture> list = this.furnitureDAO.selectByModel(furniture);
+        for(Furniture o : list){
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+                    || o.getFurnitureNo().contains(keyword)){
+                result.put(o.getId(),o);
+            }
+        }
+        return result;
+    }
+
+//    public Map<Long, ObjectParent> getOjbParentMap(Long brandId, String keyword) {
+//        Map<Long, ObjectParent> result = new HashMap<>();
+//        ObjectParent objectParent = new ObjectParent();
+//        objectParent.setValid(1);
+//        if(brandId > 0) {
+//            objectParent.setBrandId(brandId);
+//        }
+//        List<ObjectParent> list = this.objectParentDAO.selectByModel(objectParent);
+//        for(ObjectParent o : list){
+//            if(keyword == null || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+//                    || o.get().contains(keyword)){
+//                result.put(o.getId(),o);
+//            }
+//        }
+//        return result;
+//    }
 
     public void saveFurniture(Long id, Long orgId, String furnitureNo, String name, String comment) {
         Furniture furniture = new Furniture();
@@ -195,7 +250,7 @@ public class OrganizationService {
     }
 
     public List<Map<String,String>> getSupplierList(String keyword){
-        return Support.getInstance().getOrganizationList("供应商",keyword);
+        return Support.getInstance().getOrganizationList("3",keyword);//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
     }
 
     public void saveSupplier(Long id, String brandIds, String name, String address,
@@ -206,7 +261,7 @@ public class OrganizationService {
         }
         organization.setBrandIds(brandIds);
         organization.setName(name);
-        organization.setType("供应商");
+        organization.setType("3");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
         organization.setPhone(phone);
         organization.setEmail(email);
         organization.setAddress(address);
@@ -221,5 +276,124 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
+    }
+
+    public void addCounterTemplate(Long counterStyleId, Long furnitureId, Long objParentId, int count) {
+        if(getCounterTemplateList(counterStyleId,furnitureId,objParentId).size() > 0) {
+            return;
+        }
+        CounterTemplate counterTemplate = new CounterTemplate();
+        counterTemplate.setCounterStyleId(counterStyleId);
+        counterTemplate.setFurnitureId(furnitureId);
+        counterTemplate.setValid(1);
+        counterTemplate.setObjParentId(objParentId);
+        counterTemplate.setGmtCreate(new Date());
+        counterTemplate.setGmtModify(new Date());
+        counterTemplate.setCount(count);
+
+        counterTemplateDAO.insertSelective(counterTemplate);
+        //return  counterTemplate;
+    }
+
+    public List<CounterTemplate> getCounterTemplateList(Long counterStyleId, Long furnitureId, Long objParentId){
+        CounterTemplate counterTemplate = new CounterTemplate();
+        if(counterStyleId > 0){
+            counterTemplate.setCounterStyleId(counterStyleId);
+        }
+        if(furnitureId > 0){
+            counterTemplate.setFurnitureId(furnitureId);
+        }
+        if(objParentId > 0){
+            counterTemplate.setObjParentId(objParentId);
+        }
+
+        counterTemplate.setValid(1);
+        List<CounterTemplate> list = this.counterTemplateDAO.selectByModel(counterTemplate);
+        return list;
+    }
+
+    public List<Map<String,String>> getCounterFurnitureMap(Long counterStyleId) {
+        List<Map<String,String>> result = new ArrayList<>();
+        List<CounterTemplate> list = getCounterTemplateList(counterStyleId,0l, 0l);
+        Map<Long,Furniture> furnitureMap = getFurnitureMap2(0L, null);
+
+        for(CounterTemplate o : list){
+            Map<String,String> map = new HashMap<>();
+            if(o.getObjParentId() != null && o.getObjParentId() > 0){
+                continue;
+            }
+            Long furId = o.getFurnitureId() == null ? 0 : o.getFurnitureId();
+            map.put("id",o.getId().toString());
+            map.put("counterStyleId", o.getCounterStyleId().toString());
+            map.put("furnitureNo", furnitureMap.containsKey(furId) ? furnitureMap.get(furId).getFurnitureNo() : "");
+            map.put("furnitureName", furnitureMap.containsKey(furId) ? furnitureMap.get(furId).getName() : "");
+            map.put("gmtCreate", DateUtil.toDateString(o.getGmtCreate()));
+            result.add(map);
+        }
+        return result;
+    }
+
+    public void deleteCounterTemplate(Long id) {
+        CounterTemplate counterTemplate = new CounterTemplate();
+        counterTemplate.setId(id);
+        counterTemplate.setValid(-1);
+
+        counterTemplateDAO.updateByPrimaryKeySelective(counterTemplate);
+    }
+
+    public List<ObjectParent> getObjParent(Long brandId, String keyword) {
+        List<ObjectParent> result = new ArrayList<>();
+        ObjectParent objectParent = new ObjectParent();
+        objectParent.setValid(1);
+        if(brandId > 0) {
+            objectParent.setBrandId(brandId);
+        }
+        List<ObjectParent> list = this.objectParentDAO.selectByModel(objectParent);
+        for(ObjectParent o : list){
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+                    || o.getObjParentNo().contains(keyword)){
+                result.add(o);
+            }
+        }
+        return result;
+    }
+
+    public Map<Long,ObjectParent> getObjParentMap(Long brandId, String keyword) {
+        Map<Long,ObjectParent> result = new HashMap<>();
+        ObjectParent objectParent = new ObjectParent();
+        objectParent.setValid(1);
+        if(brandId > 0) {
+            objectParent.setBrandId(brandId);
+        }
+        List<ObjectParent> list = this.objectParentDAO.selectByModel(objectParent);
+        for(ObjectParent o : list){
+            if(keyword == null || keyword.equals("") || o.getId().toString().contains(keyword) || o.getName().contains(keyword)
+                    || o.getObjParentNo().contains(keyword)){
+                result.put(o.getId(), o);
+            }
+        }
+        return result;
+    }
+
+
+    public List<Map<String,String>> getFurnitureObjParentMap(Long furnitureId) {
+        List<Map<String,String>> result = new ArrayList<>();
+        List<CounterTemplate> list = getCounterTemplateList(0l, furnitureId, 0l);
+
+        Map<Long,ObjectParent> objParentMap = getObjParentMap(0L, null);
+
+        for(CounterTemplate o : list){
+            Map<String,String> map = new HashMap<>();
+            if(o.getCounterStyleId() != null && o.getCounterStyleId() > 0){
+                continue;
+            }
+            Long objParentId = o.getObjParentId() == null ? 0 : o.getObjParentId();
+            map.put("id",o.getId().toString());
+            map.put("objParentNo", objParentMap.containsKey(objParentId) ? objParentMap.get(objParentId).getObjParentNo() : "");
+            map.put("objParentName", objParentMap.containsKey(objParentId) ? objParentMap.get(objParentId).getName() : "");
+            map.put("gmtCreate", DateUtil.toDateString(o.getGmtCreate()));
+            result.add(map);
+        }
+        return result;
     }
 }

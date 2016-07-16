@@ -145,7 +145,7 @@ public class UserService {
                 continue; //不属性此角色的用户去掉
             }
 
-            if(keyword == null || userId.toString().contains(keyword) || u.getName().contains(keyword)) {
+            if(keyword == null || keyword.equals("") || userId.toString().contains(keyword) || u.getName().contains(keyword)) {
                 map.put("id", userId.toString());
                 map.put("name", u.getName());
                 map.put("orgId", u.getOrgId().toString());

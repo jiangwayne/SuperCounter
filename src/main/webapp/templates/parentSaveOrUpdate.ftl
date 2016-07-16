@@ -18,6 +18,18 @@
 <form id="form1" method="get" action="${base_addr}/gtb/parent/saveOrUpdate">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
 <input type="hidden" name="id" id="id" value="${oc.id?if_exists}">
+    <tr>
+        <td align="right" class="title2">品牌</td>
+        <td class="con2">
+            <select name="brandId" class="ip" id="orgId">
+			<#if brandList??>
+				<#list brandList as s>
+                    <option value="${s.id?if_exists}" <#if oc.brandId = s.id>selected</#if>>${s.name?if_exists}</option>
+				</#list>
+			</#if>
+            </select>
+        </td>
+    </tr>
 	<tr>
 	<td align="right" class="title2">供应商</td>
 	<td class="con2">
@@ -44,6 +56,10 @@
     <td align="right" class="title2">名称</td>
     <td class="con2"><input type="text" name="name"  class="input1" value="${oc.name?if_exists}" size="40"></td>
   </tr>
+    <tr>
+        <td align="right" class="title2">编号</td>
+        <td class="con2"><input type="text" name="objParentNo"  class="input1" value="${oc.objParentNo?if_exists}" size="40"></td>
+    </tr>
   <tr>
 	  <td align="right" class="title2">二维码</td>
 	  <td class="con2">

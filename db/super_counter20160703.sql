@@ -104,8 +104,8 @@ CREATE TABLE `t_organization` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `t_organization` */
-INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (1,'admin','admin',1,now(),now());
-INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (2,'安装公司A','安装公司',1,now(),now());
+INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (1,'admin','0',1,now(),now());
+INSERT INTO t_organization(id,name,type,valid,gmt_create,gmt_modify) VALUES (2,'安装公司A','5',1,now(),now());
 
 
 /*Table structure for table `t_counter_style` */
@@ -170,9 +170,11 @@ DROP TABLE IF EXISTS `t_object_parent`;
 
 CREATE TABLE `t_object_parent` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '子件名称',
+  `name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '父件名称',
   `qr_code` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '二维码',
   `org_id` bigint(20) DEFAULT NULL COMMENT '供应商id',
+  `brand_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
+  `obj_parent_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '二维码',
   `type` int(11) DEFAULT NULL COMMENT '父件类型(1：图片，2：道具，3：灯片)',
   `length` int(11)DEFAULT NULL COMMENT '长',
   `width` int(11)DEFAULT NULL COMMENT '宽',

@@ -11,6 +11,11 @@ public class ObjectParent {
 
     private Long orgId;
 
+    private Long brandId;
+
+    private String objParentNo;
+
+
     private Integer type;
 
     private Integer length;
@@ -181,5 +186,21 @@ public class ObjectParent {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    public String getObjParentNo() {
+        return objParentNo;
+    }
+
+    public void setObjParentNo(String objParentNo) {
+        this.objParentNo = objParentNo;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 }

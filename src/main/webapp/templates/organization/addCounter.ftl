@@ -9,10 +9,14 @@
     <script src="${base_addr}/static/js/myjs.js"></script>
     <script src="${base_addr}/static/js/jquery-1.3.2.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#brand").val('${model.orgId?if_exists}');
+            <#if model.orgId?if_exists>$("#brand").attr("disabled", "disabled");</#if>
+
             $("#mediaType").val('${model.mediaType?if_exists}');
             $("#styleId").val('${model.styleId?if_exists}');
+
+
         });
     </script>
 
@@ -91,5 +95,6 @@
   </tr>
 </table>
 </form>
+
 </body>
 </html>

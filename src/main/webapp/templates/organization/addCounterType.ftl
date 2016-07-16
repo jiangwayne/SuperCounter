@@ -11,7 +11,58 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#brand").val('${model.orgId?if_exists}');
+
+            <#if model.orgId?if_exists>$("#brand").attr("disabled","disabled");</#if>
+
+            $("#brand").change(function(){
+                $.getJSON("${base_addr}/gtb/org/listFurniture2?brandId=" + $(this).val() + "&keyword=" +$("#keyword").val(),function(data){
+                    $("#furnitureList").children().remove();
+                    for(var i = 0; i < data.length; i++) {
+                        //alert(data[i].id);
+                        var li = $('<li><input type="checkbox" value="'+ data[i].id +'" name="furnitureIds"><span>'+ data[i].name+'</span></li>');
+                        $("#furnitureList").append(li);
+                    }
+                    //alert(data.length);
+                });
+            });
+
+            $("#brand").change();
+            $("#search").click(function(){
+                $("#brand").change();
+            });
         });
+        function addCounterTemplate(){
+            if($("#id").val() == ""){
+                alert('请先保存样式')
+                return false;
+            }
+            var furnitureIds = [];
+            $('input[name="furnitureIds"]:checked').each(function () {
+                furnitureIds.push($(this).val());
+            });
+            if(furnitureIds.length==0){
+                alert('你还没有选择任何家具！')
+                return false;
+            }
+            $.getJSON("${base_addr}/gtb/org/addCounterTemplate?counterStyleId=" + $("#id").val() + "&furnitureIds=" + furnitureIds,function(data){
+                $("#templateList").children().remove();
+                for(var i = 0; i < data.length; i++) {
+                    //alert(data[i].id);
+                    var tr = $('<tr class="con">' +
+                            '<td bgcolor="#FFFFFF">&nbsp;</td>' +
+                            '<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].furnitureNo + '</td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].furnitureName + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' + data[i].gmtCreate + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' +
+                            '<a href="#"><img onclick="deleteCounterTemplate(\'' + data[i].id + '\')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>' +
+                            '</td>' +
+                            '</tr>');
+                    $("#templateList").append(tr);
+                }
+                //alert(data.length);
+            });
+        }
     </script>
 </head>
 
@@ -60,21 +111,35 @@
 <br>
 <strong>添加家具：</strong>
 
-<select id="brand2" class="ip" id="select3">
-    <#if brandList??>
-        <#list brandList as s>
-            <option value="${s.id?if_exists}">${s.name?if_exists}</option>
-        </#list>
-    </#if>
-</select>
-<form action="addCounterType"
-<select name="furniture">
+<table>
+    <tr>
+        <td>
+            <input id="keyword" type="text" class="input1" value="" size="40"  />
+            <input id="search" value="查询" class="blue" type="button">
+        </td>
+    </tr>
+</table>
+<table>
+        <tr>
+        <td class="con2">
+            <div class="people" style="width:200px;">
+                <ul>
+                    <ul id="furnitureList">
 
-</select>
-<input name="button" id="button" value="添加" class="blue" type="button">
-
-<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tbody><tr class="title1">
+                    </ul>
+                </ul>
+            </div>
+        </td>
+        </tr>
+         <tr>
+            <td>
+                <input onclick="addCounterTemplate()" value="添加" class="blue" type="button">
+            </td>
+            </td>
+        </tr>
+</table>
+<table  class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <thead><tr class="title1">
         <td width="5">&nbsp;</td>
         <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
         <td width="150">家具编号</td>
@@ -82,40 +147,21 @@
         <td align="center" width="150">添加日期</td>
         <td align="center" width="150">操作</td>
     </tr>
-    <tr class="con">
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
-        <td bgcolor="#FFFFFF">衣柜</td>
-        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-    </tr>
-    <tr class="con">
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
-        <td bgcolor="#FFFFFF">衣柜</td>
-        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-    </tr>
-    <tr class="con">
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-        <td bgcolor="#FFFFFF"><a href="http://www.digitech.sh.cn/test/laoz/yojianto.html" target="_blank">F01</a></td>
-        <td bgcolor="#FFFFFF">衣柜</td>
-        <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-        <td align="center" bgcolor="#FFFFFF"><a href="#"><img src="../images/sc.jpg" height="18" width="13"></a></td>
-    </tr>
-    <tr class="con">
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-        <td bgcolor="#FFFFFF"><span class="con2">
-      <input name="button" id="button" value="全部删除" class="blue" type="button">
-    </span></td>
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td bgcolor="#FFFFFF">&nbsp;</td>
-        <td align="center" bgcolor="#FFFFFF">&nbsp;</td>
-    </tr>
+    </thead>
+    <tbody id="templateList">
+    <#if counterFurnitureList??>
+        <#list counterFurnitureList as s>
+        <tr class="con">
+            <td bgcolor="#FFFFFF">&nbsp;</td>
+            <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+            <td bgcolor="#FFFFFF">${s.furnitureNo?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.furnitureName?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF"><a href="#"><img onclick="deleteCounterTemplate('${s.id?if_exists}'')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+            </td>
+        </tr>
+        </#list>
+    </#if>
     </tbody></table>
 
 </body>

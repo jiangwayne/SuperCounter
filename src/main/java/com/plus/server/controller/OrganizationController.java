@@ -1,5 +1,8 @@
 package com.plus.server.controller;
 
+import com.plus.server.model.CounterTemplate;
+import com.plus.server.model.Furniture;
+import com.plus.server.model.ObjectParent;
 import com.plus.server.service.OrganizationService;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -9,7 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jiangwulin on 16/7/5.
@@ -61,6 +69,7 @@ public class OrganizationController extends BaseController {
             model.addAttribute("brandList", organizationService.getBrandList(""));
             if(id>0) {
                 model.addAttribute("model", organizationService.getCounterStyle(id));
+                model.addAttribute("counterFurnitureList", organizationService.getCounterFurnitureMap(id));
             }
         }
         return mv;
@@ -113,6 +122,21 @@ public class OrganizationController extends BaseController {
         return mv;
     }
 
+    //根据品牌id,查询家具
+    @RequestMapping(value = "/listFurniture2", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<Furniture> listFurniture2(Long brandId, String keyword) {
+        return organizationService.getFurnitureList2(brandId, keyword);
+    }
+
+    //根据品牌id,查询父件
+    @RequestMapping(value = "/listObjParent", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<ObjectParent> listObjParent(Long brandId, String keyword) {
+        return organizationService.getObjParent(brandId, keyword);
+    }
+
+
     @RequestMapping(value = "/addFurniture", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addFurniture(Model model, Long id, Long orgId, String furnitureNo, String name,  String comment) {
         ModelAndView mv = new ModelAndView("organization/addFurniture.ftl");
@@ -126,6 +150,7 @@ public class OrganizationController extends BaseController {
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
             if(id>0) {
+                model.addAttribute("furnitureObjParentList", organizationService.getFurnitureObjParentMap(id));
                 model.addAttribute("model", organizationService.getFurniture(id));
             }
         }
@@ -158,4 +183,30 @@ public class OrganizationController extends BaseController {
         }
         return mv;
     }
+
+
+    @RequestMapping(value = "/addCounterTemplate", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<Map<String,String>> addCounterTemplate(Long counterStyleId, String furnitureIds) {
+        String[] furnitureIdArray = furnitureIds.split(",");
+        for (int i=0; i<furnitureIdArray.length; i++){
+            organizationService.addCounterTemplate(counterStyleId, Long.parseLong(furnitureIdArray[i]), 0l, 1);
+        }
+
+        return organizationService.getCounterFurnitureMap(counterStyleId);
+
+    }
+
+    @RequestMapping(value = "/addFurnitureTemplate", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<Map<String,String>> addFurnitureTemplate(Long furnitureId, String objParentIds) {
+        String[] objParentIdArray = objParentIds.split(",");
+        for (int i=0; i<objParentIdArray.length; i++){
+            organizationService.addCounterTemplate(0l, furnitureId, Long.parseLong(objParentIdArray[i]), 1);
+        }
+
+        return organizationService.getFurnitureObjParentMap(furnitureId);
+
+    }
+
 }

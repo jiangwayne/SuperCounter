@@ -11,7 +11,58 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#brand").val('${model.orgId?if_exists}');
+
+            <#if model.orgId?if_exists>$("#brand").attr("disabled","disabled");</#if>
+
+            $("#brand").change(function(){
+                $.getJSON("${base_addr}/gtb/org/listObjParent?brandId=" + $(this).val() + "&keyword=" +$("#keyword").val(),function(data){
+                    $("#objParentList").children().remove();
+                    for(var i = 0; i < data.length; i++) {
+                        //alert(data[i].id);
+                        var li = $('<li><input type="checkbox" value="'+ data[i].id +'" name="objParentIds"><span>'+ data[i].name+'</span></li>');
+                        $("#objParentList").append(li);
+                    }
+                    //alert(data.length);
+                });
+            });
+
+            $("#brand").change();
+            $("#search").click(function(){
+                $("#brand").change();
+            });
         });
+        function addCounterTemplate(){
+            if($("#id").val() == ""){
+                alert('请先保存样式')
+                return false;
+            }
+            var objParentIds = [];
+            $('input[name="objParentIds"]:checked').each(function () {
+                objParentIds.push($(this).val());
+            });
+            if(objParentIds.length==0){
+                alert('你还没有选择任何父件！')
+                return false;
+            }
+            $.getJSON("${base_addr}/gtb/org/addFurnitureTemplate?furnitureId=" + $("#id").val() + "&objParentIds=" + objParentIds,function(data){
+                $("#templateList").children().remove();
+                for(var i = 0; i < data.length; i++) {
+                    //alert(data[i].id);
+                    var tr = $('<tr class="con">' +
+                            '<td bgcolor="#FFFFFF">&nbsp;</td>' +
+                            '<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentNo + '</td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentName + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' + data[i].gmtCreate + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' +
+                            '<a href="#"><img onclick="deleteCounterTemplate(\'' + data[i].id + '\')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>' +
+                            '</td>' +
+                            '</tr>');
+                    $("#templateList").append(tr);
+                }
+                //alert(data.length);
+            });
+        }
     </script>
 </head>
 
@@ -55,5 +106,66 @@
     </tr>
   </table>
 </form>
+
+<br>
+<hr>
+<br>
+<div class="icon">包括父件</div>
+<br>
+<strong>添加父件：</strong>
+
+<table>
+    <tr>
+        <td>
+            <input id="keyword" type="text" class="input1" value="" size="40"  />
+            <input id="search" value="查询" class="blue" type="button">
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td class="con2">
+            <div class="people" style="width:200px;">
+                <ul>
+                    <ul id="objParentList">
+
+                    </ul>
+                </ul>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input onclick="addCounterTemplate()" value="添加" class="blue" type="button">
+        </td>
+        </td>
+    </tr>
+</table>
+<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <thead><tr class="title1">
+        <td width="5">&nbsp;</td>
+        <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
+        <td width="150">父件编号</td>
+        <td>父件名称</td>
+        <td align="center" width="150">添加日期</td>
+        <td align="center" width="150">操作</td>
+    </tr>
+    </thead>
+    <tbody id ="templateList">
+    <#if furnitureObjParentList??>
+        <#list furnitureObjParentList as s>
+        <tr class="con">
+            <td bgcolor="#FFFFFF">&nbsp;</td>
+            <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
+            <td bgcolor="#FFFFFF">${s.objParentNo?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.objParentName?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF"><a href="#"><img onclick="deleteCounterTemplate('${s.id?if_exists}'')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+            </td>
+        </tr>
+        </#list>
+    </#if>
+    </tbody>
+    </thead></table>
 </body>
 </html>

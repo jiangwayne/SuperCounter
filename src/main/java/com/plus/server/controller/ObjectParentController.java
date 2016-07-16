@@ -55,7 +55,10 @@ public class ObjectParentController extends BaseController {
 		Organization org = new Organization();
 		org.setType("3");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
 		List<Organization> orgList = objectParentService.selectOrg(org);
+		org.setType("1");
+		List<Organization> brandList = objectParentService.selectOrg(org);
 		model.addAttribute("orgList", orgList);
+		model.addAttribute("brandList",brandList);
 		if(id != null){
 			ObjectParent objectParent = null;
 			try {

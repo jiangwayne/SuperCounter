@@ -6,6 +6,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
     <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="obj_parent_no" jdbcType="VARCHAR" property="objParentNo" />
+    <result column="brand_id" jdbcType="BIGINT" property="brandId" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="length" jdbcType="INTEGER" property="length" />
     <result column="width" jdbcType="INTEGER" property="width" />
@@ -22,7 +24,7 @@
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, qr_code, org_id, type, length, width, height, length_up, width_up, height_up, 
+    id, name, qr_code, org_id, brand_id,obj_parent_no, type, length, width, height, length_up, width_up, height_up,
     pic_url, material, content, valid, remark, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -47,6 +49,12 @@
       </if>
       <if test="orgId != null">
         and org_id = #{orgId,jdbcType=BIGINT}
+      </if>
+      <if test="brandId != null">
+        and brand_id = #{brandId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentNo != null">
+        and obj_parent_no = #{objParentNo,jdbcType=VARCHAR}
       </if>
       <if test="type != null">
         and type = #{type,jdbcType=INTEGER}
@@ -109,6 +117,12 @@
       <if test="orgId != null">
         and org_id = #{orgId,jdbcType=BIGINT}
       </if>
+      <if test="brandId != null">
+        and brand_id = #{brandId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentNo != null">
+        and obj_parent_no like CONCAT('%',#{objParentNo,jdbcType=VARCHAR},'%')
+      </if>
       <if test="type != null">
         and type = #{type,jdbcType=INTEGER}
       </if>
@@ -159,14 +173,15 @@
   </delete>
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ObjectParent" useGeneratedKeys="true">
     insert into t_object_parent (id, name, qr_code, 
-      org_id, type, length, 
+      org_id,brand_id,obj_parent_no, type, length,
       width, height, length_up, 
       width_up, height_up, pic_url, 
       material, content, valid, 
       remark, gmt_create, gmt_modify
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, 
-      #{orgId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{length,jdbcType=INTEGER}, 
+      #{orgId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT},#{objParentNo,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{length,jdbcType=INTEGER},
       #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{lengthUp,jdbcType=INTEGER}, 
       #{widthUp,jdbcType=INTEGER}, #{heightUp,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, 
       #{material,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
@@ -187,6 +202,12 @@
       </if>
       <if test="orgId != null">
         org_id,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="objParentNo != null">
+        obj_parent_no,
       </if>
       <if test="type != null">
         type,
@@ -244,6 +265,12 @@
       <if test="orgId != null">
         #{orgId,jdbcType=BIGINT},
       </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentNo != null">
+        #{objParentNo,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
@@ -300,6 +327,12 @@
       <if test="orgId != null">
         org_id = #{orgId,jdbcType=BIGINT},
       </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentNo != null">
+        obj_parent_no = #{objParentNo,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
@@ -350,6 +383,8 @@
     set name = #{name,jdbcType=VARCHAR},
       qr_code = #{qrCode,jdbcType=VARCHAR},
       org_id = #{orgId,jdbcType=BIGINT},
+      brand_id = #{brandId,jdbcType=BIGINT},
+      obj_parent_no = #{objParentNo,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       length = #{length,jdbcType=INTEGER},
       width = #{width,jdbcType=INTEGER},

@@ -160,7 +160,7 @@ public class UserController extends BaseController {
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", userService.getBrandList(""));
-            model.addAttribute("supplierList", Support.getInstance().getOrganizationList("供应商",""));
+            model.addAttribute("supplierList", Support.getInstance().getOrganizationList("3",""));//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
             if(id>0) {
                 model.addAttribute("model", userService.getUser(id));
             }
