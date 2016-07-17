@@ -10,7 +10,7 @@
     <script src="${base_addr}/static/js/jquery-1.3.2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#brand").val('${model.orgId?if_exists}');
+            $("#brand").val('${model.parentId?if_exists}');
             <#if model.orgId?if_exists>$("#brand").attr("disabled", "disabled");</#if>
 
             $("#mediaType").val('${model.mediaType?if_exists}');
@@ -94,7 +94,177 @@
     <input type="button" name="button" id="button" value="返回" class="hui" onclick="location.href='listCounter'" /></td>
   </tr>
 </table>
-</form>
+
+<#if model.id??>
+<br>
+<div class="icon">包括家具</div>
+<strong>添加家具：</strong>
+		<select id="addFurIdSelect">  
+			<#if furList??>
+			<#list furList as s>
+				<option value="${s.id?if_exists}" >${s.name?if_exists}</option>
+			</#list>
+			</#if>  
+        </select>  
+        <input name="button" id="button" value="添加" class="blue" type="button" onclick="addFurnitureRel()">
+<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr class="title1">
+    <td width="5">&nbsp;</td>
+    <td width="20"></td>
+    <td width="150">家具编号</td>
+    <td width="150">家具名称</td>
+    <td align="center" width="150">添加日期</td>
+    <td align="center" width="150">操作</td>
+  </tr>
+  <#if counterDtlList??>
+  <#assign index = 0>
+	<#list counterDtlList as s>
+  	<#if s.furniture??>
+  	<#assign index = index+1>
+	  <tr class="con">
+	    <td bgcolor="#FFFFFF">&nbsp;</td>
+	    <td bgcolor="#FFFFFF">${index}</td>
+	    <td bgcolor="#FFFFFF">${s.furniture.furnitureNo?if_exists}</td>
+	    <td bgcolor="#FFFFFF">${s.furniture.name?if_exists}</td>
+	    <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
+	    <td align="center" bgcolor="#FFFFFF"><a href="javascript: deleteDtlRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a></td>
+	  </tr>
+	  </#if>  
+	</#list>
+	</#if>  
+  
+</tbody></table>
+<br>
+<div class="icon">包括父件</div>
+<strong>添加父件：</strong>
+		<select id="furIdSelectForObjParent" onchange="loadObjParent()" >  
+			<#if furList??>
+			<#list furList as s>
+				<option value="${s.id?if_exists}" >${s.name?if_exists}</option>
+			</#list>
+			</#if>  
+        </select>  
+        <select id="objParentSelect">
+			<option value="-1" ></option>
+	    </select>  
+	    位置：<input type="text" id="objParentSiteNo" class="input1" value="">
+        <input name="button" id="button" value="添加" class="blue" type="button" onclick="addObjParentRel()">
+<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr class="title1">
+    <td width="5">&nbsp;</td>
+    <td width="20"></td>
+    <td width="150">父件编号</td>
+    <td width="150">父件名称</td>
+    <td width="150">位置</td>
+    <td align="center" width="150">添加日期</td>
+    <td align="center" width="150">操作</td>
+  </tr>
+  <#if counterDtlList??>
+  <#assign index = 0>
+	<#list counterDtlList as s>
+  	<#if s.objectParent??>
+  	<#assign index = index+1>
+	  <tr class="con">
+	    <td bgcolor="#FFFFFF">&nbsp;</td>
+	    <td bgcolor="#FFFFFF">${index}</td>
+	    <td bgcolor="#FFFFFF">${s.objectParent.objParentNo?if_exists}</td>
+	    <td bgcolor="#FFFFFF">${s.objectParent.name?if_exists}</td>
+	    <td bgcolor="#FFFFFF">${s.siteNo?if_exists}</td>
+	    <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
+	    <td align="center" bgcolor="#FFFFFF"><a href="javascript: deleteDtlRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a></td>
+	  </tr>
+	  </#if>  
+	</#list>
+	</#if>  
+  
+</tbody></table>
+</#if>
 
 </body>
+<script>
+function addFurnitureRel(){
+	var furId = $('#addFurIdSelect').val();
+	var counterOrgId= '${model.id?if_exists}';
+	$.ajax({
+		url: '${base_addr}/gtb/org/addOrUpdateCounterDtl' ,
+        secureuri: false,
+        data: {counterOrgId: counterOrgId,furId : furId},
+        dataType: 'json',
+        success: function (data) {
+        	if(data.success){
+        		location.reload();
+        	}
+        },
+        error: function (data) {
+            alert("添加失败--"+data);
+        }
+    });
+}
+function deleteDtlRel(dtlId){
+	if(!confirm('确定删除？')){
+		return;
+	}
+	$.ajax({
+		url: '${base_addr}/gtb/org/deleteCounterDtl' ,
+        secureuri: false,
+        data: {dtlId: dtlId},
+        dataType: 'json',
+        success: function (data) {
+        	if(data.success){
+        		alert('删除成功');
+        		location.reload();
+        	}
+        },
+        error: function (data) {
+            alert("删除失败--"+data);
+        }
+    });
+}
+function loadObjParent(){
+	var furId = $('#furIdSelectForObjParent').val();
+	$.ajax({
+		url: '${base_addr}/gtb/org/loadObjParentByFurId' ,
+        secureuri: false,
+        data: {furId: furId},
+        dataType: 'json',
+        success: function (data) {
+        	if(data.success && data.objParentList && data.objParentList.length > 0){
+        		var objParentList = data.objParentList;
+        		var objParentSelect = $('#objParentSelect');
+        		objParentSelect.empty();
+        		objParentSelect.append('<option value="-1" ></option>');
+        		for(var i = 0; i < objParentList.length; i++){
+        			var objParent = objParentList[i];
+        			objParentSelect.append("<option value='"+objParent.id+"'>"+objParent.name+"</option>");
+        		}
+        	}
+        },
+        error: function (data) {
+            alert("添加失败--"+data);
+        }
+    });
+}
+<#if model.id??>
+loadObjParent();
+</#if>
+function addObjParentRel(){
+	var objParentId = $('#objParentSelect').val();
+	var objParentSiteNo = $('#objParentSiteNo').val();
+	var counterOrgId= '${model.id?if_exists}';
+	$.ajax({
+		url: '${base_addr}/gtb/org/addOrUpdateCounterDtl' ,
+        secureuri: false,
+        data: {counterOrgId: counterOrgId,objParentId : objParentId, siteNo : objParentSiteNo},
+        dataType: 'json',
+        success: function (data) {
+        	if(data.success){
+        		location.reload();
+        	}
+        },
+        error: function (data) {
+            alert("添加失败--"+data);
+        }
+    });
+}
+</script>
 </html>

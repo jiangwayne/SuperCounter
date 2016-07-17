@@ -8,8 +8,10 @@ public class CounterDetails {
     private Long orgId;
 
     private Long objParentId;
-
+    private ObjectParent objectParent;
+    
     private Long furnitureId;
+    private Furniture furniture;
 
     private Integer count;
 
@@ -21,7 +23,23 @@ public class CounterDetails {
 
     private Date gmtModify;
 
-    public Long getId() {
+    public ObjectParent getObjectParent() {
+		return objectParent;
+	}
+
+	public void setObjectParent(ObjectParent objectParent) {
+		this.objectParent = objectParent;
+	}
+
+	public Furniture getFurniture() {
+		return furniture;
+	}
+
+	public void setFurniture(Furniture furniture) {
+		this.furniture = furniture;
+	}
+
+	public Long getId() {
         return id;
     }
 

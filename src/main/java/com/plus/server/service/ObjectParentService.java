@@ -88,7 +88,7 @@ public class ObjectParentService {
 		return this.parentChildDAO.selectByModel(param);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveOrUpdate(ObjectParent objectParent) {
 		log.info("新增或更新父件，objectParent=" + JSON.toJSONString(objectParent));
 		Date curDate= new Date();

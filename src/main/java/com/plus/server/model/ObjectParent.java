@@ -1,6 +1,7 @@
 package com.plus.server.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class ObjectParent {
     private Long id;
@@ -17,6 +18,7 @@ public class ObjectParent {
 
 
     private Integer type;
+    private List<Integer> typeList;
 
     private Integer length;
 
@@ -203,4 +205,12 @@ public class ObjectParent {
     public void setBrandId(Long brandId) {
         this.brandId = brandId;
     }
+
+	public List<Integer> getTypeList() {
+		return typeList;
+	}
+
+	public void setTypeList(List<Integer> typeList) {
+		this.typeList = typeList;
+	}
 }

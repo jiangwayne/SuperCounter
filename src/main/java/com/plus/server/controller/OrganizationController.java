@@ -1,10 +1,9 @@
 package com.plus.server.controller;
 
-import com.plus.server.model.CounterTemplate;
-import com.plus.server.model.Furniture;
-import com.plus.server.model.ObjectParent;
-import com.plus.server.service.OrganizationService;
-import com.wordnik.swagger.annotations.Api;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+import com.plus.server.common.vo.resp.BaseResp;
+import com.plus.server.common.vo.resp.LoadObjParentByFurIdResp;
+import com.plus.server.model.CounterDetails;
+import com.plus.server.model.Furniture;
+import com.plus.server.model.ObjectParent;
+import com.plus.server.model.Organization;
+import com.plus.server.service.OrganizationService;
+import com.wordnik.swagger.annotations.Api;
 
 /**
  * Created by jiangwulin on 16/7/5.
@@ -94,6 +99,84 @@ public class OrganizationController extends BaseController {
 
     @RequestMapping(value = "/addCounter", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addCounter(Model model, Long id, Long orgId, String mediaType, Long styleId,
+                                   String name, String address, String longLat, String phone,
+                                   String counterNo, String comment) {
+        ModelAndView mv = new ModelAndView("organization/addCounter.ftl");
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            organizationService.saveCounter(id, orgId, mediaType, styleId,
+                     name,  address,  longLat,  phone, counterNo,  comment);
+            mv = new ModelAndView("organization/listCounter.ftl");
+            model.addAttribute("list", organizationService.getCounterList(""));
+            return mv;
+        }else{
+            model.addAttribute("brandList", organizationService.getBrandList(""));
+            model.addAttribute("styleList", organizationService.getCounterStyleList(""));
+            if(id>0) {
+            	Organization counter = organizationService.getOrg(id);
+            	model.addAttribute("model", counter);
+            	if(counter != null  && counter.getParentId() != null){
+            		List<Furniture> furList = organizationService.getFurnitureList2(counter.getParentId(), null);
+            		model.addAttribute("furList", furList);
+            	}
+            	List<CounterDetails> counterDtlList = organizationService.getCounterDtl(id);
+            	model.addAttribute("counterDtlList", counterDtlList);
+            	System.out.println(JSON.toJSONString(counterDtlList));
+            }
+        }
+        return mv;
+    }
+    @RequestMapping(value = "/loadObjParentByFurId", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public LoadObjParentByFurIdResp loadObjParentByFurId(Long furId) {
+    	LoadObjParentByFurIdResp ret = new LoadObjParentByFurIdResp();
+    	List<ObjectParent> objParentList = organizationService.loadObjParentByFurId(furId);
+    	ret.setObjParentList(objParentList);
+    	ret.setSuccess(true);
+    	return ret;
+	}
+    @RequestMapping(value = "/addOrUpdateCounterDtl", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public BaseResp addOrUpdateCounterDtl(Long dtlId,Long counterOrgId, Long furId, Long objParentId, String siteNo) {
+    	BaseResp ret = new BaseResp();
+    	Date now = new Date();
+    	CounterDetails d = new CounterDetails();
+    	d.setId(dtlId);
+    	d.setOrgId(counterOrgId);
+    	d.setFurnitureId(furId);
+    	d.setObjParentId(objParentId);
+    	d.setSiteNo(siteNo);
+    	d.setValid(1);
+    	if(dtlId == null)
+    		d.setGmtCreate(now);
+    	else
+    		d.setGmtModify(now);
+    	organizationService.addOrUpdateCounterDtl(d);
+    	
+    	ret.setSuccess(true);
+    	return ret;
+	}
+    @RequestMapping(value = "/deleteCounterDtl", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public BaseResp deleteCounterDtl(Long dtlId) {
+    	BaseResp ret = new BaseResp();
+    	if(dtlId == null || dtlId <= 0){
+    		ret.setMsg("参数错误");
+    		return ret;
+    	}
+    	
+    	Date now = new Date();
+    	CounterDetails d = new CounterDetails();
+    	d.setId(dtlId);
+    	d.setValid(-1);
+    	d.setGmtModify(now);
+    	organizationService.addOrUpdateCounterDtl(d);
+    	ret.setSuccess(true);
+    	return ret;
+	}
+    @RequestMapping(value = "/addCounterDetail", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView addCounterDetail(Model model, Long id, Long orgId, String mediaType, Long styleId,
                                    String name, String address, String longLat, String phone,
                                    String counterNo, String comment) {
         ModelAndView mv = new ModelAndView("organization/addCounter.ftl");

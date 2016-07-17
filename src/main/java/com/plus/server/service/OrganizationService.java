@@ -1,14 +1,30 @@
 package com.plus.server.service;
 
-import com.plus.server.common.util.DateUtil;
-import com.plus.server.dal.*;
-import com.plus.server.model.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import com.plus.server.common.util.DateUtil;
+import com.plus.server.dal.CounterDetailsDAO;
+import com.plus.server.dal.CounterStyleDAO;
+import com.plus.server.dal.CounterTemplateDAO;
+import com.plus.server.dal.FurnitureDAO;
+import com.plus.server.dal.ObjectParentDAO;
+import com.plus.server.dal.OrganizationDAO;
+import com.plus.server.model.CounterDetails;
+import com.plus.server.model.CounterStyle;
+import com.plus.server.model.CounterTemplate;
+import com.plus.server.model.Furniture;
+import com.plus.server.model.ObjectParent;
+import com.plus.server.model.Organization;
 
 /**
  * Created by jiangwulin on 16/7/9.
@@ -29,7 +45,8 @@ public class OrganizationService {
     @Autowired
     private CounterTemplateDAO counterTemplateDAO;
 
-
+    @Autowired
+    private CounterDetailsDAO counterDetailsDAO;
     @Autowired
     private ObjectParentDAO objectParentDAO;
 
@@ -118,13 +135,14 @@ public class OrganizationService {
         return result;
     }
 
-
+	@Transactional(rollbackFor = Exception.class)
     public void saveCounter(Long id, Long orgId, String mediaType, Long styleId, String name,
                             String address, String longLat, String phone, String counterNo, String comment) {
         Organization organization = new Organization();
         if(id > 0) {
             organization = organizationDAO.selectByPrimaryKey(id);
         }
+        Long oldStyleId = organization.getStyleId();
         organization.setParentId(orgId);
         organization.setName(name);
         organization.setType("2");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
@@ -144,7 +162,56 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
+        oldStyleId = oldStyleId == null?-1L:oldStyleId;
+        if(styleId != null && styleId.longValue() != oldStyleId){
+        	CounterDetails param = new CounterDetails();
+    		param.setOrgId(organization.getId());
+    		param.setValid(1);
+    		List<CounterDetails> existDtlList = counterDetailsDAO.selectByModel(param);
+    		if(existDtlList != null && existDtlList.size() > 0)
+    		for(CounterDetails dtl : existDtlList){
+    			CounterDetails delParam = new CounterDetails();
+    			delParam.setId(dtl.getId());
+    			delParam.setValid(-1);
+    			counterDetailsDAO.updateByPrimaryKeySelective(delParam);
+    		}
+    		
+        	CounterTemplate ctParam = new CounterTemplate();
+        	ctParam.setCounterStyleId(styleId);
+        	ctParam.setValid(1);
+        	List<CounterTemplate> ctList = counterTemplateDAO.selectByModel(ctParam);
+        	if(ctList != null && ctList.size() > 0){
+        		for (int i = 0; i < ctList.size(); i++) {
+        			CounterTemplate ct = ctList.get(i);
+            		CounterDetails cd = new CounterDetails();
+            		cd.setOrgId(organization.getId());
+            		cd.setObjParentId(ct.getObjParentId());
+            		cd.setFurnitureId(ct.getFurnitureId());
+            		cd.setCount(ct.getCount() == null? 1 : ct.getCount());
+            		cd.setValid(1);
+            		cd.setGmtCreate(new Date());
+            		counterDetailsDAO.insert(cd);
+				}
+        		
+        	}
+        }
     }
+	public List<ObjectParent> loadObjParentByFurId(Long furId) {
+		// TODO Auto-generated method stub
+		return objectParentDAO.loadObjParentByFurId(furId);
+	}
+	public List<CounterDetails> getCounterDtl(Long counterId) {
+		CounterDetails param = new CounterDetails();
+		param.setOrgId(counterId);
+		param.setValid(1);
+		return  counterDetailsDAO.selectByModel(param);
+	}
+	public void addOrUpdateCounterDtl(CounterDetails d) {
+		if(d.getId()!=null)
+			counterDetailsDAO.updateByPrimaryKeySelective(d);
+		else
+			counterDetailsDAO.insert(d);
+	}
 
     public List<Map<String,String>> getCounterList(String keyword) {
         return Support.getInstance().getCounterList(keyword);

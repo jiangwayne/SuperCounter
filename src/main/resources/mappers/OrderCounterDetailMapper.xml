@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.plus.server.dal.CounterDetailsDAO">
-  <resultMap id="BaseResultMap" type="com.plus.server.model.CounterDetails">
+<mapper namespace="com.plus.server.dal.OrderCounterDetailDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.OrderCounterDetail">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="org_id" jdbcType="BIGINT" property="orgId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="order_counter_id" jdbcType="BIGINT" property="orderCounterId" />
     <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
-    <result column="furniture_id" jdbcType="BIGINT" property="furnitureId" />
-    <result column="count" jdbcType="INTEGER" property="count" />
-    <result column="site_no" jdbcType="VARCHAR" property="siteNo" />
+    <result column="obj_parent_count" jdbcType="INTEGER" property="objParentCount" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
-    <association property="objectParent" column="obj_parent_id" select="com.plus.server.dal.ObjectParentDAO.selectByPrimaryKey" ></association>
-    <association property="furniture" column="furniture_id" select="com.plus.server.dal.FurnitureDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
-    id, org_id, obj_parent_id, furniture_id, count, site_no, valid, gmt_create, gmt_modify
+    id, order_id, order_counter_id, obj_parent_id, obj_parent_count, comment, valid, 
+    gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_counter_details
+    from t_order_counter_detail
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="selectByModel" parameterType="com.plus.server.model.CounterDetails" resultMap="BaseResultMap">
+  <select id="selectByModel" parameterType="com.plus.server.model.OrderCounterDetail" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_counter_details
+    from t_order_counter_detail
     <where>
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
-      <if test="orgId != null">
-        and org_id = #{orgId,jdbcType=BIGINT}
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+      <if test="orderCounterId != null">
+        and order_counter_id = #{orderCounterId,jdbcType=BIGINT}
       </if>
       <if test="objParentId != null">
         and obj_parent_id = #{objParentId,jdbcType=BIGINT}
       </if>
-      <if test="furnitureId != null">
-        and furniture_id = #{furnitureId,jdbcType=BIGINT}
+      <if test="objParentCount != null">
+        and obj_parent_count = #{objParentCount,jdbcType=INTEGER}
       </if>
-      <if test="count != null">
-        and count = #{count,jdbcType=INTEGER}
-      </if>
-      <if test="siteNo != null">
-        and site_no = #{siteNo,jdbcType=VARCHAR}
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -57,28 +56,28 @@
       </if>
     </where>
   </select>
-  <select id="selectByModelLike" parameterType="com.plus.server.model.CounterDetails" resultMap="BaseResultMap">
+  <select id="selectByModelLike" parameterType="com.plus.server.model.OrderCounterDetail" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_counter_details
+    from t_order_counter_detail
     <where>
       <if test="id != null">
         and id = #{id,jdbcType=BIGINT}
       </if>
-      <if test="orgId != null">
-        and org_id = #{orgId,jdbcType=BIGINT}
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+      <if test="orderCounterId != null">
+        and order_counter_id = #{orderCounterId,jdbcType=BIGINT}
       </if>
       <if test="objParentId != null">
         and obj_parent_id = #{objParentId,jdbcType=BIGINT}
       </if>
-      <if test="furnitureId != null">
-        and furniture_id = #{furnitureId,jdbcType=BIGINT}
+      <if test="objParentCount != null">
+        and obj_parent_count = #{objParentCount,jdbcType=INTEGER}
       </if>
-      <if test="count != null">
-        and count = #{count,jdbcType=INTEGER}
-      </if>
-      <if test="siteNo != null">
-        and site_no like CONCAT('%',#{siteNo,jdbcType=VARCHAR},'%')
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
       </if>
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
@@ -92,39 +91,39 @@
     </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_counter_details
+    delete from t_order_counter_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.CounterDetails" useGeneratedKeys="true">
-    insert into t_counter_details (id, org_id, obj_parent_id, 
-      furniture_id, count, site_no, 
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.OrderCounterDetail" useGeneratedKeys="true">
+    insert into t_order_counter_detail (id, order_id, order_counter_id, 
+      obj_parent_id, obj_parent_count, comment, 
       valid, gmt_create, gmt_modify
       )
-    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{objParentId,jdbcType=BIGINT}, 
-      #{furnitureId,jdbcType=BIGINT}, #{count,jdbcType=INTEGER}, #{siteNo,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{orderCounterId,jdbcType=BIGINT}, 
+      #{objParentId,jdbcType=BIGINT}, #{objParentCount,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
       #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.CounterDetails" useGeneratedKeys="true">
-    insert into t_counter_details
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.OrderCounterDetail" useGeneratedKeys="true">
+    insert into t_order_counter_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="orgId != null">
-        org_id,
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderCounterId != null">
+        order_counter_id,
       </if>
       <if test="objParentId != null">
         obj_parent_id,
       </if>
-      <if test="furnitureId != null">
-        furniture_id,
+      <if test="objParentCount != null">
+        obj_parent_count,
       </if>
-      <if test="count != null">
-        count,
-      </if>
-      <if test="siteNo != null">
-        site_no,
+      <if test="comment != null">
+        comment,
       </if>
       <if test="valid != null">
         valid,
@@ -140,20 +139,20 @@
       <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="orgId != null">
-        #{orgId,jdbcType=BIGINT},
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCounterId != null">
+        #{orderCounterId,jdbcType=BIGINT},
       </if>
       <if test="objParentId != null">
         #{objParentId,jdbcType=BIGINT},
       </if>
-      <if test="furnitureId != null">
-        #{furnitureId,jdbcType=BIGINT},
+      <if test="objParentCount != null">
+        #{objParentCount,jdbcType=INTEGER},
       </if>
-      <if test="count != null">
-        #{count,jdbcType=INTEGER},
-      </if>
-      <if test="siteNo != null">
-        #{siteNo,jdbcType=VARCHAR},
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
@@ -166,23 +165,23 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.CounterDetails">
-    update t_counter_details
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.OrderCounterDetail">
+    update t_order_counter_detail
     <set>
-      <if test="orgId != null">
-        org_id = #{orgId,jdbcType=BIGINT},
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCounterId != null">
+        order_counter_id = #{orderCounterId,jdbcType=BIGINT},
       </if>
       <if test="objParentId != null">
         obj_parent_id = #{objParentId,jdbcType=BIGINT},
       </if>
-      <if test="furnitureId != null">
-        furniture_id = #{furnitureId,jdbcType=BIGINT},
+      <if test="objParentCount != null">
+        obj_parent_count = #{objParentCount,jdbcType=INTEGER},
       </if>
-      <if test="count != null">
-        count = #{count,jdbcType=INTEGER},
-      </if>
-      <if test="siteNo != null">
-        site_no = #{siteNo,jdbcType=VARCHAR},
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
       </if>
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
@@ -196,19 +195,19 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.CounterDetails">
-    update t_counter_details
-    set org_id = #{orgId,jdbcType=BIGINT},
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.OrderCounterDetail">
+    update t_order_counter_detail
+    set order_id = #{orderId,jdbcType=BIGINT},
+      order_counter_id = #{orderCounterId,jdbcType=BIGINT},
       obj_parent_id = #{objParentId,jdbcType=BIGINT},
-      furniture_id = #{furnitureId,jdbcType=BIGINT},
-      count = #{count,jdbcType=INTEGER},
-      site_no = #{siteNo,jdbcType=VARCHAR},
+      obj_parent_count = #{objParentCount,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="deleteLogicByIds">
-    update t_counter_details set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+    update t_order_counter_detail set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
 </mapper>

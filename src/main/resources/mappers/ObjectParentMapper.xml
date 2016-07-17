@@ -59,6 +59,12 @@
       <if test="type != null">
         and type = #{type,jdbcType=INTEGER}
       </if>
+      <if test="typeList != null">
+        and type in
+        <foreach collection="typeList" open="(" close=")" separator="," item="item" >
+        	#{item}
+        </foreach>
+      </if>
       <if test="length != null">
         and length = #{length,jdbcType=INTEGER}
       </if>
@@ -125,6 +131,12 @@
       </if>
       <if test="type != null">
         and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="typeList != null">
+        and type in
+        <foreach collection="typeList" open="(" close=")" separator="," item="item" >
+        	#{item}
+        </foreach>
       </if>
       <if test="length != null">
         and length = #{length,jdbcType=INTEGER}
@@ -404,4 +416,11 @@
   <update id="deleteLogicByIds">
     update t_object_parent set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
   </update>
+  <select id="loadObjParentByFurId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_parent
+    where id in (select obj_parent_id from t_counter_template 
+    				where furniture_id=#{furId} and counter_style_id=0)
+  </select>
 </mapper>

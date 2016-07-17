@@ -20,4 +20,6 @@ public interface ObjectParentDAO {
     int updateByPrimaryKeySelective(ObjectParent record);
 
     int updateByPrimaryKey(ObjectParent record);
+
+	List<ObjectParent> loadObjParentByFurId(Long furId);
 }

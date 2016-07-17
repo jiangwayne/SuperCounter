@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `t_organization`;
 CREATE TABLE `t_organization` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '组织名',
-  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(admin,品牌，柜台，供应商，物流公司，安装公司)',
+  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(admin,品牌，柜台，供应商，物流公司，安装公司)(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)',
   `address` varchar(256) DEFAULT NULL COMMENT '地址',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父组织id',
   `phone` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '电话',
