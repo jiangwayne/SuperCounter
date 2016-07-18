@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,6 +35,7 @@ public class AssignTaskController extends BaseController {
 	private ObjectParentService objectParentService;
 	@Autowired
 	private OrganizationService organizationService;
+
 
 	@RequestMapping(value = "/toAssign")
 	public ModelAndView toAssign() {
@@ -223,4 +226,16 @@ public class AssignTaskController extends BaseController {
 		return ret;
 	}
 
+	@RequestMapping(value="/allocateErectorTask")
+	public ModelAndView addErectorTask() {
+		ModelAndView mv = new ModelAndView("task/allocateErectorTask.ftl");
+		return mv;
+	}
+
+	@RequestMapping(value="/listErectorTask", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView listErectorTask(Model model, String keyWord) {
+		ModelAndView mv = new ModelAndView("task/listErectorTask.ftl");
+		model.addAttribute("list", assignTaskService.listErectorTask(keyWord));
+		return mv;
+	}
 }

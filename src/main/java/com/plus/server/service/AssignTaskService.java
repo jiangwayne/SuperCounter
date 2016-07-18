@@ -52,6 +52,9 @@ public class AssignTaskService {
 	@Autowired
 	private OrderSupplierDetailDAO orderSupplierDetailDAO;
 
+//	@Autowired
+//	private OrderSetupDao
+
 	public List<Furniture> selectFurByModel(Furniture o) {
 		List<Furniture> list = this.furnitureDAO.selectByModelLike(o);
 		return list;
@@ -204,6 +207,10 @@ public class AssignTaskService {
 //			}
 		}
 	}
-	
 
+
+	public List<Map<String, String>> listErectorTask(String keyWord) {
+
+		return null;
+	}
 }
