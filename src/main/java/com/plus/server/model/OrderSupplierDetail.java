@@ -10,6 +10,7 @@ public class OrderSupplierDetail {
     private Long orderSupplierId;
 
     private Long objParentId;
+    private ObjectParent objParent;
 
     private Integer objParentCount;
 
@@ -53,7 +54,15 @@ public class OrderSupplierDetail {
 
     private Date gmtModify;
 
-    public Long getId() {
+    public ObjectParent getObjParent() {
+		return objParent;
+	}
+
+	public void setObjParent(ObjectParent objParent) {
+		this.objParent = objParent;
+	}
+
+	public Long getId() {
         return id;
     }
 

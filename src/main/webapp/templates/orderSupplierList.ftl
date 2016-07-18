@@ -47,7 +47,7 @@
 	      <td bgcolor="#FFFFFF">${s.orgSupplier.name?if_exists}</td>
 	      <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
 	      <td align="center" bgcolor="#FFFFFF">
-		      <a href="toEdit?id=${s.id?if_exists}" target="_self">详细</a>
+		      <a href="toEditDtl?orderSupplierId=${s.id?if_exists}" target="_self">详细</a>
 	      </td>
     
       </tr>

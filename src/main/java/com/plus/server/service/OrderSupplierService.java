@@ -12,7 +12,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.plus.server.common.PageDefault;
 import com.plus.server.dal.OrderSupplierDAO;
+import com.plus.server.dal.OrderSupplierDetailDAO;
 import com.plus.server.model.OrderSupplier;
+import com.plus.server.model.OrderSupplierDetail;
 
 @Service
 public class OrderSupplierService {
@@ -20,6 +22,8 @@ public class OrderSupplierService {
 
 	@Autowired
 	private OrderSupplierDAO orderSupplierDAO;
+	@Autowired
+	private OrderSupplierDetailDAO orderSupplierDetailDAO;
 
 	public PageInfo<OrderSupplier> selectByModel(OrderSupplier orderSupplier, Integer page, Integer pageSize) {
 		log.info("查询生产加工单，orderSupplier=" + JSON.toJSONString(orderSupplier));
@@ -52,6 +56,24 @@ public class OrderSupplierService {
 			throw new Exception("参数为null");
 		}
 		return this.orderSupplierDAO.selectByPrimaryKey(id);
+	}
+	public List<OrderSupplierDetail> selectDtlByPid(Long orderSupplierId) throws Exception{
+		log.info("查询生产加工单明细，orderSupplierId=" + orderSupplierId);
+		if(orderSupplierId == null){
+			throw new Exception("参数为null");
+		}
+		OrderSupplierDetail param = new OrderSupplierDetail();
+		param.setValid(1);
+		param.setOrderSupplierId(orderSupplierId);
+		return this.orderSupplierDetailDAO.selectByModel(param);
+	}
+	
+	public void updateDtl(OrderSupplierDetail dtl) throws Exception{
+		log.info("更新明细，dtl=" + JSON.toJSONString(dtl));
+		if(dtl == null){
+			throw new Exception("参数为null");
+		}
+		this.orderSupplierDetailDAO.updateByPrimaryKeySelective(dtl);
 	}
 	
 }
