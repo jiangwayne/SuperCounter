@@ -46,20 +46,6 @@
     </tr>
     </#list>
   </#if>
-  <tr class="con">
-    <td bgcolor="#FFFFFF">&nbsp;</td>
-    <td bgcolor="#FFFFFF"><input name="checkbox3" id="checkbox3" type="checkbox"></td>
-    <td bgcolor="#FFFFFF">21982698316</td>
-    <td bgcolor="#FFFFFF"><a href="orderProductTaskDetail.html" target="_blank">ＨＲ南方商城柜台</a></td>
-    <td bgcolor="#FFFFFF">Jason</td>
-    <td bgcolor="#FFFFFF">待发货</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-28</td>
-    <td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>
-    <td align="center" bgcolor="#FFFFFF"><a href="#">描述描述描述描述描述</a></td>
-    <td align="center" bgcolor="#FFFFFF"><a href="erectorTaskDetail.html">详情</a></td>
-  </tr>
-
-
 </tbody></table>
 </body>
 </html>

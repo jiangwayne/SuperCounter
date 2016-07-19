@@ -6,6 +6,7 @@
 <title>right</title>
     <link href="${base_addr}/static/css/main.css" rel="stylesheet" type="text/css" />
     <link href="${base_addr}/static/css/right.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="${base_addr}/static/js/laydate.dev.js"></script>
     <script src="${base_addr}/static/js/myjs.js"></script>
 
 </head>
@@ -18,8 +19,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
   <tr>
     <td width="200" align="right" class="title2"><strong>柜台</strong></td>
-    <td class="con2"><select name="select1" class="ip" id="select3">
-        <select id="counter" name="orgCounterId" class="ip" id="select3">
+    <td class="con2">
+        <select id="counter" name="counterId" class="ip" id="select3">
         <#if counterList??>
           <#list counterList as s>
               <option value="${s.id?if_exists}">${s.name?if_exists}</option>
@@ -43,7 +44,7 @@
         <ul>
           <#if counterOrderList??>
             <#list counterOrderList as s>
-                <li><input  value="${s.orderId?if_exists}" type="checkbox" name="orderCounterIds"><span>${s.orderCounterNo?if_exists}</span></li>
+                <li><input  value="${s.orgCounterId?if_exists}" type="checkbox" name="orderCounterIds"><span>${s.orderCounterNo?if_exists}</span></li>
             </#list>
           </#if>
         </ul>
@@ -53,17 +54,17 @@
   <tr>
     <td align="right" class="title2">安装工程师</td>
     <td class="con2">
-    <select name="select" class="ip" id="select3">
+    <select class="ip" id="select3">
       <option>ＢＡ</option>
       <option>安装公司</option>     
     </select>
-    <select name="select" class="ip" id="select3">
+    <select class="ip" id="select3">
       <option>山东</option>
       <option>河北</option>      
       <option>北京</option>     
       <option>上海</option>                          
     </select>
-    <select name="select" class="ip" id="select3">
+    <select class="ip" id="select3">
       <option>北京</option>     
       <option>上海</option>     
       <option>济南</option>     
@@ -96,69 +97,10 @@
   </tr>
   <tr>
     <td align="right" class="title2">&nbsp;</td>
-    <td class="con2"><input type="submit" name="button4" id="button4" value="提交" class="blue" />
-    <input type="button" name="button" id="button" value="返回" class="hui" onclick="location.href='listErectorTask'" /></td>
+    <td class="con2"><input type="submit" id="button4" value="提交" class="blue" />
+    <input type="button"  id="button" value="返回" class="hui" onclick="location.href='listErectorTask'" /></td>
   </tr>
 </table>
 </form>
-
-<#--<div style="margin: 10px"><strong> 安装计划单：</strong></div>-->
-<#--<hr><br>-->
-<#--<table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">-->
-  <#--<tbody><tr class="title1">-->
-    <#--<td width="5">&nbsp;</td>-->
-    <#--<td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>-->
-    <#--<td width="150">柜台</td>-->
-    <#--<td>安装工程师</td>-->
-    <#--<td align="center">安装日期</td>-->
-    <#--<td align="center" width="150">创建日期</td>-->
-    <#--<td align="center" width="150">生成订单</td>-->
-    <#--<td align="center" width="150">操作</td>-->
-  <#--</tr>-->
-  <#--<tr class="con">-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td bgcolor="#FFFFFF"><input name="checkbox3" id="checkbox3" type="checkbox"></td>-->
-    <#--<td bgcolor="#FFFFFF"><a href="orderProductTaskDetail.html" target="_blank">ＨＲ南方商城柜台</a></td>-->
-    <#--<td bgcolor="#FFFFFF">Jason</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-28</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF"><a href="#">生单</a></td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">删除</a></td>-->
-  <#--</tr>-->
-    <#--<tr class="con">-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td bgcolor="#FFFFFF"><input name="checkbox3" id="checkbox3" type="checkbox"></td>-->
-    <#--<td bgcolor="#FFFFFF"><a href="orderProductTaskDetail.html" target="_blank">ＨＲ南方商城柜台</a></td>-->
-    <#--<td bgcolor="#FFFFFF">Jason</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-28</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF"><a href="#">生单</a></td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">删除</a></td>-->
-  <#--</tr>-->
-    <#--<tr class="con">-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td bgcolor="#FFFFFF"><input name="checkbox3" id="checkbox3" type="checkbox"></td>-->
-    <#--<td bgcolor="#FFFFFF"><a href="orderProductTaskDetail.html" target="_blank">ＨＲ南方商城柜台</a></td>-->
-    <#--<td bgcolor="#FFFFFF">Jason</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-28</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">2015-07-07&nbsp;7:43:31</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF"><a href="#">生单</a></td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">删除</a></td>-->
-  <#--</tr>-->
-  <#--<tr class="con">-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>-->
-    <#--<td bgcolor="#FFFFFF">-->
-      <#--<input name="button" id="button" value="全部删除" class="blue" type="button">-->
-    <#--</td>-->
-    <#--<td bgcolor="#FFFFFF">-->
-	    <#--<input name="button" id="button" value="全部分配" class="blue" type="button">-->
-	<#--</td>-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;</td>-->
-    <#--<td align="center" bgcolor="#FFFFFF">&nbsp;</td>-->
-  <#--</tr>-->
-</tbody></table>
 </body>
 </html>

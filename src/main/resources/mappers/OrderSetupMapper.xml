@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plus.server.dal.OrderSetupDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.OrderSetup">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="damage_id" jdbcType="BIGINT" property="damageId" />
+    <result column="order_counter_ids" jdbcType="VARCHAR" property="orderCounterIds" />
+    <result column="org_counter_id" jdbcType="BIGINT" property="orgCounterId" />
+    <result column="user_setup_id" jdbcType="BIGINT" property="userSetupId" />
+    <result column="setup_time" jdbcType="TIMESTAMP" property="setupTime" />
+    <result column="task_type" jdbcType="INTEGER" property="taskType" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_id, damage_id, order_counter_ids, org_counter_id, user_setup_id, setup_time, 
+    task_type, comment, pic_url, valid, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_setup
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.OrderSetup" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_setup
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+      <if test="damageId != null">
+        and damage_id = #{damageId,jdbcType=BIGINT}
+      </if>
+      <if test="orderCounterIds != null">
+        and order_counter_ids = #{orderCounterIds,jdbcType=VARCHAR}
+      </if>
+      <if test="orgCounterId != null">
+        and org_counter_id = #{orgCounterId,jdbcType=BIGINT}
+      </if>
+      <if test="userSetupId != null">
+        and user_setup_id = #{userSetupId,jdbcType=BIGINT}
+      </if>
+      <if test="setupTime != null">
+        and setup_time = #{setupTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="taskType != null">
+        and task_type = #{taskType,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
+      </if>
+      <if test="picUrl != null">
+        and pic_url = #{picUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.OrderSetup" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_setup
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+      <if test="damageId != null">
+        and damage_id = #{damageId,jdbcType=BIGINT}
+      </if>
+      <if test="orderCounterIds != null">
+        and order_counter_ids like CONCAT('%',#{orderCounterIds,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="orgCounterId != null">
+        and org_counter_id = #{orgCounterId,jdbcType=BIGINT}
+      </if>
+      <if test="userSetupId != null">
+        and user_setup_id = #{userSetupId,jdbcType=BIGINT}
+      </if>
+      <if test="setupTime != null">
+        and setup_time = #{setupTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="taskType != null">
+        and task_type = #{taskType,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="picUrl != null">
+        and pic_url like CONCAT('%',#{picUrl,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_order_setup
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.OrderSetup" useGeneratedKeys="true">
+    insert into t_order_setup (id, order_id, damage_id, 
+      order_counter_ids, org_counter_id, user_setup_id, 
+      setup_time, task_type, comment, 
+      pic_url, valid, gmt_create, 
+      gmt_modify)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{damageId,jdbcType=BIGINT}, 
+      #{orderCounterIds,jdbcType=VARCHAR}, #{orgCounterId,jdbcType=BIGINT}, #{userSetupId,jdbcType=BIGINT}, 
+      #{setupTime,jdbcType=TIMESTAMP}, #{taskType,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{picUrl,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.OrderSetup" useGeneratedKeys="true">
+    insert into t_order_setup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="damageId != null">
+        damage_id,
+      </if>
+      <if test="orderCounterIds != null">
+        order_counter_ids,
+      </if>
+      <if test="orgCounterId != null">
+        org_counter_id,
+      </if>
+      <if test="userSetupId != null">
+        user_setup_id,
+      </if>
+      <if test="setupTime != null">
+        setup_time,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="damageId != null">
+        #{damageId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCounterIds != null">
+        #{orderCounterIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCounterId != null">
+        #{orgCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="userSetupId != null">
+        #{userSetupId,jdbcType=BIGINT},
+      </if>
+      <if test="setupTime != null">
+        #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.OrderSetup">
+    update t_order_setup
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="damageId != null">
+        damage_id = #{damageId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCounterIds != null">
+        order_counter_ids = #{orderCounterIds,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCounterId != null">
+        org_counter_id = #{orgCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="userSetupId != null">
+        user_setup_id = #{userSetupId,jdbcType=BIGINT},
+      </if>
+      <if test="setupTime != null">
+        setup_time = #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.OrderSetup">
+    update t_order_setup
+    set order_id = #{orderId,jdbcType=BIGINT},
+      damage_id = #{damageId,jdbcType=BIGINT},
+      order_counter_ids = #{orderCounterIds,jdbcType=VARCHAR},
+      org_counter_id = #{orgCounterId,jdbcType=BIGINT},
+      user_setup_id = #{userSetupId,jdbcType=BIGINT},
+      setup_time = #{setupTime,jdbcType=TIMESTAMP},
+      task_type = #{taskType,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteLogicByIds">
+    update t_order_setup set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+</mapper>

@@ -1,7 +1,10 @@
 package com.plus.server.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import com.plus.server.common.util.DateUtil;
+import com.plus.server.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +39,8 @@ public class AssignTaskController extends BaseController {
 	@Autowired
 	private OrganizationService organizationService;
 
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(value = "/toAssign")
 	public ModelAndView toAssign() {
@@ -226,16 +231,34 @@ public class AssignTaskController extends BaseController {
 		return ret;
 	}
 
-	@RequestMapping(value="/allocateErectorTask")
-	public ModelAndView addErectorTask() {
+	@RequestMapping(value="/allocateErectorTask",method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView allocateErectorTask(Model model, Long id, Long counterId, Integer taskType,
+											String orderCounterIds, Long userSetupId,
+											String setupTime, String comment) {
 		ModelAndView mv = new ModelAndView("task/allocateErectorTask.ftl");
+		id = id == null ? 0: id;
+		String requestMethod = httpRequest.getMethod();
+		if(requestMethod.equals("POST")){
+			Date t = DateUtil.toDate(setupTime);
+			assignTaskService.saveOrderSetup(id, counterId,taskType,orderCounterIds,userSetupId,t,comment);
+			mv = new ModelAndView("task/listErectorTask.ftl");
+			model.addAttribute("list", assignTaskService.listErectorTask(""));
+			return mv;
+		} else if(requestMethod.equals("GET")){
+			model.addAttribute("counterList", organizationService.getCounterList(""));
+			model.addAttribute("userList",userService.getUserList(6l, ""));
+			model.addAttribute("counterOrderList",assignTaskService.listCounterOrder(""));
+			if(id>0) {
+				model.addAttribute("model", assignTaskService.getOrderSetup(id));
+			}
+		}
 		return mv;
 	}
 
 	@RequestMapping(value="/listErectorTask", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listErectorTask(Model model, String keyWord) {
+	public ModelAndView listErectorTask(Model model, String keyword) {
 		ModelAndView mv = new ModelAndView("task/listErectorTask.ftl");
-		model.addAttribute("list", assignTaskService.listErectorTask(keyWord));
+		model.addAttribute("list", assignTaskService.listErectorTask(keyword));
 		return mv;
 	}
 }

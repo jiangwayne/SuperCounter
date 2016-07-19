@@ -1,10 +1,11 @@
 package com.plus.server.service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.plus.server.common.util.DateUtil;
+import com.plus.server.dal.*;
+import com.plus.server.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.plus.server.dal.CounterDetailsDAO;
-import com.plus.server.dal.FurnitureDAO;
-import com.plus.server.dal.OrderCounterDAO;
-import com.plus.server.dal.OrderCounterDetailDAO;
-import com.plus.server.dal.OrderDAO;
-import com.plus.server.dal.OrderSupplierDAO;
-import com.plus.server.dal.OrderSupplierDetailDAO;
-import com.plus.server.dal.OrganizationDAO;
-import com.plus.server.model.CounterDetails;
-import com.plus.server.model.Furniture;
-import com.plus.server.model.Order;
-import com.plus.server.model.OrderCounter;
-import com.plus.server.model.OrderCounterDetail;
-import com.plus.server.model.OrderSupplier;
-import com.plus.server.model.OrderSupplierDetail;
-import com.plus.server.model.Organization;
 
 @Service
 public class AssignTaskService {
@@ -52,8 +37,11 @@ public class AssignTaskService {
 	@Autowired
 	private OrderSupplierDetailDAO orderSupplierDetailDAO;
 
-//	@Autowired
-//	private OrderSetupDao
+	@Autowired
+	private OrderSetupDAO orderSetupDAO;
+
+	@Autowired
+	private UserDAO userDAO;
 
 	public List<Furniture> selectFurByModel(Furniture o) {
 		List<Furniture> list = this.furnitureDAO.selectByModelLike(o);
@@ -209,8 +197,82 @@ public class AssignTaskService {
 	}
 
 
-	public List<Map<String, String>> listErectorTask(String keyWord) {
+	public List<Map<String, String>> listErectorTask(String keyword) {
+		List<Map<String,String>> result = new ArrayList<>();
+		OrderSetup orderSetup = new OrderSetup();
+		orderSetup.setValid(1);
 
-		return null;
+		List<OrderSetup> list = this.orderSetupDAO.selectByModel(orderSetup);
+
+		User user = new User();
+		user.setValid(1);
+
+		List<User> userList = this.userDAO.selectByModel(user);
+		Map<Long, String> userMap = new HashMap<>();
+
+		for(User o : userList) {
+			userMap.put(o.getId(),o.getName());
+		}
+
+
+		Organization organization = new Organization();
+		organization.setValid(1);
+		organization.setType("2");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
+		List<Organization> counterList = this.organizationDAO.selectByModel(organization);
+		Map<Long, String> counterMap = new HashMap<>();
+		for(Organization o : counterList){
+			counterMap.put(o.getId(),o.getName());
+		}
+
+
+		for (OrderSetup u : list) {
+			Map<String,String> map = new HashMap<>();
+			Long userId = u.getUserSetupId() == null ? 0 : u.getUserSetupId();
+			String userName = userMap.containsKey(userId) ? userMap.get(userId) : "";
+			String counterName = counterMap.containsKey(u.getOrgCounterId()) ? counterMap.get(u.getOrgCounterId()) : "";
+			if(keyword == null || keyword.equals("") || u.getId().toString().contains(keyword) || userName.contains(keyword)) {
+				map.put("id", u.getId().toString());
+				map.put("counterName", counterName);
+				map.put("setupUser",userName);
+				map.put("setupTime", DateUtil.toDateString(u.getSetupTime()));
+				map.put("comment", u.getComment());
+				map.put("gmtCreate", DateUtil.toDateString(u.getGmtCreate()));
+				result.add(map);
+			}
+		}
+		return result;
+	}
+
+	public OrderSetup getOrderSetup(Long id) {
+		return orderSetupDAO.selectByPrimaryKey(id);
+	}
+
+	public List<OrderCounter> listCounterOrder(String keyword) {
+		OrderCounter o = new OrderCounter();
+		o.setValid(1);
+		return orderCounterDAO.selectByModel(o);
+	}
+
+	public void saveOrderSetup(Long id, Long counterId, int taskType, String orderCounterIds,
+							   Long userSetupId, Date setupTime, String comment) {
+		OrderSetup orderSetup = new OrderSetup();
+		if(id > 0) {
+			orderSetup = orderSetupDAO.selectByPrimaryKey(id);
+		}
+		orderSetup.setOrgCounterId(counterId);
+		orderSetup.setTaskType(taskType);
+		orderSetup.setOrderCounterIds(orderCounterIds);
+		orderSetup.setUserSetupId(userSetupId);
+		orderSetup.setSetupTime(setupTime);
+		orderSetup.setComment(comment);
+
+		orderSetup.setValid(1);
+		orderSetup.setGmtModify(new Date());
+		if(id>0) {
+			//orderSetupDAO.updateByPrimaryKeySelective(orderSetup);
+		} else {
+			orderSetup.setGmtCreate(new Date());
+			orderSetupDAO.insert(orderSetup);
+		}
 	}
 }
