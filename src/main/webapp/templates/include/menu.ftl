@@ -54,7 +54,7 @@
                 <li><a  href="task/allocateErectorTask.html" target="mainFrame">安装工任务分配</a></li>
                 <li><a  href="task/listErectorTask.html" target="mainFrame">安装任务单查询</a></li>
                 <li><a  href="${base_addr}/gtb/orderSupplier/list" target="mainFrame">生产加工单管理</a></li>
-                <li><a  href="task/listQuotation.html" target="mainFrame">报价单管理</a></li>
+                <li><a  href="${base_addr}/gtb/orderPrice/list" target="mainFrame">报价单管理</a></li>
                 <li><a  href="task/listStore.html" target="mainFrame">库存管理</a></li>
                 <!--
                                 <li><a  href="task/removeStore.html" target="mainFrame">移库操作</a></li>

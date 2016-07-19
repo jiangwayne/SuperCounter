@@ -57,6 +57,15 @@ public class OrderSupplierService {
 		}
 		return this.orderSupplierDAO.selectByPrimaryKey(id);
 	}
+	
+	public OrderSupplierDetail selectDtlById(Long dtlId) throws Exception{
+		log.info("查询生产加工单明细，dtlId=" + dtlId);
+		if(dtlId == null){
+			throw new Exception("参数为null");
+		}
+		return this.orderSupplierDetailDAO.selectByPrimaryKey(dtlId);
+	}
+	
 	public List<OrderSupplierDetail> selectDtlByPid(Long orderSupplierId) throws Exception{
 		log.info("查询生产加工单明细，orderSupplierId=" + orderSupplierId);
 		if(orderSupplierId == null){

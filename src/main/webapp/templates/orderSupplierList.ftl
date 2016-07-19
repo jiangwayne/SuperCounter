@@ -13,8 +13,6 @@
   <div class="icon">当前位置：生产加工单列表</div>
 </div>
 <span class="con2">
-<input name="button2" id="button2" value="添加生产加工单" class="blue" onclick="location.href='toEdit'" type="button">
-<br>
 <br>
 </span>
 <form id="form1" method="post" action="list"  class="form_search">
