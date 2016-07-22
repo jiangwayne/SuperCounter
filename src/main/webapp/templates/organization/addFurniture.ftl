@@ -53,6 +53,7 @@
                             '<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>' +
                             '<td bgcolor="#FFFFFF">' + data[i].objParentNo + '</td>' +
                             '<td bgcolor="#FFFFFF">' + data[i].objParentName + '</td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentCount + '</td>' +
                             '<td align="center" bgcolor="#FFFFFF">' + data[i].gmtCreate + '</td>' +
                             '<td align="center" bgcolor="#FFFFFF">' +
                             '<a href="#"><img onclick="deleteCounterTemplate(\'' + data[i].id + '\')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>' +
@@ -110,9 +111,9 @@
 <br>
 <hr>
 <br>
-<div class="icon">包括父件</div>
+<div class="icon">包括灯片</div>
 <br>
-<strong>添加父件：</strong>
+<strong>添加灯片：</strong>
 
 <table>
     <tr>
@@ -145,8 +146,9 @@
     <thead><tr class="title1">
         <td width="5">&nbsp;</td>
         <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
-        <td width="150">父件编号</td>
-        <td>父件名称</td>
+        <td width="150">灯片编号</td>
+        <td>灯片名称</td>
+        <td>灯片数量</td>
         <td align="center" width="150">添加日期</td>
         <td align="center" width="150">操作</td>
     </tr>
@@ -159,6 +161,7 @@
             <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
             <td bgcolor="#FFFFFF">${s.objParentNo?if_exists}</td>
             <td bgcolor="#FFFFFF">${s.objParentName?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF"><a href="#"><img onclick="deleteCounterTemplate('${s.id?if_exists}'')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
             </td>

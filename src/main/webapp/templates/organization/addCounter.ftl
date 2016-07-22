@@ -109,10 +109,10 @@
         <input name="button" id="button" value="添加" class="blue" type="button" onclick="addFurnitureRel()">
 <table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr class="title1">
-    <td width="5">&nbsp;</td>
+    <td width="5"></td>
     <td width="20"></td>
-    <td width="150">家具编号</td>
-    <td width="150">家具名称</td>
+    <td width="150" align="left">家具编号</td>
+    <td width="150" >家具名称</td>
     <td align="center" width="150">添加日期</td>
     <td align="center" width="150">操作</td>
   </tr>
@@ -136,44 +136,48 @@
 </tbody></table>
 <br>
 <div class="icon">包括父件</div>
-<strong>添加父件：</strong>
-		<select id="furIdSelectForObjParent" onchange="loadObjParent()" >  
-			<#if furList??>
-			<#list furList as s>
-				<option value="${s.id?if_exists}" >${s.name?if_exists}</option>
-			</#list>
-			</#if>  
-        </select>  
-        <select id="objParentSelect">
-			<option value="-1" ></option>
-	    </select>  
-	    位置：<input type="text" id="objParentSiteNo" class="input1" value="">
-        <input name="button" id="button" value="添加" class="blue" type="button" onclick="addObjParentRel()">
+<#--<strong>添加父件：</strong>-->
+		<#--<select id="furIdSelectForObjParent" onchange="loadObjParent()" >  -->
+			<#--<#if furList??>-->
+			<#--<#list furList as s>-->
+				<#--<option value="${s.id?if_exists}" >${s.name?if_exists}</option>-->
+			<#--</#list>-->
+			<#--</#if>  -->
+        <#--</select>  -->
+        <#--<select id="objParentSelect">-->
+			<#--<option value="-1" ></option>-->
+	    <#--</select>  -->
+	    <#--位置：<input type="text" id="objParentSiteNo" class="input1" value="">-->
+        <#--<input name="button" id="button" value="添加" class="blue" type="button" onclick="addObjParentRel()">-->
+<input name="button" id="button" value="添加父件" class="blue" type="button" onclick="location='${base_addr}/gtb/parent/toEditCounterParent?counterId=${model.id?if_exists}'">
 <table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr class="title1">
-    <td width="5">&nbsp;</td>
     <td width="20"></td>
     <td width="150">父件编号</td>
     <td width="150">父件名称</td>
-    <td width="150">位置</td>
+    <td width="150" align="center">长宽高</td>
+    <td width="150" align="center">位置</td>
     <td align="center" width="150">添加日期</td>
     <td align="center" width="150">操作</td>
   </tr>
-  <#if counterDtlList??>
+  <#if parentList??>
   <#assign index = 0>
-	<#list counterDtlList as s>
-  	<#if s.objectParent??>
+	<#list parentList as s>
+
   	<#assign index = index+1>
 	  <tr class="con">
-	    <td bgcolor="#FFFFFF">&nbsp;</td>
 	    <td bgcolor="#FFFFFF">${index}</td>
-	    <td bgcolor="#FFFFFF">${s.objectParent.objParentNo?if_exists}</td>
-	    <td bgcolor="#FFFFFF">${s.objectParent.name?if_exists}</td>
-	    <td bgcolor="#FFFFFF">${s.siteNo?if_exists}</td>
+	    <td bgcolor="#FFFFFF">${s.objParentNo?if_exists}</td>
+	    <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.length?if_exists}*${s.width?if_exists}*${s.height?if_exists}</td>
+	    <td bgcolor="#FFFFFF" align="center">${s.siteNo?if_exists}</td>
 	    <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
-	    <td align="center" bgcolor="#FFFFFF"><a href="javascript: deleteDtlRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a></td>
+	    <td align="center" bgcolor="#FFFFFF">
+            <a href="${base_addr}/gtb/parent/toEditCounterParent?id=${s.id?if_exists}&&counterId=${model.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript: deleteDtlRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+        </td>
 	  </tr>
-	  </#if>  
+
 	</#list>
 	</#if>  
   
@@ -196,7 +200,7 @@ function addFurnitureRel(){
         	}
         },
         error: function (data) {
-            alert("添加失败--"+data);
+            alert("添加失败--1"+data);
         }
     });
 }
@@ -240,13 +244,13 @@ function loadObjParent(){
         	}
         },
         error: function (data) {
-            alert("添加失败--"+data);
+            alert("添加失败--2"+data);
         }
     });
 }
-<#if model.id??>
-loadObjParent();
-</#if>
+<#--<#if model.id??>-->
+<#--loadObjParent();-->
+<#--</#if>-->
 function addObjParentRel(){
 	var objParentId = $('#objParentSelect').val();
 	var objParentSiteNo = $('#objParentSiteNo').val();
@@ -262,7 +266,7 @@ function addObjParentRel(){
         	}
         },
         error: function (data) {
-            alert("添加失败--"+data);
+            alert("添加失败--3"+data);
         }
     });
 }

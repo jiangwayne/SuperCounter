@@ -36,11 +36,11 @@ public class LoginController extends BaseController {
             mv = new ModelAndView("redirect:/gtb/index.ftl");
 
             //return mv;
-//            User u = userService.login(name,pwd);
-//            if(u != null){
-//                this.httpSession.setAttribute("user", u);
-//                mv = new ModelAndView("index.ftl");
-//            }
+            User u = userService.login(name,pwd);
+            if(u != null){
+                this.httpSession.setAttribute("user", u);
+                mv = new ModelAndView("index.ftl");
+            }
         }
         return mv;
     }

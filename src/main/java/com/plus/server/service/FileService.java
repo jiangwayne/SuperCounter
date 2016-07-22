@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 public class FileService {
 	private static final Logger log = LoggerFactory.getLogger(FileService.class);
 
-//	@Value("#{file_path}")
-	private String filePath = "d:/test";
+	@Value("#{configProperties['file_path']}")
+	private String filePath;
 
 	/**
 	 * 上传文件

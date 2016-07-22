@@ -17,17 +17,37 @@
 <br>
 <br>
 </span>
+<div class="con2">
+    <div class="icon">当前位置：父件列表</div>
+
 <form id="form1" method="post" action="list"  class="form_search">
 <input class=input1 id="page" name="page" type="hidden">
 <input value="" id="pageSize" name="pageSize" type="hidden">
-      名称：<input class=input1 id="name" name="name" value="${name?if_exists}" size=15>
+    名称：<input class=input1 id="name" name="name" value="${name?if_exists}" size=15>
+    类型：<select name="type" class="ip" id="type">
+            <option value="">全部</option>
+            <option value=1 <#if oc.type = 3>selected</#if>>图片</option>
+            <option value=2 <#if oc.type = 3>selected</#if>>道具</option>
+            <option value=3 <#if oc.type = 3>selected</#if>>灯片</option>
+        </select>
+    供应商：<select name="orgId" class="ip" id="orgId">
+                <option value="">全部</option>
+                <#if orgList??>
+                <#list orgList as s>
+                    <option value="${s.id?if_exists}" <#if oc.orgId = s.id>selected</#if>>${s.name?if_exists}</option>
+                </#list>
+            </#if>
+        </select>
       <input type="submit" name="Submit" value="查询">
   </form>
+</div>
 <table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr class="title1">
     <td width="5">&nbsp;</td>
     <td width="20"></td>
     <td width="150">名称</td>
+      <td width="150">供应商</td>
+      <td width="150">类型</td>
     <td align="center">长宽高</td>
     <td align="center">二维码</td>
     <td align="center" width="150">添加日期</td>
@@ -39,6 +59,8 @@
 	      <td bgcolor="#FFFFFF">&nbsp;</td>
 	      <td bgcolor="#FFFFFF">${s_index+1}</td>
 	      <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
+          <td bgcolor="#FFFFFF">${s.orgId?if_exists}</td>
+          <td bgcolor="#FFFFFF">${s.type?if_exists}</td>
 	      <td align="center" bgcolor="#FFFFFF">${s.length?if_exists}*${s.width?if_exists}*${s.height?if_exists}</td>
 	      <td align="center" bgcolor="#FFFFFF"><a href=# onClick="javascript:window.open('${base_addr}/gtb/file/toQRCode?qrCode=${s.qrCode?if_exists}','','width=600,height=400,location=no,toolbar=no, status=no, menubar=no, resizable=yes, scrollbars=yes');return false;">${s.qrCode?if_exists}</a></td>
 	      <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>

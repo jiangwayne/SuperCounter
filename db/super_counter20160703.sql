@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `t_organization`;
 CREATE TABLE `t_organization` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) DEFAULT NULL COMMENT '组织名',
-  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(admin,品牌，柜台，供应商，物流公司，安装公司)(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)',
+  `type` varchar(64) DEFAULT NULL COMMENT '组织类型(admin,品牌，柜台，供应商，物流公司，安装公司)(1：品牌，2：柜台，3：供应商，4：物流，5：陈列,6安装公司)',
   `address` varchar(256) DEFAULT NULL COMMENT '地址',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '父组织id',
   `phone` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '电话',
@@ -176,6 +176,7 @@ CREATE TABLE `t_object_parent` (
   `brand_id` bigint(20) DEFAULT NULL COMMENT '品牌id',
   `obj_parent_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '二维码',
   `type` int(11) DEFAULT NULL COMMENT '父件类型(1：图片，2：道具，3：灯片)',
+  `counter_id` bigint(20) DEFAULT NULL COMMENT '如果是灯片，则柜台id不可为空',
   `length` int(11)DEFAULT NULL COMMENT '长',
   `width` int(11)DEFAULT NULL COMMENT '宽',
   `height` int(11)DEFAULT NULL COMMENT '高',
@@ -185,6 +186,7 @@ CREATE TABLE `t_object_parent` (
   `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
   `material` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '材质',
   `content` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '内容',
+  `site_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '位置编号',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `remark` varchar(4000) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
@@ -608,14 +610,6 @@ CREATE TABLE `t_setup_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `t_setup_record` */
-
-
-
-
-
-
-
-
 
 /*Table structure for table `t_display_handbook` */
 

@@ -45,10 +45,9 @@
 	<tr>
 		<td align="right" class="title2">类型</td>
 		<td class="con2">
-			<select name="type" class="ip" id="type">
+			<select name="type" class="ip" id="type" onchange="loadObjParent()">
 			  <option value=1 <#if oc.type = 1>selected</#if>>图片</option>
 			  <option value=2 <#if oc.type = 2>selected</#if>>道具</option>
-			  <option value=3 <#if oc.type = 3>selected</#if>>灯片</option>
 			</select>
 		</td>
 	</tr>
@@ -98,6 +97,10 @@
 		<td align="right" class="title2">内容</td>
 		<td class="con2"><input name="material" type="text" class="input1" id="textfield" value="${oc.material?if_exists}" size="40" /></td>
 	</tr>
+    <tr>
+        <td align="right" class="title2">位置编号</td>
+        <td class="con2"><input name="siteNo" type="text" class="input1" id="textfield" value="${oc.siteNo?if_exists}" size="40" /></td>
+    </tr>
   <tr>
     <td align="right" class="title2">图片</td>
     <td class="con2">
@@ -172,6 +175,7 @@
 	        success: function (data) {
 	        	data = formatUpFileRetData(data);
 	        	if(data.success){
+					alert(data);
 	        		$('#picUrl').val(data.msg);
 	        		$('#picUrlShow').attr("src","${base_addr}/gtb/file/downloadFile?fileName="+data.msg);
 	        	}

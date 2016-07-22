@@ -16,7 +16,6 @@
 
 	<!-- <bean class="com.mangofactory.swagger.configuration.SpringSwaggerConfig" 
 		/> -->
-
 	<context:component-scan base-package="com.plus.server" />
 	<mvc:default-servlet-handler />
 	<!-- FreeMarker环境配置 -->
@@ -41,7 +40,7 @@
 		<!-- Spring MVC页面层FreeMarker的处理类 -->
 		<property name="freemarkerVariables">
 			<map>
-				<entry key="base_addr" value="http://localhost:8080"></entry>
+				<entry key="base_addr" value="http://127.0.0.1:8080"></entry>
 			</map>
 		</property>
 	</bean>
@@ -68,5 +67,16 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
 		<!-- 不在这里限制了,后台各自进行限制了 <property name="maxUploadSize" value="2000000"/> -->
-	</bean>  
+	</bean>
+
+	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath*:system.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+		<property name="properties" ref="configProperties" />
+	</bean>
 </beans>

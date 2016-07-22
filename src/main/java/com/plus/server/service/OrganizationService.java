@@ -347,6 +347,10 @@ public class OrganizationService {
 
     public void addCounterTemplate(Long counterStyleId, Long furnitureId, Long objParentId, int count) {
         if(getCounterTemplateList(counterStyleId,furnitureId,objParentId).size() > 0) {
+            List<CounterTemplate> list = getCounterTemplateList(counterStyleId,furnitureId,objParentId);
+            CounterTemplate counterTemplate = list.get(0);
+            counterTemplate.setCount(counterTemplate.getCount()+1);
+            counterTemplateDAO.updateByPrimaryKeySelective(counterTemplate);
             return;
         }
         CounterTemplate counterTemplate = new CounterTemplate();
@@ -458,6 +462,7 @@ public class OrganizationService {
             map.put("id",o.getId().toString());
             map.put("objParentNo", objParentMap.containsKey(objParentId) ? objParentMap.get(objParentId).getObjParentNo() : "");
             map.put("objParentName", objParentMap.containsKey(objParentId) ? objParentMap.get(objParentId).getName() : "");
+            map.put("objParentCount", objParentMap.containsKey(objParentId) ? o.getCount()+"" : "");
             map.put("gmtCreate", DateUtil.toDateString(o.getGmtCreate()));
             result.add(map);
         }

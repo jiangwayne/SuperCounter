@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.plus.server.service.ObjectParentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class OrganizationController extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(OrganizationController.class);
     @Autowired
     private OrganizationService organizationService;
+    @Autowired
+    private ObjectParentService objectParentService;
 
     @RequestMapping(value = "/listBrand", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView listBrand(Model model, String keyword) {
@@ -123,6 +126,12 @@ public class OrganizationController extends BaseController {
             	List<CounterDetails> counterDtlList = organizationService.getCounterDtl(id);
             	model.addAttribute("counterDtlList", counterDtlList);
             	System.out.println(JSON.toJSONString(counterDtlList));
+
+                ObjectParent op = new ObjectParent();
+                op.setCounterId(id);
+                List<ObjectParent> parentList = objectParentService.selectByModel(op);
+                model.addAttribute("parentList", parentList);
+                System.out.println(JSON.toJSONString(parentList));
             }
         }
         return mv;
@@ -171,7 +180,7 @@ public class OrganizationController extends BaseController {
     	d.setId(dtlId);
     	d.setValid(-1);
     	d.setGmtModify(now);
-    	organizationService.addOrUpdateCounterDtl(d);
+        objectParentService.deleteChildRel(dtlId);
     	ret.setSuccess(true);
     	return ret;
 	}
@@ -233,6 +242,7 @@ public class OrganizationController extends BaseController {
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
             if(id>0) {
+                model.addAttribute("furnitureObjParentList", organizationService.getFurnitureObjParentMap(id));
                 model.addAttribute("furnitureObjParentList", organizationService.getFurnitureObjParentMap(id));
                 model.addAttribute("model", organizationService.getFurniture(id));
             }

@@ -14,6 +14,16 @@ public class ObjectParent {
 
     private Long brandId;
 
+    public Long getCounterId() {
+        return counterId;
+    }
+
+    public void setCounterId(Long counterId) {
+        this.counterId = counterId;
+    }
+
+    private Long counterId;
+
     private String objParentNo;
 
 
@@ -45,6 +55,16 @@ public class ObjectParent {
     private Date gmtCreate;
 
     private Date gmtModify;
+
+    public String getSiteNo() {
+        return siteNo;
+    }
+
+    public void setSiteNo(String siteNo) {
+        this.siteNo = siteNo;
+    }
+
+    private String siteNo;
 
     public Long getId() {
         return id;
