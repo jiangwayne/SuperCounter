@@ -36,13 +36,20 @@ public class UserService {
 //    private OrganizationDAO organizationDAO;
 
     @Transactional
-    public void saveUser(Long id, String brandIds, Long orgId, String name, String pwd, String fullName,
+    public boolean saveUser(Long id, String brandIds, Long orgId, String name, String pwd, String fullName,
                          Long roleId, String phone, String comment) {
         User user = new User();
         if(id > 0) {
             user = userDao.selectByPrimaryKey(id);
         }
         else{ //新用户才需要设密码
+            user.setName(name);
+
+            List<User> list = userDao.selectByModel(user);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
+
             String password_salt = generateSalt(5);
             String password_hash = getPasswordHash(pwd, password_salt);
             user.setPasswordSalt(password_salt);
@@ -72,6 +79,7 @@ public class UserService {
             log.info("新增用户角色，userRole=" + JSON.toJSONString(userRole));
             this.userRoleDAO.insert(userRole);
         }
+        return true;
     }
 
     public User login(String name, String password) {

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.*;
+import java.io.IOException;
 
 
 /**
@@ -36,15 +38,20 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/addContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addContactStaff(Model model, Long id, String brandIds, String name, String pwd,
-                                        String fullName, String phone, String comment) {
+                                        String fullName, String phone, String comment)  {
         ModelAndView mv = new ModelAndView("user/addContactStaff.ftl");
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            userService.saveUser(id, brandIds, 1l, name, pwd,
-                    fullName, 2L, phone,  comment); //客服经理role=2,orgId=1(admin)
-            mv = new ModelAndView("user/listContactStaff.ftl");
-            model.addAttribute("list", userService.getUserList(2l, ""));
+            if(userService.saveUser(id, brandIds, 1l, name, pwd,
+                    fullName, 2L, phone,  comment)) { //客服经理role=2,orgId=1(admin)
+                mv = new ModelAndView("user/listContactStaff.ftl");
+                model.addAttribute("list", userService.getUserList(2l, ""));
+            } else{
+                model.addAttribute("brandList", userService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "用户名已存在");
+            }
+
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", userService.getBrandList(""));
@@ -70,9 +77,13 @@ public class UserController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            userService.saveUser(id, "", orgId,name,pwd,fullName,5l,phone,comment);
-            mv = new ModelAndView("user/listBA.ftl");
-            model.addAttribute("list", userService.getUserList(5l, ""));
+            if(userService.saveUser(id, "", orgId,name,pwd,fullName,5l,phone,comment)){
+                mv = new ModelAndView("user/listBA.ftl");
+                model.addAttribute("list", userService.getUserList(5l, ""));
+            } else{
+                model.addAttribute("counterList", userService.getCounterList(""));
+                JOptionPane.showMessageDialog(null, "用户名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("counterList", userService.getCounterList(""));
@@ -92,15 +103,19 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/addBrandManager", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addBrandManage(Model model, Long id, String brandIds, String name, String pwd,
-                                       String fullName, String phone, String comment) {
+                                       String fullName, String phone, String comment)  {
         ModelAndView mv = new ModelAndView("user/addBrandManager.ftl");
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            userService.saveUser(id, brandIds, 1l, name, pwd,
-                     fullName, 3l, phone,  comment);//品牌经理role=3,orgId=1(admin)
-            mv = new ModelAndView("user/listBrandManager.ftl");
-            model.addAttribute("list", userService.getUserList(3l, ""));
+            if(userService.saveUser(id, brandIds, 1l, name, pwd,
+                     fullName, 3l, phone,  comment)){//品牌经理role=3,orgId=1(admin)
+                mv = new ModelAndView("user/listBrandManager.ftl");
+                model.addAttribute("list", userService.getUserList(3l, ""));
+            }else{
+                model.addAttribute("brandList", userService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "用户名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", userService.getBrandList(""));
@@ -125,12 +140,16 @@ public class UserController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            userService.saveUser(id, "", orgId,name,pwd,fullName,6l,phone,comment);
-            mv = new ModelAndView("user/listErector.ftl");
-            model.addAttribute("list", userService.getUserList(6l, ""));
+            if(userService.saveUser(id, "", orgId,name,pwd,fullName,6l,phone,comment)) {
+                mv = new ModelAndView("user/listErector.ftl");
+                model.addAttribute("list", userService.getUserList(6l, ""));
+            }else{
+                model.addAttribute("erectorOrgList", userService.getOrganizationList("5",""));
+                JOptionPane.showMessageDialog(null, "用户名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
-            model.addAttribute("erectorOrgList", userService.getOrganizationList("安装公司",""));
+            model.addAttribute("erectorOrgList", userService.getOrganizationList("5",""));
             if(id>0) {
                 model.addAttribute("model", userService.getUser(id));
             }
@@ -153,10 +172,15 @@ public class UserController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            userService.saveUser(id, brandIds, orgId, name,pwd,
-                    fullName,4l,phone,comment);//品牌经理role=4,orgId=供应商id
-            mv = new ModelAndView("user/listSupplier.ftl");
-            model.addAttribute("list", userService.getUserList(4l, ""));
+            if(userService.saveUser(id, brandIds, orgId, name,pwd,
+                    fullName,4l,phone,comment)) {//品牌经理role=4,orgId=供应商id
+                mv = new ModelAndView("user/listSupplier.ftl");
+                model.addAttribute("list", userService.getUserList(4l, ""));
+            }else{
+                model.addAttribute("brandList", userService.getBrandList(""));
+                model.addAttribute("supplierList", Support.getInstance().getOrganizationList("3",""));//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
+                JOptionPane.showMessageDialog(null, "用户名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", userService.getBrandList(""));
