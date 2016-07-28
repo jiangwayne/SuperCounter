@@ -40,7 +40,7 @@ public class OrderCounterController extends BaseController {
         Organization o = new Organization();
         o.setValid(1);
         o.setType("2");// //组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
-        o.setBrandIds(brand.getId()+"");
+//        o.setBrandIds(brand.getId()+"");
         List<Organization> counterList = assignTaskService.selectCounterByModel(o);
         model.addAttribute("counterList", counterList);
         model.addAttribute("counterId", counterId);
