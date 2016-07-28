@@ -41,7 +41,6 @@
         <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">
             <a href="addErector?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
         </td>
     </tr>
     </#list>

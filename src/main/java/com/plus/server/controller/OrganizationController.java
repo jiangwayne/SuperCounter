@@ -180,7 +180,7 @@ public class OrganizationController extends BaseController {
     	d.setId(dtlId);
     	d.setValid(-1);
     	d.setGmtModify(now);
-        objectParentService.deleteChildRel(dtlId);
+    	organizationService.addOrUpdateCounterDtl(d);
     	ret.setSuccess(true);
     	return ret;
 	}

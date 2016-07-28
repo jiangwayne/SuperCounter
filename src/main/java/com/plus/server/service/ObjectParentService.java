@@ -133,7 +133,7 @@ public class ObjectParentService {
 		rel.setId(id);
 		rel.setValid(-1);
 		rel.setGmtModify(new Date());
-		parentChildDAO.updateByPrimaryKey(rel);
+		parentChildDAO.updateByPrimaryKeySelective(rel);
 	}
 
 }
