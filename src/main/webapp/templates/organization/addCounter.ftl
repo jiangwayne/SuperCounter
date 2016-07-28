@@ -149,12 +149,12 @@
 	    <#--</select>  -->
 	    <#--位置：<input type="text" id="objParentSiteNo" class="input1" value="">-->
         <#--<input name="button" id="button" value="添加" class="blue" type="button" onclick="addObjParentRel()">-->
-<input name="button" id="button" value="添加父件" class="blue" type="button" onclick="location='${base_addr}/gtb/parent/toEditCounterParent?counterId=${model.id?if_exists}'">
+<input name="button" id="button" value="添加灯片" class="blue" type="button" onclick="location='${base_addr}/gtb/parent/toEditCounterParent?counterId=${model.id?if_exists}'">
 <table class="bgg" bgcolor="#cccccc" border="0" cellpadding="0" cellspacing="0" width="100%">
   <tbody><tr class="title1">
     <td width="20"></td>
-    <td width="150">父件编号</td>
-    <td width="150">父件名称</td>
+    <td width="150">灯片编号</td>
+    <td width="150">灯片名称</td>
     <td width="150" align="center">长宽高</td>
     <td width="150" align="center">位置</td>
     <td align="center" width="150">添加日期</td>

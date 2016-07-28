@@ -37,6 +37,7 @@
                 <#--<li><a  href="org/addFurniture" target="mainFrame">添加家具</a></li>-->
                 <li><a  href="${base_addr}/gtb/org/listFurniture" target="mainFrame">家具</a></li>
                 <#--<li><a  href="org/addSupplier" target="mainFrame">添加供应商</a></li>-->
+                <li><a  href="${base_addr}/gtb/org/listInstallationCompany" target="mainFrame">安装公司</a></li>
                 <li><a  href="${base_addr}/gtb/org/listSupplier" target="mainFrame">供应商</a></li>
                 <li><a  href="${base_addr}/gtb/parent/toEdit" target="mainFrame">添加父件</a></li>
                 <li><a  href="${base_addr}/gtb/parent/list" target="mainFrame">查询父件</a></li>
@@ -50,12 +51,15 @@
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">任务管理</a>
             <ul style="display: block;" class="sub-menu">
-                <li><a  href="${base_addr}/gtb/assignTask/toAssign" target="mainFrame">分配供应商任务</a></li>
-                <li><a  href="${base_addr}/gtb/assignTask/allocateErectorTask" target="mainFrame">安装工任务分配</a></li>
-                <li><a  href="${base_addr}/gtb/assignTask/listErectorTask" target="mainFrame">安装任务单查询</a></li>
+                <li><a  href="${base_addr}/gtb/assignTask/toAssign" target="mainFrame">分配物料</a></li>
                 <li><a  href="${base_addr}/gtb/orderSupplier/list" target="mainFrame">生产加工单管理</a></li>
                 <li><a  href="${base_addr}/gtb/orderPrice/list" target="mainFrame">报价单管理</a></li>
+                <li><a  href="${base_addr}/gtb/orderCounter/list" target="mainFrame">柜台任务查询</a></li>
+                <li><a  href="${base_addr}/gtb/assignTask/allocateErectorTask" target="mainFrame">安装工任务分配</a></li>
+                <li><a  href="${base_addr}/gtb/assignTask/listErectorTask" target="mainFrame">安装任务单查询</a></li>
+
                 <li><a  href="task/listStore.html" target="mainFrame">库存管理</a></li>
+
                 <!--
                                 <li><a  href="task/removeStore.html" target="mainFrame">移库操作</a></li>
                                 <li><a  href="task/splitStore.html" target="mainFrame">拆分入库操作</a></li>

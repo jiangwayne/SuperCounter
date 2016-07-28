@@ -71,130 +71,259 @@ public class AssignTaskService {
 		return null;
 	}
 
-	@Transactional(rollbackFor = Exception.class)
-	public void doAssign(long[][] orderDtlArr) {
-		if(orderDtlArr == null || orderDtlArr.length == 0){
-			return;
-		}
-		Date now = new Date();
-		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
-		//订单总表
-		Order order = new Order();
-		order.setGmtCreate(now);
-		order.setValid(1);
-		orderDAO.insert(order);
-		String orderNo = "A"+f.format(now)+(order.getId() % 10000 + 10000);
-		order.setOrderNo(orderNo);
-		orderDAO.updateByPrimaryKeySelective(order);
-		//柜台订单总表
-		Map<Long,Object> counterIdMap = Maps.newHashMap();
-		for (int i = 0; i < orderDtlArr.length; i++) {
-			//counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
-			long counterId = orderDtlArr[i][0];
+
+    @Transactional(rollbackFor = Exception.class)
+    public void doAssign(long[][] orderDtlArr,Long brandId, Long userId){
+        if(orderDtlArr == null || orderDtlArr.length == 0){
+            return;
+        }
+        Date now = new Date();
+        SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+        //订单总表
+        Order order = new Order();
+        order.setGmtCreate(now);
+        order.setOrgBrandId(brandId);
+        order.setUserId(userId);
+        order.setValid(1);
+        orderDAO.insert(order);
+        String orderNo = "A"+f.format(now)+(order.getId() % 10000 + 10000);
+        order.setOrderNo(orderNo);
+        orderDAO.updateByPrimaryKeySelective(order);
+        //柜台订单总表
+        Map<Long,Object> counterIdMap = Maps.newHashMap();
+        for (int i = 0; i < orderDtlArr.length; i++) {
+            //counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
+            long counterId = orderDtlArr[i][0];
 //			long objParentId = orderDtlArr[i][1];
 //			long supplierId = orderDtlArr[i][2];
 //			long count = orderDtlArr[i][3];
-			if(!counterIdMap.containsKey(counterId)){
-				counterIdMap.put(counterId, null);
-			}
-		}
-		for(Map.Entry<Long,Object> entry : counterIdMap.entrySet()){
-			OrderCounter orderCounter = new OrderCounter();
-			orderCounter.setOrgCounterId(entry.getKey());
-			orderCounter.setOrderId(order.getId());
-			orderCounter.setGmtCreate(now);
-			orderCounter.setValid(1);
-			orderCounterDAO.insert(orderCounter);
-			String orderCounterNo = "C"+f.format(now)+(order.getId() % 10000 + 10000);
-			orderCounter.setOrderCounterNo(orderCounterNo);
-			orderCounterDAO.updateByPrimaryKeySelective(orderCounter);
-			//柜台订单明细
-			List<OrderCounterDetail> cDtlList = Lists.newArrayList();
-			for (int i = 0; i < orderDtlArr.length; i++) {
-				long counterId = orderDtlArr[i][0];
-				long objParentId = orderDtlArr[i][1];
-				long supplierId = orderDtlArr[i][2];
-				Long count = orderDtlArr[i][3];
-				if(entry.getKey() == counterId){
-					OrderCounterDetail orderCounterDetail = new OrderCounterDetail();
-					orderCounterDetail.setOrderId(order.getId());
-					orderCounterDetail.setOrderCounterId(orderCounter.getId());
-					orderCounterDetail.setObjParentId(objParentId);
-					orderCounterDetail.setObjParentCount(count.intValue());
-					orderCounterDetail.setGmtCreate(now);
-					orderCounterDetail.setValid(1);
-					boolean existsFlag = false;
-					for (OrderCounterDetail existsDtl : cDtlList) {
-						if(existsDtl.getObjParentId().longValue() == orderCounterDetail.getObjParentId().longValue()){
-							existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
-							existsFlag = true;
-							break;
-						}
-					}
-					if(!existsFlag){
-						cDtlList.add(orderCounterDetail);
-					}
-				}
-			}
-			for (OrderCounterDetail orderCounterDetail : cDtlList) {
-				orderCounterDetailDAO.insert(orderCounterDetail);
-			}
-		}
-		//供应商订单总表
-		Map<Long,Object> supplierIdMap = Maps.newHashMap();
-		for (int i = 0; i < orderDtlArr.length; i++) {
-			//counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
-			long supplierId = orderDtlArr[i][2];
-			if(!supplierIdMap.containsKey(supplierId)){
-				supplierIdMap.put(supplierId, null);
-			}
-		}
-		for(Map.Entry<Long,Object> entry : supplierIdMap.entrySet()){
-			OrderSupplier orderSupplier = new OrderSupplier();
-			orderSupplier.setOrgSupplierId(entry.getKey());
-			orderSupplier.setOrderId(order.getId());
-			orderSupplier.setGmtCreate(now);
-			orderSupplier.setValid(1);
-			orderSupplierDAO.insert(orderSupplier);
-			String orderSupplierNo = "S"+f.format(now)+(order.getId() % 10000 + 10000);
-			orderSupplier.setOrderSupplierNo(orderSupplierNo);
-			orderSupplierDAO.updateByPrimaryKeySelective(orderSupplier);
-			//柜台订单明细
-			List<OrderSupplierDetail> sDtlList = Lists.newArrayList();
-			for (int i = 0; i < orderDtlArr.length; i++) {
-				long counterId = orderDtlArr[i][0];
-				long objParentId = orderDtlArr[i][1];
-				long supplierId = orderDtlArr[i][2];
-				Long count = orderDtlArr[i][3];
-				if(entry.getKey() == supplierId){
-					OrderSupplierDetail orderSupplierDetail = new OrderSupplierDetail();
-					orderSupplierDetail.setOrderId(order.getId());
-					orderSupplierDetail.setOrderSupplierId(orderSupplier.getId());
-					orderSupplierDetail.setObjParentId(objParentId);
-					orderSupplierDetail.setObjParentCount(count.intValue());
-					orderSupplierDetail.setGmtCreate(now);
-					orderSupplierDetail.setValid(1); 
-					boolean existsFlag = false;
-					for (OrderSupplierDetail existsDtl : sDtlList) {
-						if(existsDtl.getObjParentId().longValue() == orderSupplierDetail.getObjParentId().longValue()){
-							existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
-							existsFlag = true;
-							break;
-						}
-					}
-					if(!existsFlag){
-						sDtlList.add(orderSupplierDetail);
-					}
-				}
-			}
-			for (OrderSupplierDetail orderSupplierDetail : sDtlList) {
-				orderSupplierDetailDAO.insert(orderSupplierDetail);
-			}
+            if(!counterIdMap.containsKey(counterId)){
+                counterIdMap.put(counterId, null);
+            }
+        }
+        for(Map.Entry<Long,Object> entry : counterIdMap.entrySet()){
+            OrderCounter orderCounter = new OrderCounter();
+            orderCounter.setOrgCounterId(entry.getKey());
+            orderCounter.setOrderId(order.getId());
+            orderCounter.setGmtCreate(now);
+            orderCounter.setValid(1);
+            orderCounterDAO.insert(orderCounter);
+            String orderCounterNo = "C"+f.format(now)+(order.getId() % 10000 + 10000);
+            orderCounter.setOrderCounterNo(orderCounterNo);
+            orderCounterDAO.updateByPrimaryKeySelective(orderCounter);
+            //柜台订单明细
+            List<OrderCounterDetail> cDtlList = Lists.newArrayList();
+            for (int i = 0; i < orderDtlArr.length; i++) {
+                long counterId = orderDtlArr[i][0];
+                long objParentId = orderDtlArr[i][1];
+                long supplierId = orderDtlArr[i][2];
+                Long count = orderDtlArr[i][3];
+                if(entry.getKey() == counterId){
+                    OrderCounterDetail orderCounterDetail = new OrderCounterDetail();
+                    orderCounterDetail.setOrderId(order.getId());
+                    orderCounterDetail.setOrderCounterId(orderCounter.getId());
+                    orderCounterDetail.setObjParentId(objParentId);
+                    orderCounterDetail.setObjParentCount(count.intValue());
+                    orderCounterDetail.setGmtCreate(now);
+                    orderCounterDetail.setValid(1);
+                    boolean existsFlag = false;
+                    for (OrderCounterDetail existsDtl : cDtlList) {
+                        if(existsDtl.getObjParentId().longValue() == orderCounterDetail.getObjParentId().longValue()){
+                            existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
+                            existsFlag = true;
+                            break;
+                        }
+                    }
+                    if(!existsFlag){
+                        cDtlList.add(orderCounterDetail);
+                    }
+                }
+            }
+            for (OrderCounterDetail orderCounterDetail : cDtlList) {
+                orderCounterDetailDAO.insert(orderCounterDetail);
+            }
+        }
+        //供应商订单总表
+        Map<Long,Object> supplierIdMap = Maps.newHashMap();
+        for (int i = 0; i < orderDtlArr.length; i++) {
+            //counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
+            long supplierId = orderDtlArr[i][2];
+            if(!supplierIdMap.containsKey(supplierId)){
+                supplierIdMap.put(supplierId, null);
+            }
+        }
+        for(Map.Entry<Long,Object> entry : supplierIdMap.entrySet()){
+            OrderSupplier orderSupplier = new OrderSupplier();
+            orderSupplier.setOrgSupplierId(entry.getKey());
+            orderSupplier.setOrderId(order.getId());
+            orderSupplier.setGmtCreate(now);
+            orderSupplier.setValid(1);
+            orderSupplierDAO.insert(orderSupplier);
+            String orderSupplierNo = "S"+f.format(now)+(order.getId() % 10000 + 10000);
+            orderSupplier.setOrderSupplierNo(orderSupplierNo);
+            orderSupplierDAO.updateByPrimaryKeySelective(orderSupplier);
+            //柜台订单明细
+            List<OrderSupplierDetail> sDtlList = Lists.newArrayList();
+            for (int i = 0; i < orderDtlArr.length; i++) {
+                long counterId = orderDtlArr[i][0];
+                long objParentId = orderDtlArr[i][1];
+                long supplierId = orderDtlArr[i][2];
+                Long count = orderDtlArr[i][3];
+                if(entry.getKey() == supplierId){
+                    OrderSupplierDetail orderSupplierDetail = new OrderSupplierDetail();
+                    orderSupplierDetail.setOrderId(order.getId());
+                    orderSupplierDetail.setOrderSupplierId(orderSupplier.getId());
+                    orderSupplierDetail.setObjParentId(objParentId);
+                    orderSupplierDetail.setObjParentCount(count.intValue());
+                    orderSupplierDetail.setGmtCreate(now);
+                    orderSupplierDetail.setValid(1);
+                    boolean existsFlag = false;
+                    for (OrderSupplierDetail existsDtl : sDtlList) {
+                        if(existsDtl.getObjParentId().longValue() == orderSupplierDetail.getObjParentId().longValue()){
+                            existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
+                            existsFlag = true;
+                            break;
+                        }
+                    }
+                    if(!existsFlag){
+                        sDtlList.add(orderSupplierDetail);
+                    }
+                }
+            }
+            for (OrderSupplierDetail orderSupplierDetail : sDtlList) {
+                orderSupplierDetailDAO.insert(orderSupplierDetail);
+            }
 //					orderSupplierDetailDAO.insert(orderSupplierDetail);
 //				}
 //			}
-		}
-	}
+        }
+
+    }
+
+//    @Transactional(rollbackFor = Exception.class)
+//	public void doAssign(long[][] orderDtlArr) {
+//		if(orderDtlArr == null || orderDtlArr.length == 0){
+//			return;
+//		}
+//		Date now = new Date();
+//		SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");
+//		//订单总表
+//		Order order = new Order();
+//		order.setGmtCreate(now);
+//		order.setValid(1);
+//		orderDAO.insert(order);
+//		String orderNo = "A"+f.format(now)+(order.getId() % 10000 + 10000);
+//		order.setOrderNo(orderNo);
+//		orderDAO.updateByPrimaryKeySelective(order);
+//		//柜台订单总表
+//		Map<Long,Object> counterIdMap = Maps.newHashMap();
+//		for (int i = 0; i < orderDtlArr.length; i++) {
+//			//counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
+//			long counterId = orderDtlArr[i][0];
+////			long objParentId = orderDtlArr[i][1];
+////			long supplierId = orderDtlArr[i][2];
+////			long count = orderDtlArr[i][3];
+//			if(!counterIdMap.containsKey(counterId)){
+//				counterIdMap.put(counterId, null);
+//			}
+//		}
+//		for(Map.Entry<Long,Object> entry : counterIdMap.entrySet()){
+//			OrderCounter orderCounter = new OrderCounter();
+//			orderCounter.setOrgCounterId(entry.getKey());
+//			orderCounter.setOrderId(order.getId());
+//			orderCounter.setGmtCreate(now);
+//			orderCounter.setValid(1);
+//			orderCounterDAO.insert(orderCounter);
+//			String orderCounterNo = "C"+f.format(now)+(order.getId() % 10000 + 10000);
+//			orderCounter.setOrderCounterNo(orderCounterNo);
+//			orderCounterDAO.updateByPrimaryKeySelective(orderCounter);
+//			//柜台订单明细
+//			List<OrderCounterDetail> cDtlList = Lists.newArrayList();
+//			for (int i = 0; i < orderDtlArr.length; i++) {
+//				long counterId = orderDtlArr[i][0];
+//				long objParentId = orderDtlArr[i][1];
+//				long supplierId = orderDtlArr[i][2];
+//				Long count = orderDtlArr[i][3];
+//				if(entry.getKey() == counterId){
+//					OrderCounterDetail orderCounterDetail = new OrderCounterDetail();
+//					orderCounterDetail.setOrderId(order.getId());
+//					orderCounterDetail.setOrderCounterId(orderCounter.getId());
+//					orderCounterDetail.setObjParentId(objParentId);
+//					orderCounterDetail.setObjParentCount(count.intValue());
+//					orderCounterDetail.setGmtCreate(now);
+//					orderCounterDetail.setValid(1);
+//					boolean existsFlag = false;
+//					for (OrderCounterDetail existsDtl : cDtlList) {
+//						if(existsDtl.getObjParentId().longValue() == orderCounterDetail.getObjParentId().longValue()){
+//							existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
+//							existsFlag = true;
+//							break;
+//						}
+//					}
+//					if(!existsFlag){
+//						cDtlList.add(orderCounterDetail);
+//					}
+//				}
+//			}
+//			for (OrderCounterDetail orderCounterDetail : cDtlList) {
+//				orderCounterDetailDAO.insert(orderCounterDetail);
+//			}
+//		}
+//		//供应商订单总表
+//		Map<Long,Object> supplierIdMap = Maps.newHashMap();
+//		for (int i = 0; i < orderDtlArr.length; i++) {
+//			//counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
+//			long supplierId = orderDtlArr[i][2];
+//			if(!supplierIdMap.containsKey(supplierId)){
+//				supplierIdMap.put(supplierId, null);
+//			}
+//		}
+//		for(Map.Entry<Long,Object> entry : supplierIdMap.entrySet()){
+//			OrderSupplier orderSupplier = new OrderSupplier();
+//			orderSupplier.setOrgSupplierId(entry.getKey());
+//			orderSupplier.setOrderId(order.getId());
+//			orderSupplier.setGmtCreate(now);
+//			orderSupplier.setValid(1);
+//			orderSupplierDAO.insert(orderSupplier);
+//			String orderSupplierNo = "S"+f.format(now)+(order.getId() % 10000 + 10000);
+//			orderSupplier.setOrderSupplierNo(orderSupplierNo);
+//			orderSupplierDAO.updateByPrimaryKeySelective(orderSupplier);
+//			//柜台订单明细
+//			List<OrderSupplierDetail> sDtlList = Lists.newArrayList();
+//			for (int i = 0; i < orderDtlArr.length; i++) {
+//				long counterId = orderDtlArr[i][0];
+//				long objParentId = orderDtlArr[i][1];
+//				long supplierId = orderDtlArr[i][2];
+//				Long count = orderDtlArr[i][3];
+//				if(entry.getKey() == supplierId){
+//					OrderSupplierDetail orderSupplierDetail = new OrderSupplierDetail();
+//					orderSupplierDetail.setOrderId(order.getId());
+//					orderSupplierDetail.setOrderSupplierId(orderSupplier.getId());
+//					orderSupplierDetail.setObjParentId(objParentId);
+//					orderSupplierDetail.setObjParentCount(count.intValue());
+//					orderSupplierDetail.setGmtCreate(now);
+//					orderSupplierDetail.setValid(1);
+//					boolean existsFlag = false;
+//					for (OrderSupplierDetail existsDtl : sDtlList) {
+//						if(existsDtl.getObjParentId().longValue() == orderSupplierDetail.getObjParentId().longValue()){
+//							existsDtl.setObjParentCount(existsDtl.getObjParentCount() + count.intValue());
+//							existsFlag = true;
+//							break;
+//						}
+//					}
+//					if(!existsFlag){
+//						sDtlList.add(orderSupplierDetail);
+//					}
+//				}
+//			}
+//			for (OrderSupplierDetail orderSupplierDetail : sDtlList) {
+//				orderSupplierDetailDAO.insert(orderSupplierDetail);
+//			}
+////					orderSupplierDetailDAO.insert(orderSupplierDetail);
+////				}
+////			}
+//		}
+//	}
 
 
 	public List<Map<String, String>> listErectorTask(String keyword) {

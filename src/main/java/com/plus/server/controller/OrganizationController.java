@@ -257,6 +257,14 @@ public class OrganizationController extends BaseController {
         return mv;
     }
 
+    @RequestMapping(value = "/listInstallationCompany", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView listInstallationCompany(Model model, String keyword) {
+        ModelAndView mv = new ModelAndView("organization/listInstallationCompany.ftl");
+        model.addAttribute("list", organizationService.getInstallationList(keyword));
+        return mv;
+    }
+
+
     @RequestMapping(value = "/addSupplier", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addSupplier(Model model, Long id, String brandIds, String name, String address,
                                     String longLat, String phone, String email, String comment) {
@@ -267,6 +275,26 @@ public class OrganizationController extends BaseController {
             organizationService.saveSupplier(id, brandIds, name,address,longLat,phone, email, comment);
             mv = new ModelAndView("organization/listSupplier.ftl");
             model.addAttribute("list", organizationService.getSupplierList(""));
+            return mv;
+        } else if(requestMethod.equals("GET")){
+            model.addAttribute("brandList", organizationService.getBrandList(""));
+            if(id>0) {
+                model.addAttribute("model", organizationService.getOrg(id));
+            }
+        }
+        return mv;
+    }
+
+    @RequestMapping(value = "/addInstallationCompany", method = {RequestMethod.GET,RequestMethod.POST})
+    public ModelAndView addInstallationCompany(Model model, Long id, String brandIds, String name, String address,
+                                    String longLat, String phone, String email, String comment) {
+        ModelAndView mv = new ModelAndView("organization/addInstallationCompany.ftl");
+        id = id == null ? 0: id;
+        String requestMethod = httpRequest.getMethod();
+        if(requestMethod.equals("POST")){
+            organizationService.saveInstallation(id, brandIds, name,address,longLat,phone, email, comment);
+            mv = new ModelAndView("organization/listInstallationCompany.ftl");
+            model.addAttribute("list", organizationService.getInstallationList(""));
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));

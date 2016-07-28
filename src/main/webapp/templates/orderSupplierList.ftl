@@ -34,6 +34,7 @@
     <td width="150">订单号</td>
     <td width="150">供应商</td>
     <td align="center" width="150">创建日期</td>
+    <td align="center" width="150">详情</td>
     <td align="center" width="150">操作</td>
   </tr>
   <#if list??>
@@ -47,6 +48,9 @@
 	      <td align="center" bgcolor="#FFFFFF">
 		      <a href="toEditDtl?orderSupplierId=${s.id?if_exists}" target="_self">详细</a>
 	      </td>
+          <td align="center" bgcolor="#FFFFFF">
+              <a href="toEditDtl?orderSupplierId=${s.id?if_exists}" target="_self">操作</a>
+          </td>
     
       </tr>
   </#list>
