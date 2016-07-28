@@ -113,7 +113,7 @@
 <br>
 <div class="icon">包括灯片</div>
 <br>
-<strong>添加灯片：</strong>
+<strong>添加道具：</strong>
 
 <table>
     <tr>
@@ -146,9 +146,8 @@
     <thead><tr class="title1">
         <td width="5">&nbsp;</td>
         <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
-        <td width="150">灯片编号</td>
-        <td>灯片名称</td>
-        <td>灯片数量</td>
+        <td>道具名称</td>
+        <td>道具数量</td>
         <td align="center" width="150">添加日期</td>
         <td align="center" width="150">操作</td>
     </tr>
@@ -159,7 +158,6 @@
         <tr class="con">
             <td bgcolor="#FFFFFF">&nbsp;</td>
             <td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>
-            <td bgcolor="#FFFFFF">${s.objParentNo?if_exists}</td>
             <td bgcolor="#FFFFFF">${s.objParentName?if_exists}</td>
             <td bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>

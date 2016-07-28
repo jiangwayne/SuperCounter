@@ -21,6 +21,7 @@ import com.plus.server.common.vo.resp.BaseResp;
 import com.plus.server.common.vo.resp.DataResp;
 import com.plus.server.model.CounterDetails;
 import com.plus.server.model.Furniture;
+import com.plus.server.model.User;
 import com.plus.server.model.ObjectParent;
 import com.plus.server.model.Organization;
 import com.plus.server.service.AssignTaskService;
@@ -136,20 +137,26 @@ public class AssignTaskController extends BaseController {
 				objParent.setName(objParentName);
 				list = objectParentService.selectByModel(objParent);
 			} else {
-				List<CounterDetails> counterDtlList = organizationService.getCounterDtl(counterId);
-				if (counterDtlList != null && counterDtlList.size() > 0) {
-					list = Lists.newArrayList();
-					for (CounterDetails counterDetails : counterDtlList) {
-						ObjectParent op = counterDetails.getObjectParent();
-						if (op != null) {
-							if (objParentName == null || "".equals(objParentName.trim())) {
-								list.add(op);
-							} else if (op.getName() != null && op.getName().indexOf(objParentName) >= 0) {
-								list.add(op);
-							}
-						}
-					}
-				}
+//				List<CounterDetails> counterDtlList = organizationService.getCounterDtl(counterId);
+//				if (counterDtlList != null && counterDtlList.size() > 0) {
+//					list = Lists.newArrayList();
+//					for (CounterDetails counterDetails : counterDtlList) {
+//						ObjectParent op = counterDetails.getObjectParent();
+//						if (op != null) {
+//							if (objParentName == null || "".equals(objParentName.trim())) {
+//								list.add(op);
+//							} else if (op.getName() != null && op.getName().indexOf(objParentName) >= 0) {
+//								list.add(op);
+//							}
+//						}
+//					}
+//				}
+                ObjectParent objParent = new ObjectParent();
+                objParent.setValid(1);
+                objParent.setCounterId(counterId);
+                objParent.setType(3);// 父件类型(1：图片，2：道具，3：灯片)
+                objParent.setName(objParentName);
+                list = objectParentService.selectByModel(objParent);
 			}
 			ret.setData(list);
 		} catch (Exception e) {
@@ -205,6 +212,8 @@ public class AssignTaskController extends BaseController {
 	@ResponseBody
 	public BaseResp doAssign(String assignValueArrStr) {
 		BaseResp ret = new BaseResp();
+        System.out.println(assignValueArrStr);
+        log.debug("mahui_debug",assignValueArrStr);
 		try {
 			System.out.println(assignValueArrStr);
 			if(assignValueArrStr != null){
@@ -220,7 +229,9 @@ public class AssignTaskController extends BaseController {
 							orderDtlArr[i][3] = Long.parseLong(subArr[3]);
 						}
 					}
-					assignTaskService.doAssign(orderDtlArr);
+                    User u = (User)this.httpSession.getAttribute("user");
+                    Organization org = (Organization)this.httpSession.getAttribute("brand");
+					assignTaskService.doAssign(orderDtlArr,org.getId(), u.getId());
 				}
 			}
 		} catch (Exception e) {

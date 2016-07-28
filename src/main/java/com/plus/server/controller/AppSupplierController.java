@@ -1,11 +1,12 @@
 package com.plus.server.controller;
 
+
+
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.deser.Deserializers;
 import com.github.pagehelper.PageInfo;
-import com.plus.server.model.ObjectChild;
-import com.plus.server.model.ObjectParent;
-import com.plus.server.model.ParentChild;
-import com.plus.server.model.User;
+import com.plus.server.common.util.RetUtil;
+import com.plus.server.model.*;
 import com.plus.server.service.*;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class AppSupplierController extends BaseController{
     @Autowired
     private AssignTaskService assignTaskService;
     @RequestMapping(value = "/userLogin", method = {RequestMethod.GET})
-    public User userLogin(String name, String pwd) {
+    public JSONObject userLogin(String name, String pwd) {
         ModelAndView mv = new ModelAndView("user/login.ftl");
         if(name == null || name.equals("") || pwd == null || pwd.equals("")) {
             return null;
@@ -57,7 +58,18 @@ public class AppSupplierController extends BaseController{
 
             //return mv;
             User u = userService.login(name,pwd);
-            return u;
+
+            JSONObject retJobj = RetUtil.createBaseRetJsonObj();
+
+            retJobj.getJSONObject("data").put("username", u.getName());
+            retJobj.getJSONObject("data").put("password", pwd);
+            retJobj.getJSONObject("data").put("orgId", u.getOrgId());
+            retJobj.getJSONObject("data").put("brandId","333");
+            retJobj.getJSONObject("data").put("descriptaion", u.getComment());
+            retJobj.getJSONObject("data").put("name", u.getFullName());
+            retJobj.getJSONObject("data").put("email", u.getPhone());
+            return retJobj;
+
         }
 
     }

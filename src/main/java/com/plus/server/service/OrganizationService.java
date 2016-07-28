@@ -320,6 +320,10 @@ public class OrganizationService {
         return Support.getInstance().getOrganizationList("3",keyword);//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
     }
 
+    public List<Map<String,String>> getInstallationList(String keyword){
+        return Support.getInstance().getOrganizationList("6",keyword);//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列 6:安装公司)
+    }
+
     public void saveSupplier(Long id, String brandIds, String name, String address,
                              String longLat, String phone, String email, String comment) {
         Organization organization = new Organization();
@@ -329,6 +333,31 @@ public class OrganizationService {
         organization.setBrandIds(brandIds);
         organization.setName(name);
         organization.setType("3");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
+        organization.setPhone(phone);
+        organization.setEmail(email);
+        organization.setAddress(address);
+        organization.setLongLat(longLat);
+        organization.setComment(comment);
+
+        organization.setValid(1);
+        organization.setGmtModify(new Date());
+        if(id>0) {
+            organizationDAO.updateByPrimaryKeySelective(organization);
+        } else {
+            organization.setGmtCreate(new Date());
+            organizationDAO.insert(organization);
+        }
+    }
+
+    public void saveInstallation(Long id, String brandIds, String name, String address,
+                             String longLat, String phone, String email, String comment) {
+        Organization organization = new Organization();
+        if(id > 0) {
+            organization = organizationDAO.selectByPrimaryKey(id);
+        }
+        organization.setBrandIds(brandIds);
+        organization.setName(name);
+        organization.setType("6");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列 6安装公司)
         organization.setPhone(phone);
         organization.setEmail(email);
         organization.setAddress(address);

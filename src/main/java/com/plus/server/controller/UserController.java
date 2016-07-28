@@ -149,7 +149,7 @@ public class UserController extends BaseController {
             }
             return mv;
         } else if(requestMethod.equals("GET")){
-            model.addAttribute("erectorOrgList", userService.getOrganizationList("5",""));
+            model.addAttribute("erectorOrgList", userService.getOrganizationList("6",""));
             if(id>0) {
                 model.addAttribute("model", userService.getUser(id));
             }

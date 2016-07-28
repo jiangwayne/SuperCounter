@@ -20,6 +20,20 @@
                     <td height="54">&nbsp;</td>
                     <td valign="bottom"><input type="password" name="pwd" id="textfield2" class="input1" placeholder="密码"  /></td>
                 </tr>
+
+                <tr>
+                    <td height="54">&nbsp;</td>
+                    <td valign="bottom">
+                        <select id="brand" name="brandId" class="ip" id="select3">
+                        <#if brandList??>
+                            <#list brandList as s>
+                                <option value="${s.id?if_exists}">${s.name?if_exists}</option>
+                            </#list>
+                        </#if>
+                        </select>
+
+                    </td>
+                </tr>
                 <tr>
                     <td height="56">&nbsp;</td>
                     <td valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">

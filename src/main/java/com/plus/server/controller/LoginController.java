@@ -1,6 +1,9 @@
 package com.plus.server.controller;
 
+import com.plus.server.model.Organization;
 import com.plus.server.model.User;
+import com.plus.server.model.Organization;
+import com.plus.server.service.OrganizationService;
 import com.plus.server.service.UserService;
 import com.wordnik.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -24,22 +27,26 @@ public class LoginController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private OrganizationService organizationService;
+
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView login(String name, String pwd) {
+    public ModelAndView login(Model model, String name, String pwd, String brandId) {
         ModelAndView mv = new ModelAndView("user/login.ftl");
         //ModelAndView mv = new ModelAndView("index.ftl");
         if(name == null || name.equals("") || pwd == null || pwd.equals("")) {
+            model.addAttribute("brandList", organizationService.getBrandList(""));
             return mv;
         }
         else {
             log.info("name={},pwd={}",name,pwd);
-            mv = new ModelAndView("redirect:/gtb/index.ftl");
-
             //return mv;
             User u = userService.login(name,pwd);
+            Organization org = organizationService.getOrg(new Long(brandId));
             if(u != null){
                 this.httpSession.setAttribute("user", u);
-                mv = new ModelAndView("index.ftl");
+                this.httpSession.setAttribute("brand", org);
+                mv = new ModelAndView("redirect:/gtb/index.ftl");
             }
         }
         return mv;
@@ -49,6 +56,7 @@ public class LoginController extends BaseController {
     public ModelAndView loginOut(Model model) {
         ModelAndView mv = new ModelAndView("index.ftl");
         this.httpSession.removeAttribute("user");
+        this.httpSession.removeAttribute("brand");
         return mv;
     }
 

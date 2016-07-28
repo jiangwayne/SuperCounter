@@ -371,6 +371,7 @@ $(function (){
 			var arr = dom.value;
 			assignValueArrStr += arr+",";
 		});
+        alert(assignValueArrStr);
 		$.ajax({
 			url: '${base_addr}/gtb/assignTask/doAssign' ,
 	        secureuri: false,
