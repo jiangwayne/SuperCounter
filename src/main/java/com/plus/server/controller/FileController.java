@@ -81,6 +81,7 @@ public class FileController extends BaseController {
 		try {
 			byte[] b = fileService.downloadFileStream(fileName);
 			httpResponse.getOutputStream().write(b);
+			httpResponse.setContentType("image/*");
 		} catch (Exception e) {
 			log.error("", e);
 		}
