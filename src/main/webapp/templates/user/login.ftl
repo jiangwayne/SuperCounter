@@ -24,24 +24,25 @@
                 <tr>
                     <td height="54">&nbsp;</td>
                     <td valign="bottom">
-                        <select id="brand" name="brandId" class="ip" id="select3">
+                        <select id="brand" name="brandId" class="ip" id="select3" style="width: 100px;height: 54px;">
                         <#if brandList??>
                             <#list brandList as s>
                                 <option value="${s.id?if_exists}">${s.name?if_exists}</option>
                             </#list>
                         </#if>
                         </select>
-
                     </td>
                 </tr>
                 <tr>
                     <td height="56">&nbsp;</td>
-                    <td valign="bottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td width="140"><input type="text" name="validateCode" id="textfield3" class="input2" placeholder="验证码"  /></td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </table></td>
+                    <td valign="bottom">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="140"><input type="text" name="validateCode" id="textfield3" class="input2" placeholder="验证码"  /></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>

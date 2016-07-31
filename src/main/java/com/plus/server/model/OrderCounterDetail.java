@@ -13,6 +13,8 @@ public class OrderCounterDetail {
 
     private Integer objParentCount;
 
+    private ObjectParent objParent;
+
     private String comment;
 
     private Integer valid;
@@ -43,6 +45,14 @@ public class OrderCounterDetail {
 
     public void setOrderCounterId(Long orderCounterId) {
         this.orderCounterId = orderCounterId;
+    }
+
+    public ObjectParent getObjParent() {
+        return objParent;
+    }
+
+    public void setObjParent(ObjectParent objParent) {
+        this.objParent = objParent;
     }
 
     public Long getObjParentId() {

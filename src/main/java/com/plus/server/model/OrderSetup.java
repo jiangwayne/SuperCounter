@@ -13,7 +13,11 @@ public class OrderSetup {
 
     private Long orgCounterId;
 
+    private Organization orgCounter;
+
     private Long userSetupId;
+
+    private User setupUser;
 
     private Date setupTime;
 
@@ -131,5 +135,21 @@ public class OrderSetup {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    public User getSetupUser() {
+        return setupUser;
+    }
+
+    public void setSetupUser(User setupUser) {
+        this.setupUser = setupUser;
+    }
+
+    public Organization getOrgCounter() {
+        return orgCounter;
+    }
+
+    public void setOrgCounter(Organization orgCounter) {
+        this.orgCounter = orgCounter;
     }
 }

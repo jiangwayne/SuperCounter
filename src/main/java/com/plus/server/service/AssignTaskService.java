@@ -101,14 +101,16 @@ public class AssignTaskService {
                 counterIdMap.put(counterId, null);
             }
         }
+        int nOrderCounterIndex = 0;
         for(Map.Entry<Long,Object> entry : counterIdMap.entrySet()){
+            nOrderCounterIndex++;
             OrderCounter orderCounter = new OrderCounter();
             orderCounter.setOrgCounterId(entry.getKey());
             orderCounter.setOrderId(order.getId());
             orderCounter.setGmtCreate(now);
             orderCounter.setValid(1);
             orderCounterDAO.insert(orderCounter);
-            String orderCounterNo = "C"+f.format(now)+(order.getId() % 10000 + 10000);
+            String orderCounterNo = "C"+f.format(now)+(order.getId() % 10000 + 10000)+nOrderCounterIndex;
             orderCounter.setOrderCounterNo(orderCounterNo);
             orderCounterDAO.updateByPrimaryKeySelective(orderCounter);
             //柜台订单明细
@@ -152,17 +154,19 @@ public class AssignTaskService {
                 supplierIdMap.put(supplierId, null);
             }
         }
+        int nOrderSupplierIndex = 0;
         for(Map.Entry<Long,Object> entry : supplierIdMap.entrySet()){
+            nOrderSupplierIndex++;
             OrderSupplier orderSupplier = new OrderSupplier();
             orderSupplier.setOrgSupplierId(entry.getKey());
             orderSupplier.setOrderId(order.getId());
             orderSupplier.setGmtCreate(now);
             orderSupplier.setValid(1);
             orderSupplierDAO.insert(orderSupplier);
-            String orderSupplierNo = "S"+f.format(now)+(order.getId() % 10000 + 10000);
+            String orderSupplierNo = "S"+f.format(now)+(order.getId() % 10000 + 10000)+nOrderSupplierIndex;
             orderSupplier.setOrderSupplierNo(orderSupplierNo);
             orderSupplierDAO.updateByPrimaryKeySelective(orderSupplier);
-            //柜台订单明细
+            //供应商订单明细
             List<OrderSupplierDetail> sDtlList = Lists.newArrayList();
             for (int i = 0; i < orderDtlArr.length; i++) {
                 long counterId = orderDtlArr[i][0];

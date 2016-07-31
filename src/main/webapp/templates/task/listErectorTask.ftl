@@ -27,8 +27,8 @@
     <td width="100">安装工程师</td>
     <td align="center">安装日期</td>
     <td align="center" width="150">创建日期</td>
-    <td align="center" width="300">描述</td>
-    <#--<td align="center" width="150">操作</td>-->
+    <td align="center" width="150">详情</td>
+    <td align="center" width="150">查看</td>
   </tr>
   <#if list??>
     <#list list as s>
@@ -36,13 +36,13 @@
     <tr class="con">
         <td bgcolor="#FFFFFF">&nbsp;</td>
         <td bgcolor="#FFFFFF"><input name="checkbox3" id="checkbox3" type="checkbox"></td>
-        <td bgcolor="#FFFFFF">${s.id?if_exists}</td>
+        <td bgcolor="#FFFFFF">${s.orderCounterNo?if_exists}</td>
         <td bgcolor="#FFFFFF"><a href="orderProductTaskDetail.html" target="_blank">${s.counterName?if_exists}</a></td>
         <td bgcolor="#FFFFFF">${s.setupUser?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.setupTime?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF"><a href="#">${s.comment?if_exists}</a></td>
-        <#--<td align="center" bgcolor="#FFFFFF"><a href="erectorTaskDetail.html">详情</a></td>-->
+        <td align="center" bgcolor="#FFFFFF"><a href="toDisplayErectorDtl?orderSetupId=${s.id?if_exists}">查看</a></td>
     </tr>
     </#list>
   </#if>

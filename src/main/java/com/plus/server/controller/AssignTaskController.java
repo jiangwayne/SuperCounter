@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.plus.server.common.util.DateUtil;
-import com.plus.server.service.UserService;
+import com.plus.server.model.*;
+import com.plus.server.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.common.collect.Lists;
 import com.plus.server.common.vo.resp.BaseResp;
 import com.plus.server.common.vo.resp.DataResp;
-import com.plus.server.model.CounterDetails;
-import com.plus.server.model.Furniture;
-import com.plus.server.model.User;
-import com.plus.server.model.ObjectParent;
-import com.plus.server.model.Organization;
-import com.plus.server.service.AssignTaskService;
-import com.plus.server.service.ObjectParentService;
-import com.plus.server.service.OrganizationService;
 
 @Controller
 @RequestMapping(value = "/gtb/assignTask")
@@ -42,6 +35,12 @@ public class AssignTaskController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+
+    @Autowired
+    private OrderCounterService orderCounterService;
+
+    @Autowired
+    private OrderSetupService orderSetupService;
 
 	@RequestMapping(value = "/toAssign")
 	public ModelAndView toAssign() {
@@ -266,10 +265,26 @@ public class AssignTaskController extends BaseController {
 		return mv;
 	}
 
-	@RequestMapping(value="/listErectorTask", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listErectorTask(Model model, String keyword) {
-		ModelAndView mv = new ModelAndView("task/listErectorTask.ftl");
-		model.addAttribute("list", assignTaskService.listErectorTask(keyword));
-		return mv;
-	}
+//	@RequestMapping(value="/listErectorTask", method = {RequestMethod.GET, RequestMethod.POST})
+//	public ModelAndView listErectorTask(Model model, String keyword) {
+//		ModelAndView mv = new ModelAndView("task/listErectorTask.ftl");
+//		model.addAttribute("list", assignTaskService.listErectorTask(keyword));
+//		return mv;
+//	}
+//
+//    @RequestMapping(value = "/toDisplayErectorDtl")
+//    public ModelAndView toEditDtl(Model model, Long orderSetupId) {
+//        ModelAndView mv = new ModelAndView("task/erectorTaskDetail.ftl");
+//
+//        model.addAttribute("orderSupplierId", orderSetupId);
+//        try {
+//            OrderSetup orderSetup = orderSetupService.selectById(orderSetupId);
+//            model.addAttribute("orderSetup", orderSetup);
+//            List<OrderCounterDetail> dtlList = orderSetupService.selectDtlById(orderCounterId);
+//            model.addAttribute("dtlList", dtlList);
+//        } catch (Exception e) {
+//            log.error("", e);
+//        }
+//        return mv;
+//    }
 }

@@ -47,6 +47,8 @@ public class LoginController extends BaseController {
                 this.httpSession.setAttribute("user", u);
                 this.httpSession.setAttribute("brand", org);
                 mv = new ModelAndView("redirect:/gtb/index.ftl");
+            }else {
+                model.addAttribute("brandList", organizationService.getBrandList(""));
             }
         }
         return mv;
