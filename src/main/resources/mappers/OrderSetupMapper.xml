@@ -15,6 +15,8 @@
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <association property="setupUser" column="user_setup_id" select="com.plus.server.dal.UserDAO.selectByPrimaryKey" ></association>
+    <association property="orgCounter" column="org_counter_id" select="com.plus.server.dal.OrganizationDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
     id, order_id, damage_id, order_counter_ids, org_counter_id, user_setup_id, setup_time, 

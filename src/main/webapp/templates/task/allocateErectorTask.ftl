@@ -44,7 +44,7 @@
         <ul>
           <#if counterOrderList??>
             <#list counterOrderList as s>
-                <li><input  value="${s.orgCounterId?if_exists}" type="checkbox" name="orderCounterIds"><span>${s.orderCounterNo?if_exists}</span></li>
+                <li><input  value="${s.id?if_exists}" type="checkbox" name="orderCounterIds"><span>${s.orderCounterNo?if_exists}</span></li>
             </#list>
           </#if>
         </ul>

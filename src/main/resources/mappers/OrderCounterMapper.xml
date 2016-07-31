@@ -10,6 +10,7 @@
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <association property="orgCounter" column="org_counter_id" select="com.plus.server.dal.OrganizationDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
     id, order_id, org_counter_id, order_counter_no, comment, valid, gmt_create, gmt_modify

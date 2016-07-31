@@ -2,12 +2,15 @@ package com.plus.server.model;
 
 import java.util.Date;
 
+
 public class OrderCounter {
     private Long id;
 
     private Long orderId;
 
     private Long orgCounterId;
+
+    private Organization orgCounter;
 
     private String orderCounterNo;
 
@@ -41,6 +44,14 @@ public class OrderCounter {
 
     public void setOrgCounterId(Long orgCounterId) {
         this.orgCounterId = orgCounterId;
+    }
+
+    public Organization getOrgCounter() {
+        return orgCounter;
+    }
+
+    public void setOrgCounter(Organization orgCounter) {
+        this.orgCounter = orgCounter;
     }
 
     public String getOrderCounterNo() {

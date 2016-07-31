@@ -17,7 +17,7 @@
 <div class="wztitle">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td align="center">生产任务单详情</td>
+            <td align="center">柜台任务任务单详情</td>
         </tr>
         <tr>
             <td class="date">
@@ -25,7 +25,7 @@
                     <tr>
                         <td width="25%">编号：${orderCounter.orderCounterNo?if_exists}</td>
                         <td width="25%">创建日期：${(orderCounter.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
-                        <td width="25%">供应商：${orderCounter.orgCounterId?if_exists}</td>
+                        <td width="25%">柜台名称：${orderCounter.orgCounter.name?if_exists}</td>
                     </tr>
                 </table>
             </td>
@@ -38,29 +38,22 @@
         <td width="150"></td>
         <td>道具名称</td>
         <td align="center">数量</td>
-        <td align="center">预入库完成日期</td>
-        <td align="center">预出库完成日期</td>
 
-        <td width="150" align="center">更新</td>
+        <td align="center">添加日期</td>
+        <td width="150" align="center">操作</td>
     </tr>
 <#if dtlList??>
     <#list dtlList as s>
         <tr class="con">
             <td bgcolor="#FFFFFF">&nbsp;</td>
             <td bgcolor="#FFFFFF">${s_index+1}</td>
-            <td bgcolor="#FFFFFF">${s.objParent?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input id="in_${s_index+1}" type="text" value="${(s.inStockTime?string("yyyy-MM-dd"))!''}" size="20" />
-                <script type="text/javascript">laydate({elem: '#in_${s_index+1}'});</script>
-            </td>
-            <td align="center" bgcolor="#FFFFFF">
-                <input id="out_${s_index+1}" type="text" value="${(s.outStockTime?string("yyyy-MM-dd"))!''}" size="20" />
-                <script type="text/javascript">laydate({elem: '#out_${s_index+1}'});</script>
-            </td>
 
+            <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
             <td align="center" bgcolor="#FFFFFF">
-                <input type="button" onclick="updateDtl('${s_index+1}','${s.id?if_exists}')" value="更新" class="blue" />
+                <a href="toEdit?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:deleteOne(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
             </td>
         </tr>
     </#list>
@@ -79,28 +72,5 @@
 </table>
 
 </body>
-<script>
-    $(function (){
-        //初始化js
-    });
-    function updateDtl(dateInputId,dtlId){
-        var inDateStr = $('#in_'+dateInputId).val();
-        var outDateStr = $('#out_'+dateInputId).val();
-        if(!(inDateStr) && !(outDateStr)){
-            alert('时间不能都为空');
-        }
-        $.ajax({
-            url: '${base_addr}/gtb/orderSupplier/updateDtl' ,
-            secureuri: false,
-            async : false,
-            data: {dtlId : dtlId, inDateStr : inDateStr, outDateStr : outDateStr},
-            dataType: 'json',
-            success: function (data) {
-                if(data.success){
-                    location.reload();
-                }
-            }
-        });
-    }
-</script>
+
 </html>

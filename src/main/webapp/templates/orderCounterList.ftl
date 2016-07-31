@@ -43,7 +43,7 @@
             <td bgcolor="#FFFFFF">&nbsp;</td>
             <td bgcolor="#FFFFFF">${s_index+1}</td>
             <td bgcolor="#FFFFFF">${s.orderCounterNo?if_exists}</td>
-            <td bgcolor="#FFFFFF">${s.orgCounterId?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.orgCounter.name?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
             <td align="center" bgcolor="#FFFFFF">
                 <a href="toEditDtl?orderCounterId=${s.id?if_exists}" target="_self">详细</a>
