@@ -206,10 +206,15 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveCounter(id, orgId, mediaType, styleId,
-                     name,  address,  longLat,  phone, counterNo,  comment);
-            mv = new ModelAndView("organization/listCounter.ftl");
-            model.addAttribute("list", organizationService.getCounterList(""));
+            if(organizationService.saveCounter(id, orgId, mediaType, styleId,
+                     name,  address,  longLat,  phone, counterNo,  comment)) {
+                mv = new ModelAndView("organization/listCounter.ftl");
+                model.addAttribute("list", organizationService.getCounterList(""));
+            } else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                model.addAttribute("styleList", organizationService.getCounterStyleList(""));
+                JOptionPane.showMessageDialog(null, "柜台名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
