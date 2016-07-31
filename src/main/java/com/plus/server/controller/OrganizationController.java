@@ -357,4 +357,11 @@ public class OrganizationController extends BaseController {
 
     }
 
+    @RequestMapping(value = "/deleteFurnitureTemplate", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<Map<String,String>> deleteFurnitureTemplate(Long id,Long furnitureId){
+        organizationService.deleteCounterTemplate(id);
+        return organizationService.getFurnitureObjParentMap(furnitureId);
+
+    }
 }

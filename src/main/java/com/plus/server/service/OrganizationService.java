@@ -485,6 +485,7 @@ public class OrganizationService {
         CounterTemplate counterTemplate = new CounterTemplate();
         counterTemplate.setId(id);
         counterTemplate.setValid(-1);
+        counterTemplate.setGmtModify(new Date());
 
         counterTemplateDAO.updateByPrimaryKeySelective(counterTemplate);
     }
