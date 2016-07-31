@@ -25,6 +25,8 @@ import com.plus.server.model.Organization;
 import com.plus.server.service.OrganizationService;
 import com.wordnik.swagger.annotations.Api;
 
+import javax.swing.*;
+
 /**
  * Created by jiangwulin on 16/7/5.
  */
@@ -51,9 +53,12 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveBrand(id, name, phone, wx, email, comment);
-            mv = new ModelAndView("organization/listBrand.ftl");
-            model.addAttribute("list", organizationService.getBrandList(""));
+            if(organizationService.saveBrand(id, name, phone, wx, email, comment)) {
+                mv = new ModelAndView("organization/listBrand.ftl");
+                model.addAttribute("list", organizationService.getBrandList(""));
+            }else {
+                JOptionPane.showMessageDialog(null, "品牌名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             if(id>0) {
@@ -69,9 +74,13 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveCounterStyle(id, orgId, name,comment);
-            mv = new ModelAndView("organization/listCounterType.ftl");
-            model.addAttribute("list", organizationService.getCounterStyleList(""));
+            if(organizationService.saveCounterStyle(id, orgId, name,comment)){
+                mv = new ModelAndView("organization/listCounterType.ftl");
+                model.addAttribute("list", organizationService.getCounterStyleList(""));
+            }else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "样式名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
@@ -108,10 +117,15 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveCounter(id, orgId, mediaType, styleId,
-                     name,  address,  longLat,  phone, counterNo,  comment);
-            mv = new ModelAndView("organization/listCounter.ftl");
-            model.addAttribute("list", organizationService.getCounterList(""));
+            if(organizationService.saveCounter(id, orgId, mediaType, styleId,
+                     name,  address,  longLat,  phone, counterNo,  comment)) {
+                mv = new ModelAndView("organization/listCounter.ftl");
+                model.addAttribute("list", organizationService.getCounterList(""));
+            }else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                model.addAttribute("styleList", organizationService.getCounterStyleList(""));
+                JOptionPane.showMessageDialog(null, "柜台名已存在");
+            }
             return mv;
         }else{
             model.addAttribute("brandList", organizationService.getBrandList(""));

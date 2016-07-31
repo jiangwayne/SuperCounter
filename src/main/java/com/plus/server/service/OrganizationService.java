@@ -64,10 +64,17 @@ public class OrganizationService {
         return organizationDAO.selectByPrimaryKey(id);
     }
 
-    public void saveBrand(Long id, String name, String phone, String wx, String email,  String comment){
+    public boolean saveBrand(Long id, String name, String phone, String wx, String email,  String comment){
         Organization organization = new Organization();
         if(id > 0) {
             organization = organizationDAO.selectByPrimaryKey(id);
+        } else{
+            organization.setName(name);
+
+            List<Organization> list = organizationDAO.selectByModel(organization);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         organization.setParentId(0L);
         organization.setName(name);
@@ -85,16 +92,24 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
+        return true;
     }
 
     public CounterStyle getCounterStyle(Long id){
         return counterStyleDAO.selectByPrimaryKey(id);
     }
 
-    public void saveCounterStyle(Long id, Long orgId, String name,  String comment){
+    public boolean saveCounterStyle(Long id, Long orgId, String name,  String comment){
         CounterStyle counterStyle = new CounterStyle();
         if(id > 0) {
             counterStyle = counterStyleDAO.selectByPrimaryKey(id);
+        } else {
+            counterStyle.setName(name);
+
+            List<CounterStyle> list = counterStyleDAO.selectByModel(counterStyle);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         counterStyle.setName(name);
         counterStyle.setOrgId(orgId);
@@ -108,6 +123,7 @@ public class OrganizationService {
             counterStyle.setGmtCreate(new Date());
             counterStyleDAO.insert(counterStyle);
         }
+        return true;
     }
 
 
@@ -136,11 +152,18 @@ public class OrganizationService {
     }
 
 	@Transactional(rollbackFor = Exception.class)
-    public void saveCounter(Long id, Long orgId, String mediaType, Long styleId, String name,
+    public boolean saveCounter(Long id, Long orgId, String mediaType, Long styleId, String name,
                             String address, String longLat, String phone, String counterNo, String comment) {
         Organization organization = new Organization();
         if(id > 0) {
             organization = organizationDAO.selectByPrimaryKey(id);
+        } else{
+            organization.setName(name);
+
+            List<Organization> list = organizationDAO.selectByModel(organization);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         Long oldStyleId = organization.getStyleId();
         organization.setParentId(orgId);
@@ -195,6 +218,7 @@ public class OrganizationService {
         		
         	}
         }
+        return true;
     }
 	public List<ObjectParent> loadObjParentByFurId(Long furId) {
 		// TODO Auto-generated method stub
@@ -292,10 +316,17 @@ public class OrganizationService {
 //        return result;
 //    }
 
-    public void saveFurniture(Long id, Long orgId, String furnitureNo, String name, String comment) {
+    public boolean saveFurniture(Long id, Long orgId, String furnitureNo, String name, String comment) {
         Furniture furniture = new Furniture();
         if(id > 0) {
             furniture = furnitureDAO.selectByPrimaryKey(id);
+        }else{
+            furniture.setName(name);
+
+            List<Furniture> list = furnitureDAO.selectByModel(furniture);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         furniture.setName(name);
         furniture.setFurnitureNo(furnitureNo);
@@ -310,6 +341,7 @@ public class OrganizationService {
             furniture.setGmtCreate(new Date());
             furnitureDAO.insert(furniture);
         }
+        return true;
     }
 
     public Furniture getFurniture(Long id) {
@@ -324,11 +356,18 @@ public class OrganizationService {
         return Support.getInstance().getOrganizationList("6",keyword);//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列 6:安装公司)
     }
 
-    public void saveSupplier(Long id, String brandIds, String name, String address,
+    public boolean saveSupplier(Long id, String brandIds, String name, String address,
                              String longLat, String phone, String email, String comment) {
         Organization organization = new Organization();
         if(id > 0) {
             organization = organizationDAO.selectByPrimaryKey(id);
+        }else{
+            organization.setName(name);
+
+            List<Organization> list = organizationDAO.selectByModel(organization);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         organization.setBrandIds(brandIds);
         organization.setName(name);
@@ -347,13 +386,21 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
+        return true;
     }
 
-    public void saveInstallation(Long id, String brandIds, String name, String address,
+    public boolean saveInstallation(Long id, String brandIds, String name, String address,
                              String longLat, String phone, String email, String comment) {
         Organization organization = new Organization();
         if(id > 0) {
             organization = organizationDAO.selectByPrimaryKey(id);
+        }else{
+            organization.setName(name);
+
+            List<Organization> list = organizationDAO.selectByModel(organization);
+            if(!list.isEmpty()) { //用户名已存在
+                return false;
+            }
         }
         organization.setBrandIds(brandIds);
         organization.setName(name);
@@ -372,6 +419,7 @@ public class OrganizationService {
             organization.setGmtCreate(new Date());
             organizationDAO.insert(organization);
         }
+        return true;
     }
 
     public void addCounterTemplate(Long counterStyleId, Long furnitureId, Long objParentId, int count) {
