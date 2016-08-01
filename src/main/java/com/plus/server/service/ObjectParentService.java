@@ -17,6 +17,7 @@ import com.plus.server.dal.ObjectChildDAO;
 import com.plus.server.dal.ObjectParentDAO;
 import com.plus.server.dal.OrganizationDAO;
 import com.plus.server.dal.ParentChildDAO;
+import com.plus.server.model.ObjectChild;
 import com.plus.server.model.ObjectParent;
 import com.plus.server.model.Organization;
 import com.plus.server.model.ParentChild;
@@ -75,6 +76,13 @@ public class ObjectParentService {
 			throw new Exception("参数为null");
 		}
 		return this.objectParentDAO.selectByPrimaryKey(id);
+	}
+	public List<ObjectParent> selectByIds(List<Long> idList) throws Exception{
+		log.info("查询父件，idList=" + idList);
+		if(idList == null){
+			throw new Exception("参数为null");
+		}
+		return this.objectParentDAO.selectByIds(idList);
 	}
 	
 	public List<ParentChild> selectChildByParentId(Long parentId) throws Exception{

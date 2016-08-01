@@ -55,6 +55,13 @@ public class ObjectChildService {
 		}
 		return this.objectChildDAO.selectByPrimaryKey(id);
 	}
+	public List<ObjectChild> selectByIds(List<Long> idList) throws Exception{
+		log.info("查询子件，idList=" + idList);
+		if(idList == null){
+			throw new Exception("参数为null");
+		}
+		return this.objectChildDAO.selectByIds(idList);
+	}
 	
 	@Transactional
 	public void saveOrUpdate(ObjectChild objectChild) {

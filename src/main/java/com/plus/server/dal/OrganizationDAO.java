@@ -12,7 +12,7 @@ public interface OrganizationDAO {
     int insertSelective(Organization record);
 
     Organization selectByPrimaryKey(Long id);
-    List<Organization> selectByIds(List<Long> counterIdList);
+    List<Organization> selectByIds(List<Long> idList);
 
     List<Organization> selectByModelLike(Organization record);
 

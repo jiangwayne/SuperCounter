@@ -36,6 +36,15 @@
     from t_object_parent
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectByIds" parameterType="list" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_object_parent
+    where id in
+       <foreach collection="list" open="(" close=")" separator="," item="item" >
+       	#{item}
+       </foreach>
+  </select>
   <select id="selectByModel" parameterType="com.plus.server.model.ObjectParent" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

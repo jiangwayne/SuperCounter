@@ -58,12 +58,7 @@
                 <li><a  href="${base_addr}/gtb/assignTask/allocateErectorTask" target="mainFrame">安装工任务分配</a></li>
                 <li><a  href="${base_addr}/gtb/orderSetup/listErectorTask" target="mainFrame">安装任务单查询</a></li>
 
-                <li><a  href="task/listStore.html" target="mainFrame">库存管理</a></li>
-
-                <!--
-                                <li><a  href="task/removeStore.html" target="mainFrame">移库操作</a></li>
-                                <li><a  href="task/splitStore.html" target="mainFrame">拆分入库操作</a></li>
-                -->
+                <li><a  href="${base_addr}/gtb/stock/list" target="mainFrame">库存管理</a></li>
             </ul>
         </li>
     </ul>

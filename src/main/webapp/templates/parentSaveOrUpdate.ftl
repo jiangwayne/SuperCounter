@@ -175,7 +175,7 @@
 	        success: function (data) {
 	        	data = formatUpFileRetData(data);
 	        	if(data.success){
-					alert(data);
+					//alert(data);
 	        		$('#picUrl').val(data.msg);
 	        		$('#picUrlShow').attr("src","${base_addr}/gtb/file/downloadFile?fileName="+data.msg);
 	        	}
