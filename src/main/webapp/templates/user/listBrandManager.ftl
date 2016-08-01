@@ -24,6 +24,7 @@
     <td width="150">编号</td>
     <td>用户名</td>
     <td align="center">所属组织</td>
+    <td align="center">品牌</td>
     <td align="center">角色类型</td>
     <td align="center">备注</td>
     <td align="center" width="150">添加日期</td>
@@ -37,6 +38,7 @@
         <td bgcolor="#FFFFFF">${s.id?if_exists}</td>
         <td bgcolor="#FFFFFF">${s.name?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.orgName?if_exists}</td>
+        <td align="center" bgcolor="#FFFFFF">${s.brandNames?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">品牌经理</td>
         <td align="center" bgcolor="#FFFFFF">${s.comment?if_exists}</td>
         <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>

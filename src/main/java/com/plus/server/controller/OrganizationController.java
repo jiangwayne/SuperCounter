@@ -206,10 +206,15 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveCounter(id, orgId, mediaType, styleId,
-                     name,  address,  longLat,  phone, counterNo,  comment);
-            mv = new ModelAndView("organization/listCounter.ftl");
-            model.addAttribute("list", organizationService.getCounterList(""));
+            if(organizationService.saveCounter(id, orgId, mediaType, styleId,
+                     name,  address,  longLat,  phone, counterNo,  comment)) {
+                mv = new ModelAndView("organization/listCounter.ftl");
+                model.addAttribute("list", organizationService.getCounterList(""));
+            } else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                model.addAttribute("styleList", organizationService.getCounterStyleList(""));
+                JOptionPane.showMessageDialog(null, "柜台名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
@@ -249,9 +254,13 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveFurniture(id, orgId, furnitureNo, name,comment);
-            mv = new ModelAndView("organization/listFurniture.ftl");
-            model.addAttribute("list", organizationService.getFurnitureList(""));
+            if(organizationService.saveFurniture(id, orgId, furnitureNo, name,comment)) {
+                mv = new ModelAndView("organization/listFurniture.ftl");
+                model.addAttribute("list", organizationService.getFurnitureList(""));
+            }else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "家具名已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
@@ -286,9 +295,14 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveSupplier(id, brandIds, name,address,longLat,phone, email, comment);
-            mv = new ModelAndView("organization/listSupplier.ftl");
-            model.addAttribute("list", organizationService.getSupplierList(""));
+            if(organizationService.saveSupplier(id, brandIds, name,address,longLat,phone, email, comment)) {
+                mv = new ModelAndView("organization/listSupplier.ftl");
+                model.addAttribute("list", organizationService.getSupplierList(""));
+            } else{
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "供应商已存在");
+            }
+
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
@@ -306,9 +320,13 @@ public class OrganizationController extends BaseController {
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
         if(requestMethod.equals("POST")){
-            organizationService.saveInstallation(id, brandIds, name,address,longLat,phone, email, comment);
-            mv = new ModelAndView("organization/listInstallationCompany.ftl");
-            model.addAttribute("list", organizationService.getInstallationList(""));
+            if(organizationService.saveInstallation(id, brandIds, name,address,longLat,phone, email, comment)) {
+                mv = new ModelAndView("organization/listInstallationCompany.ftl");
+                model.addAttribute("list", organizationService.getInstallationList(""));
+            } else {
+                model.addAttribute("brandList", organizationService.getBrandList(""));
+                JOptionPane.showMessageDialog(null, "安装公司已存在");
+            }
             return mv;
         } else if(requestMethod.equals("GET")){
             model.addAttribute("brandList", organizationService.getBrandList(""));
@@ -344,4 +362,11 @@ public class OrganizationController extends BaseController {
 
     }
 
+    @RequestMapping(value = "/deleteFurnitureTemplate", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public List<Map<String,String>> deleteFurnitureTemplate(Long id,Long furnitureId){
+        organizationService.deleteCounterTemplate(id);
+        return organizationService.getFurnitureObjParentMap(furnitureId);
+
+    }
 }
