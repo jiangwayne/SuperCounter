@@ -1,10 +1,8 @@
 package com.plus.server.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
-import com.plus.server.model.*;
-import com.plus.server.service.OrganizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.plus.server.common.util.BeanMapper;
+import com.plus.server.common.vo.ObjectParentVo;
+import com.plus.server.common.vo.StockVo;
 import com.plus.server.common.vo.resp.BaseResp;
+import com.plus.server.model.CounterDetails;
+import com.plus.server.model.Furniture;
+import com.plus.server.model.ObjectChild;
+import com.plus.server.model.ObjectParent;
+import com.plus.server.model.Organization;
+import com.plus.server.model.ParentChild;
 import com.plus.server.service.ObjectChildService;
 import com.plus.server.service.ObjectParentService;
+import com.plus.server.service.OrganizationService;
 
 @Controller
 @RequestMapping(value = "/gtb/parent")
@@ -51,17 +62,51 @@ public class ObjectParentController extends BaseController {
 		}
 
 		PageInfo<ObjectParent> pageInfo = objectParentService.selectByModel(objectParent,page,pageSize);
-		Organization org = new Organization();
-		org.setType("3");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
-		List<Organization> orgList = objectParentService.selectOrg(org);
-		model.addAttribute("orgList", orgList);
-		model.addAttribute("list", pageInfo.getList());
-		model.addAttribute("pages",pageInfo.getPages());
-		model.addAttribute("page",pageInfo.getPageNum());
-		model.addAttribute("total",pageInfo.getTotal());
+//		Organization org = new Organization();
+//		org.setType("3");//组织类型(1：品牌，2：柜台，3：供应商，4：物流，5：陈列)
+//		List<Organization> orgList = objectParentService.selectOrg(org);
+		if(pageInfo != null){
+			List<ObjectParent> opList = pageInfo.getList();
+			if(opList != null && opList.size() > 0){
+				List<ObjectParentVo> list = BeanMapper.mapList(opList, ObjectParentVo.class);
+				List<Long> orgIdList = Lists.newArrayList();
+				for(ObjectParentVo vo : list){
+					orgIdList.add(vo.getOrgId());
+				}
+				Map<Long,Organization> orgMap = Maps.newHashMap();
+				if(orgIdList != null && orgIdList.size() > 0){
+					orgMap = selectOrgByIds(orgIdList);
+				}
+				for(ObjectParentVo vo : list){
+					Organization org = orgMap.get(vo.getOrgId());
+					if(org != null){
+						vo.setOrgName(org.getName());
+					}
+				}
+				model.addAttribute("list", list);
+			}
+			
+			model.addAttribute("pages",pageInfo.getPages());
+			model.addAttribute("page",pageInfo.getPageNum());
+			model.addAttribute("total",pageInfo.getTotal());
+		}
 		return mv;
 	}
-	
+	private Map<Long,Organization> selectOrgByIds(List<Long> idList){
+		Map<Long,Organization> childMap = Maps.newHashMap();
+		List<Organization> list = null;
+		try {
+			list = organizationService.selectByIds(idList);
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		if(list != null && list.size() > 0){
+			for (Organization objectChild : list) {
+				childMap.put(objectChild.getId(), objectChild);
+			}
+		}
+		return childMap;
+	}
 	@RequestMapping(value = "/toEdit")
 	public ModelAndView toEdit(Model model, Long id) {
 		ModelAndView mv = new ModelAndView("parentSaveOrUpdate.ftl");

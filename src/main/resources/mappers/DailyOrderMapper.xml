@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plus.server.dal.DailyOrderDAO">
+  <resultMap id="BaseResultMap" type="com.plus.server.model.DailyOrder">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="daily_order_no" jdbcType="VARCHAR" property="dailyOrderNo" />
+    <result column="org_counter_id" jdbcType="BIGINT" property="orgCounterId" />
+    <result column="obj_parent_id" jdbcType="BIGINT" property="objParentId" />
+    <result column="supply_org_id" jdbcType="BIGINT" property="supplyOrgId" />
+    <result column="obj_parent_count" jdbcType="INTEGER" property="objParentCount" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <association property="objParent" column="obj_parent_id" select="com.plus.server.dal.ObjectParentDAO.selectByPrimaryKey" ></association>
+    <association property="orgCounter" column="org_counter_id" select="com.plus.server.dal.OrganizationDAO.selectByPrimaryKey" ></association>
+  	<association property="supplyOrg" column="supply_org_id" select="com.plus.server.dal.OrganizationDAO.selectByPrimaryKey" ></association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, daily_order_no, org_counter_id, obj_parent_id, supply_org_id, obj_parent_count, 
+    comment, valid, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_daily_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByModel" parameterType="com.plus.server.model.DailyOrder" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_daily_order
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="dailyOrderNo != null">
+        and daily_order_no = #{dailyOrderNo,jdbcType=VARCHAR}
+      </if>
+      <if test="orgCounterId != null">
+        and org_counter_id = #{orgCounterId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="supplyOrgId != null">
+        and supply_org_id = #{supplyOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentCount != null">
+        and obj_parent_count = #{objParentCount,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment = #{comment,jdbcType=VARCHAR}
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <select id="selectByModelLike" parameterType="com.plus.server.model.DailyOrder" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_daily_order
+    <where>
+      <if test="id != null">
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="dailyOrderNo != null">
+        and daily_order_no like CONCAT('%',#{dailyOrderNo,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="orgCounterId != null">
+        and org_counter_id = #{orgCounterId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentId != null">
+        and obj_parent_id = #{objParentId,jdbcType=BIGINT}
+      </if>
+      <if test="supplyOrgId != null">
+        and supply_org_id = #{supplyOrgId,jdbcType=BIGINT}
+      </if>
+      <if test="objParentCount != null">
+        and obj_parent_count = #{objParentCount,jdbcType=INTEGER}
+      </if>
+      <if test="comment != null">
+        and comment like CONCAT('%',#{comment,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="valid != null">
+        and valid = #{valid,jdbcType=INTEGER}
+      </if>
+      <if test="gmtCreate != null">
+        and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="gmtModify != null">
+        and gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_daily_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.DailyOrder" useGeneratedKeys="true">
+    insert into t_daily_order (id, daily_order_no, org_counter_id, 
+      obj_parent_id, supply_org_id, obj_parent_count, 
+      comment, valid, gmt_create, 
+      gmt_modify)
+    values (#{id,jdbcType=BIGINT}, #{dailyOrderNo,jdbcType=VARCHAR}, #{orgCounterId,jdbcType=BIGINT}, 
+      #{objParentId,jdbcType=BIGINT}, #{supplyOrgId,jdbcType=BIGINT}, #{objParentCount,jdbcType=INTEGER}, 
+      #{comment,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModify,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.DailyOrder" useGeneratedKeys="true">
+    insert into t_daily_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dailyOrderNo != null">
+        daily_order_no,
+      </if>
+      <if test="orgCounterId != null">
+        org_counter_id,
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id,
+      </if>
+      <if test="supplyOrgId != null">
+        supply_org_id,
+      </if>
+      <if test="objParentCount != null">
+        obj_parent_count,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="dailyOrderNo != null">
+        #{dailyOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCounterId != null">
+        #{orgCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="supplyOrgId != null">
+        #{supplyOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentCount != null">
+        #{objParentCount,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.plus.server.model.DailyOrder">
+    update t_daily_order
+    <set>
+      <if test="dailyOrderNo != null">
+        daily_order_no = #{dailyOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCounterId != null">
+        org_counter_id = #{orgCounterId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentId != null">
+        obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      </if>
+      <if test="supplyOrgId != null">
+        supply_org_id = #{supplyOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="objParentCount != null">
+        obj_parent_count = #{objParentCount,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.plus.server.model.DailyOrder">
+    update t_daily_order
+    set daily_order_no = #{dailyOrderNo,jdbcType=VARCHAR},
+      org_counter_id = #{orgCounterId,jdbcType=BIGINT},
+      obj_parent_id = #{objParentId,jdbcType=BIGINT},
+      supply_org_id = #{supplyOrgId,jdbcType=BIGINT},
+      obj_parent_count = #{objParentCount,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="deleteLogicByIds">
+    update t_daily_order set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach item="item" index="index" collection="ids" open="(" separator="," close=")">#{item}</foreach> 
+  </update>
+</mapper>

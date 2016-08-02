@@ -57,8 +57,9 @@
                 <li><a  href="${base_addr}/gtb/orderCounter/list" target="mainFrame">柜台任务查询</a></li>
                 <li><a  href="${base_addr}/gtb/assignTask/allocateErectorTask" target="mainFrame">安装工任务分配</a></li>
                 <li><a  href="${base_addr}/gtb/orderSetup/listErectorTask" target="mainFrame">安装任务单查询</a></li>
-
                 <li><a  href="${base_addr}/gtb/stock/list" target="mainFrame">库存管理</a></li>
+                <li><a  href="${base_addr}/gtb/dailyOrder/list" target="mainFrame">日常补货列表</a></li>
+                <li><a  href="${base_addr}/gtb/dailyOrder/toEdit" target="mainFrame">日常补货提交</a></li>
             </ul>
         </li>
     </ul>
