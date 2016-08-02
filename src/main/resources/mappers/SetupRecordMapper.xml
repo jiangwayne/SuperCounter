@@ -13,7 +13,8 @@
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
-
+    <association property="setupUser" column="user_setup_id" select="com.plus.server.dal.UserDAO.selectByPrimaryKey" ></association>
+    <association property="objParent" column="obj_parent_id" select="com.plus.server.dal.ObjectParentDAO.selectByPrimaryKey" ></association>
 
   </resultMap>
   <sql id="Base_Column_List">

@@ -113,6 +113,7 @@
     <td width="20"></td>
     <td width="150" align="left">家具编号</td>
     <td width="150" >家具名称</td>
+    <td width="150" >家具数量</td>
     <td align="center" width="150">添加日期</td>
     <td align="center" width="150">操作</td>
   </tr>
@@ -126,6 +127,7 @@
 	    <td bgcolor="#FFFFFF">${index}</td>
 	    <td bgcolor="#FFFFFF">${s.furniture.furnitureNo?if_exists}</td>
 	    <td bgcolor="#FFFFFF">${s.furniture.name?if_exists}</td>
+        <td bgcolor="#FFFFFF">${s.count?if_exists}</td>
 	    <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
 	    <td align="center" bgcolor="#FFFFFF"><a href="javascript: deleteDtlRel(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a></td>
 	  </tr>
@@ -190,7 +192,7 @@ function addFurnitureRel(){
 	var furId = $('#addFurIdSelect').val();
 	var counterOrgId= '${model.id?if_exists}';
 	$.ajax({
-		url: '${base_addr}/gtb/org/addOrUpdateCounterDtl' ,
+		url: '${base_addr}/gtb/org/addCounterFur' ,
         secureuri: false,
         data: {counterOrgId: counterOrgId,furId : furId},
         dataType: 'json',

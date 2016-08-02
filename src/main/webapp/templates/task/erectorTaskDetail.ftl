@@ -38,7 +38,7 @@
         <td width="5">&nbsp;</td>
         <td width="150"></td>
         <td>道具名称</td>
-        <td>图片</td>
+        <td>状态</td>
         <td align="center">数量</td>
         <td align="center">添加日期</td>
         <td width="150" align="center">操作</td>
@@ -49,7 +49,23 @@
             <td bgcolor="#FFFFFF">&nbsp;</td>
             <td bgcolor="#FFFFFF">${s_index+1}</td>
             <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
-            <td bgcolor="#FFFFFF">图片</td>
+            <td bgcolor="#FFFFFF">未安装</td>
+            <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
+            <td align="center" bgcolor="#FFFFFF">
+                <a href="toEdit?id=${s.id?if_exists}" target="_self"><img src="${base_addr}/static/images/bj.jpg" height="18"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:deleteOne(${s.id?if_exists});"><img src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+            </td>
+        </tr>
+    </#list>
+</#if>
+<#if setDtlList??>
+    <#list setDtlList as s>
+        <tr class="con">
+            <td bgcolor="#FFFFFF">&nbsp;</td>
+            <td bgcolor="#FFFFFF">${s_index+1}</td>
+            <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
+            <td bgcolor="#FFFFFF">已安装</td>
             <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
             <td align="center" bgcolor="#FFFFFF">
@@ -60,19 +76,6 @@
     </#list>
 </#if>
 </table>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td align="center"><a href="javascript:history.go(-1)" class="closewd">关闭</a></td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-    </tr>
-</table>
-
-
 <hr>
 <br>
 报损列表<br><br>
@@ -88,8 +91,8 @@
         <td align="center" width="150">添加日期</td>
         <td align="center" width="150">操作</td>
     </tr>
-    <#if dtlCountList??>
-        <#list dtlCountList as s>
+    <#if setDtlList??>
+        <#list setDtlList as s>
         <tr class="con">
             <td bgcolor="#FFFFFF">&nbsp;</td>
             <td bgcolor="#FFFFFF">${s_index+1}</td>

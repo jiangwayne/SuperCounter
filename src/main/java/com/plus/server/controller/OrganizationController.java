@@ -159,27 +159,54 @@ public class OrganizationController extends BaseController {
     	ret.setSuccess(true);
     	return ret;
 	}
-    @RequestMapping(value = "/addOrUpdateCounterDtl", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/addCounterFur", method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
-    public BaseResp addOrUpdateCounterDtl(Long dtlId,Long counterOrgId, Long furId, Long objParentId, String siteNo) {
+    public BaseResp addCounterFur(Long counterOrgId, Long furId) {
     	BaseResp ret = new BaseResp();
     	Date now = new Date();
     	CounterDetails d = new CounterDetails();
-    	d.setId(dtlId);
     	d.setOrgId(counterOrgId);
     	d.setFurnitureId(furId);
-    	d.setObjParentId(objParentId);
-    	d.setSiteNo(siteNo);
     	d.setValid(1);
-    	if(dtlId == null)
-    		d.setGmtCreate(now);
-    	else
-    		d.setGmtModify(now);
+
+        List<CounterDetails> listCounterFur = organizationService.getCounterFurDtl(counterOrgId,furId);
+        if(listCounterFur.size()>0){
+            CounterDetails counterDetails = listCounterFur.get(0);
+            d = listCounterFur.get(0);
+            d.setCount(d.getCount()+1);
+            d.setGmtModify(now);
+        } else {
+            d.setCount(1);
+            d.setGmtCreate(now);
+        }
     	organizationService.addOrUpdateCounterDtl(d);
     	
     	ret.setSuccess(true);
     	return ret;
 	}
+
+    @RequestMapping(value = "/addOrUpdateCounterDtl", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public BaseResp addOrUpdateCounterDtl(Long dtlId,Long counterOrgId, Long furId, Long objParentId, String siteNo) {
+        BaseResp ret = new BaseResp();
+        Date now = new Date();
+        CounterDetails d = new CounterDetails();
+        d.setId(dtlId);
+        d.setOrgId(counterOrgId);
+        d.setFurnitureId(furId);
+        d.setObjParentId(objParentId);
+        d.setSiteNo(siteNo);
+        d.setValid(1);
+        if(dtlId == null)
+            d.setGmtCreate(now);
+        else
+            d.setGmtModify(now);
+        organizationService.addOrUpdateCounterDtl(d);
+
+        ret.setSuccess(true);
+        return ret;
+    }
+
     @RequestMapping(value = "/deleteCounterDtl", method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public BaseResp deleteCounterDtl(Long dtlId) {

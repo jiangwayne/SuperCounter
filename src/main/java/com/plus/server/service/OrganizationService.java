@@ -230,6 +230,15 @@ public class OrganizationService {
 		param.setValid(1);
 		return  counterDetailsDAO.selectByModel(param);
 	}
+
+    public List<CounterDetails> getCounterFurDtl(Long counterId,Long furId) {
+        CounterDetails param = new CounterDetails();
+        param.setOrgId(counterId);
+        param.setFurnitureId(furId);
+        param.setValid(1);
+        return  counterDetailsDAO.selectByModel(param);
+    }
+
 	public void addOrUpdateCounterDtl(CounterDetails d) {
 		if(d.getId()!=null)
 			counterDetailsDAO.updateByPrimaryKeySelective(d);

@@ -9,7 +9,11 @@ public class SetupRecord {
 
     private Long userSetupId;
 
+    private User setupUser;
+
     private Long objParentId;
+
+    private ObjectParent objParent;
 
     private String picUrl;
 
@@ -111,5 +115,21 @@ public class SetupRecord {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    public ObjectParent getObjParent() {
+        return objParent;
+    }
+
+    public void setObjParent(ObjectParent objParent) {
+        this.objParent = objParent;
+    }
+
+    public User getSetupUser() {
+        return setupUser;
+    }
+
+    public void setSetupUser(User setupUser) {
+        this.setupUser = setupUser;
     }
 }
