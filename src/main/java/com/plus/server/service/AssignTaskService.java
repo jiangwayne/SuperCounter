@@ -53,22 +53,33 @@ public class AssignTaskService {
 		return list;
 	}
 
-	public List<Organization> queryCounterByFurId(Long furId) {
+	public List<CounterDetails> queryCounterByFurId(Long furId) {
 		CounterDetails param = new CounterDetails();
 		param.setValid(1);
 		param.setFurnitureId(furId);
 		List<CounterDetails> list = counterDetailsDAO.selectByModel(param);
-		List<Long> counterIdList = Lists.newArrayList();
-		if(list != null && list.size() > 0){
-			for (CounterDetails c : list) {
-				counterIdList.add(c.getOrgId());
-			}
-		}
-		if(counterIdList != null && counterIdList.size() > 0){
-			List<Organization> retList = organizationDAO.selectByIds(counterIdList);
-			return retList;
-		}
-		return null;
+
+        List<CounterDetails> listRet = Lists.newArrayList();
+        for (int i = 0;i<list.size();i++){
+            CounterDetails cd = list.get(i);
+            if (cd.getOrgId()!= null) {
+
+                listRet.add(cd);
+            }
+        }
+        return listRet;
+
+//		List<Long> counterIdList = Lists.newArrayList();
+//		if(list != null && list.size() > 0){
+//			for (CounterDetails c : list) {
+//				counterIdList.add(c.getOrgId());
+//			}
+//		}
+//		if(counterIdList != null && counterIdList.size() > 0){
+//			List<Organization> retList = organizationDAO.selectByIds(counterIdList);
+//			return retList;
+//		}
+//		return null;
 	}
 
 

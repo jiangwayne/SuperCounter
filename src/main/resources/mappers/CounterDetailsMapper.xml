@@ -13,6 +13,7 @@
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
     <association property="objectParent" column="obj_parent_id" select="com.plus.server.dal.ObjectParentDAO.selectByPrimaryKey" ></association>
     <association property="furniture" column="furniture_id" select="com.plus.server.dal.FurnitureDAO.selectByPrimaryKey" ></association>
+    <association property="counter" column="org_id" select="com.plus.server.dal.OrganizationDAO.selectByPrimaryKey" ></association>
   </resultMap>
   <sql id="Base_Column_List">
     id, org_id, obj_parent_id, furniture_id, count, site_no, valid, gmt_create, gmt_modify

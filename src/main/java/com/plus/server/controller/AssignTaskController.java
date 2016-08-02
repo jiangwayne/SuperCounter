@@ -195,7 +195,7 @@ public class AssignTaskController extends BaseController {
 	public DataResp queryCounterByFurId(Long furId) {
 		DataResp ret = new DataResp();
 		try {
-			List<Organization> counterList = assignTaskService.queryCounterByFurId(furId);
+			List<CounterDetails> counterList = assignTaskService.queryCounterByFurId(furId);
 			ret.setData(counterList);
 		} catch (Exception e) {
 			ret.setMsg(e.getMessage());

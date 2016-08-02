@@ -7,6 +7,16 @@ public class CounterDetails {
 
     private Long orgId;
 
+    public Organization getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Organization counter) {
+        this.counter = counter;
+    }
+
+    private Organization counter;
+
     private Long objParentId;
     private ObjectParent objectParent;
     

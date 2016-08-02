@@ -306,18 +306,18 @@ $(function (){
 							        		var counterList = data2.data;
 							        		if(counterList != null && counterList.length > 0){
 							        			for(var k = 0; k < counterList.length; k++){
-							        				var counterId = counterList[k].id;
-							    					var counterName = counterList[k].name;
+							        				var counterId = counterList[k].counter.id;
+							    					var counterName = counterList[k].counter.name;
 									        		var html = '';
 													planCargoTable_tr_count++;
 													var trId = "planCargoTable_tr_"+planCargoTable_tr_count;
-													var checkboxValue = counterId+"_"+objParentId+"_"+supplier.id+"_"+count;
+													var checkboxValue = counterId+"_"+objParentId+"_"+supplier.id+"_"+counterList[k].count*count;
 													html += ('<tr id="'+trId+'" class="con"><td bgcolor="#FFFFFF">&nbsp;</td>');
 													html += ('<td bgcolor="#FFFFFF"><input name="plancheckbox" type="checkbox" value="'+checkboxValue+'"></td>');
 													html += ('<td bgcolor="#FFFFFF">'+counterName+'</td>');
 													html += ('<td bgcolor="#FFFFFF">'+objParentName+'</td>');
 													html += ('<td bgcolor="#FFFFFF">'+supplier.name+'</td>');
-													html += ('<td align="center" bgcolor="#FFFFFF">'+count+'</td>');
+													html += ('<td align="center" bgcolor="#FFFFFF">'+counterList[k].count*count+'</td>');
 													html += ('<td align="center" bgcolor="#FFFFFF"><a href="javascript: removeTr(\''+trId+'\')">删除</a></td></tr>');
 													planCargoTable.append(html);
 							        			}
