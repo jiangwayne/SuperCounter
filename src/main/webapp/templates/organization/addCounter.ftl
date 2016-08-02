@@ -26,7 +26,7 @@
 <div class="loc">
   <div class="icon">当前位置：&nbsp;&gt;&nbsp;添加柜台</div>
 </div>
-<form action="addCounter" method="post">
+<form action="/gtb/org/addCounter" method="post">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgg">
   <tr>
     <td align="right" class="title2">品牌</td>

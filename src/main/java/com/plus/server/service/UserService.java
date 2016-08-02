@@ -146,6 +146,8 @@ public class UserService {
 
         Map<Long,Organization> organizationMap = Support.getInstance().getOrganizationMap("","");
 
+
+
         for (User u : list) {
             Map<String,String> map = new HashMap<>();
             Long userId = u.getId();
@@ -154,6 +156,13 @@ public class UserService {
             }
 
             if(keyword == null || keyword.equals("") || userId.toString().contains(keyword) || u.getName().contains(keyword)) {
+                String brandNames = "";
+                if(u.getBrandIds() != null && u.getBrandIds().length() > 0) {
+                    for (String s : u.getBrandIds().split(",")) {
+                        brandNames += organizationMap.get(new Long(s)).getName() + ",";
+                    }
+                    brandNames = brandNames.substring(0,brandNames.length() - 1);
+                }
                 map.put("id", userId.toString());
                 map.put("name", u.getName());
                 map.put("orgId", u.getOrgId().toString());
@@ -161,6 +170,7 @@ public class UserService {
                 map.put("roleId", userRoleMap.get(userId).toString());
                 map.put("comment", u.getComment());
                 map.put("gmtCreate", DateUtil.toDateString(u.getGmtCreate()));
+                map.put("brandNames", brandNames);
                 result.add(map);
             }
         }

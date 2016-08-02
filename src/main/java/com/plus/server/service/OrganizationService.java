@@ -63,6 +63,9 @@ public class OrganizationService {
     public Organization getOrg(Long id) {
         return organizationDAO.selectByPrimaryKey(id);
     }
+    public List<Organization> selectByIds(List<Long> idList) {
+        return organizationDAO.selectByIds(idList);
+    }
 
     public boolean saveBrand(Long id, String name, String phone, String wx, String email,  String comment){
         Organization organization = new Organization();
@@ -494,6 +497,7 @@ public class OrganizationService {
         CounterTemplate counterTemplate = new CounterTemplate();
         counterTemplate.setId(id);
         counterTemplate.setValid(-1);
+        counterTemplate.setGmtModify(new Date());
 
         counterTemplateDAO.updateByPrimaryKeySelective(counterTemplate);
     }

@@ -12,6 +12,7 @@ public interface ObjectChildDAO {
     int insertSelective(ObjectChild record);
 
     ObjectChild selectByPrimaryKey(Long id);
+    List<ObjectChild> selectByIds(List<Long> idList);
 
     List<ObjectChild> selectByModelLike(ObjectChild record);
 

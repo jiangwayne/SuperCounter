@@ -2,6 +2,7 @@ package com.plus.server.dal;
 
 import java.util.List;
 
+import com.plus.server.model.ObjectChild;
 import com.plus.server.model.ObjectParent;
 
 public interface ObjectParentDAO {
@@ -12,6 +13,7 @@ public interface ObjectParentDAO {
     int insertSelective(ObjectParent record);
 
     ObjectParent selectByPrimaryKey(Long id);
+    List<ObjectParent> selectByIds(List<Long> idList);
 
     List<ObjectParent> selectByModelLike(ObjectParent record);
 

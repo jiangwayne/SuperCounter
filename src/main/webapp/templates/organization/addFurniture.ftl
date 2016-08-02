@@ -64,6 +64,27 @@
                 //alert(data.length);
             });
         }
+        function deleteCounterTemplate(id){
+            $.getJSON("${base_addr}/gtb/org/deleteFurnitureTemplate?furnitureId=" + $("#id").val() + "&id=" + id,function(data){
+                $("#templateList").children().remove();
+                for(var i = 0; i < data.length; i++) {
+                    //alert(data[i].id);
+                    var tr = $('<tr class="con">' +
+                            '<td bgcolor="#FFFFFF">&nbsp;</td>' +
+                            '<td bgcolor="#FFFFFF"><input name="checkbox2" id="checkbox" type="checkbox"></td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentNo + '</td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentName + '</td>' +
+                            '<td bgcolor="#FFFFFF">' + data[i].objParentCount + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' + data[i].gmtCreate + '</td>' +
+                            '<td align="center" bgcolor="#FFFFFF">' +
+                            '<a href="#"><img onclick="deleteCounterTemplate(\'' + data[i].id + '\')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>' +
+                            '</td>' +
+                            '</tr>');
+                    $("#templateList").append(tr);
+                }
+                //alert(data.length);
+            });
+        }
     </script>
 </head>
 
@@ -161,7 +182,7 @@
             <td bgcolor="#FFFFFF">${s.objParentName?if_exists}</td>
             <td bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.gmtCreate?if_exists}</td>
-            <td align="center" bgcolor="#FFFFFF"><a href="#"><img onclick="deleteCounterTemplate('${s.id?if_exists}'')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
+            <td align="center" bgcolor="#FFFFFF"><a href="#"><img onclick="deleteCounterTemplate('${s.id?if_exists}')" src="${base_addr}/static/images/sc.jpg" height="18" width="13"></a>
             </td>
         </tr>
         </#list>

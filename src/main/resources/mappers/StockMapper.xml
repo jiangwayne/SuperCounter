@@ -34,6 +34,12 @@
       <if test="goodId != null">
         and good_id = #{goodId,jdbcType=BIGINT}
       </if>
+      <if test="goodIdList != null">
+        and good_id in
+	       <foreach collection="goodIdList" open="(" close=")" separator="," item="item" >
+	       	#{item}
+	       </foreach>
+      </if>
       <if test="goodType != null">
         and good_type = #{goodType,jdbcType=INTEGER}
       </if>
@@ -64,6 +70,12 @@
       </if>
       <if test="goodId != null">
         and good_id = #{goodId,jdbcType=BIGINT}
+      </if>
+      <if test="goodIdList != null">
+        and good_id in
+	       <foreach collection="goodIdList" open="(" close=")" separator="," item="item" >
+	       	#{item}
+	       </foreach>
       </if>
       <if test="goodType != null">
         and good_type = #{goodType,jdbcType=INTEGER}

@@ -1,6 +1,7 @@
 package com.plus.server.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Stock {
     private Long id;
@@ -8,6 +9,7 @@ public class Stock {
     private Long orgId;
 
     private Long goodId;
+    private List<Long> goodIdList;
 
     private Integer goodType;
 
@@ -23,7 +25,15 @@ public class Stock {
         return id;
     }
 
-    public void setId(Long id) {
+    public List<Long> getGoodIdList() {
+		return goodIdList;
+	}
+
+	public void setGoodIdList(List<Long> goodIdList) {
+		this.goodIdList = goodIdList;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
