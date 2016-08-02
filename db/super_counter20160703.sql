@@ -648,6 +648,22 @@ CREATE TABLE `t_everyday_info` (
 
 /*Data for the table `t_everyday_info` */
 
+DROP TABLE IF EXISTS `t_daily_order`;
+CREATE TABLE `t_daily_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `daily_order_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '柜台订单编号',
+  `org_counter_id` bigint(20) DEFAULT NULL COMMENT '柜台id',
+  `obj_parent_id` bigint(20) DEFAULT NULL COMMENT '父件id',
+  `supply_org_id` bigint(20) DEFAULT NULL COMMENT '供应商id',
+  `obj_parent_count` int(11) DEFAULT NULL COMMENT '父件数量',
+  `comment` varchar(4096) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
+  `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
