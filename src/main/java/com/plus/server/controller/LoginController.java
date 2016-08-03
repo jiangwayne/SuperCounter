@@ -3,6 +3,7 @@ package com.plus.server.controller;
 import com.plus.server.model.Organization;
 import com.plus.server.model.User;
 import com.plus.server.model.Organization;
+import com.plus.server.model.UserRole;
 import com.plus.server.service.OrganizationService;
 import com.plus.server.service.UserService;
 import com.wordnik.swagger.annotations.Api;
@@ -44,8 +45,10 @@ public class LoginController extends BaseController {
             User u = userService.login(name,pwd);
             Organization org = organizationService.getOrg(new Long(brandId));
             if(u != null){
+                UserRole userRole = userService.getUserRole(u.getId());
                 this.httpSession.setAttribute("user", u);
                 this.httpSession.setAttribute("brand", org);
+                this.httpSession.setAttribute("userRole", userRole);
                 mv = new ModelAndView("redirect:/gtb/index.ftl");
             }else {
                 model.addAttribute("brandList", organizationService.getBrandList(""));

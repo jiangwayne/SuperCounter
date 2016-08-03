@@ -21,6 +21,8 @@ public class Support {
 
     private static Support support = new Support();
 
+    private Map<Long,Map<String, Integer>> roleAction;
+
     private Support(){
         if(organizationDAO == null) {
             organizationDAO = ContextLoader.getCurrentWebApplicationContext().getBean(OrganizationDAO.class);
@@ -28,6 +30,20 @@ public class Support {
         if(counterStyleDAO == null){
             counterStyleDAO = ContextLoader.getCurrentWebApplicationContext().getBean(CounterStyleDAO.class);
         }
+        roleAction = new HashMap<>();
+
+
+        Map<String, Integer> map6 = new HashMap<>(); //安装工权限
+        map6.put("list",1);
+        roleAction.put(6l,map6);
+
+        Map<String, Integer> map5 = new HashMap<>(); //BA权限
+        map5.put("list",1);
+        roleAction.put(5l,map5);
+
+        Map<String, Integer> map4 = new HashMap<>(); //供应商
+        map4.put("list",1);
+        roleAction.put(4l,map4);
     }
 
     public static Support getInstance(){
@@ -164,5 +180,12 @@ public class Support {
         }
 
         return result;
+    }
+
+    public boolean allowed(Long roleId, String action){
+        if(roleId == 1 || (roleAction.containsKey(roleId) && roleAction.get(roleId).containsKey(action))){
+            return true;
+        }
+        return false;
     }
 }

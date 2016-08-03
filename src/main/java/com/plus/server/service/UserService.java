@@ -193,4 +193,16 @@ public class UserService {
     public List<Map<String,String>> getOrganizationList(String type, String keyword){
         return Support.getInstance().getOrganizationList(type,keyword);
     }
+
+    public UserRole getUserRole(Long userId){
+        UserRole userRole = new UserRole();
+        userRole.setUserId(userId);
+        userRole.setValid(1);
+
+        List<UserRole> list = userRoleDAO.selectByModel(userRole);
+        if(list.size() > 0){
+            return list.get(0);
+        }
+        return null;
+    }
 }

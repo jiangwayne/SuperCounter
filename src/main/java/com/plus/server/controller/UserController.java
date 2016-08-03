@@ -1,5 +1,6 @@
 package com.plus.server.controller;
 
+import com.plus.server.model.UserRole;
 import com.plus.server.service.Support;
 import com.plus.server.service.UserService;
 import com.wordnik.swagger.annotations.Api;
@@ -39,6 +40,12 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/addContactStaff", method = {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView addContactStaff(Model model, Long id, String brandIds, String name, String pwd,
                                         String fullName, String phone, String comment)  {
+//        UserRole userRole = getCurrentUserRole();
+//        if(userRole == null || !Support.getInstance().allowed(userRole.getRoleId(), "edit")){
+//            JOptionPane.showMessageDialog(null, "您没有权限进行该操作");
+//            return new ModelAndView("redirect:/gtb/index.ftl");
+//        }
+
         ModelAndView mv = new ModelAndView("user/addContactStaff.ftl");
         id = id == null ? 0: id;
         String requestMethod = httpRequest.getMethod();
