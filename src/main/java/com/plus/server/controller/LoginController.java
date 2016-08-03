@@ -59,8 +59,9 @@ public class LoginController extends BaseController {
 
     @RequestMapping(value = "/loginOut",method = {RequestMethod.GET})
     public ModelAndView loginOut(Model model) {
-        ModelAndView mv = new ModelAndView("index.ftl");
+        ModelAndView mv = new ModelAndView("redirect:login");
         this.httpSession.removeAttribute("user");
+        this.httpSession.removeAttribute("userRole");
         this.httpSession.removeAttribute("brand");
         return mv;
     }
