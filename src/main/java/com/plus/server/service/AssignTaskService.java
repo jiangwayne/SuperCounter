@@ -43,6 +43,12 @@ public class AssignTaskService {
 	@Autowired
 	private UserDAO userDAO;
 
+
+    public List<Order> selectOrder(Order o) {
+        List<Order> list = this.orderDAO.selectByModelLike(o);
+        return list;
+    }
+
 	public List<Furniture> selectFurByModel(Furniture o) {
 		List<Furniture> list = this.furnitureDAO.selectByModelLike(o);
 		return list;

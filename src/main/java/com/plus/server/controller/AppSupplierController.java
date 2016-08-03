@@ -55,12 +55,9 @@ public class AppSupplierController extends BaseController{
         else {
             log.info("name={},pwd={}",name,pwd);
             mv = new ModelAndView("redirect:/gtb/index.ftl");
-
             //return mv;
             User u = userService.login(name,pwd);
-
             JSONObject retJobj = RetUtil.createBaseRetJsonObj();
-
             retJobj.getJSONObject("data").put("username", u.getName());
             retJobj.getJSONObject("data").put("password", pwd);
             retJobj.getJSONObject("data").put("orgId", u.getOrgId());
@@ -69,7 +66,6 @@ public class AppSupplierController extends BaseController{
             retJobj.getJSONObject("data").put("name", u.getFullName());
             retJobj.getJSONObject("data").put("email", u.getPhone());
             return retJobj;
-
         }
 
     }

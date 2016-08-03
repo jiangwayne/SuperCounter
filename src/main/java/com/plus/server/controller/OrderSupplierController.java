@@ -32,7 +32,7 @@ public class OrderSupplierController extends BaseController {
 	private AssignTaskService assignTaskService;
 
 	@RequestMapping(value = "/list")
-	public ModelAndView list(Model model, Long supplierId, Integer page, Integer pageSize) {
+	public ModelAndView list(Model model, Long supplierId,Long orderId, Integer page, Integer pageSize) {
 		ModelAndView mv = new ModelAndView("orderSupplierList.ftl");
 		
 		Organization o = new Organization();
@@ -43,6 +43,7 @@ public class OrderSupplierController extends BaseController {
 		model.addAttribute("supplierId", supplierId);
 
 		OrderSupplier orderSupplier = new OrderSupplier();
+        orderSupplier.setOrderId(orderId);
 		orderSupplier.setValid(1);
 		orderSupplier.setOrgSupplierId(supplierId);
 		PageInfo<OrderSupplier> pageInfo = orderSupplierService.selectByModel(orderSupplier,page,pageSize);

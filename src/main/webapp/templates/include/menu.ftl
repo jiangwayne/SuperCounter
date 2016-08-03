@@ -51,6 +51,7 @@
         </li>
         <li><a style="background: transparent url(&quot;images/xsj.png&quot;) no-repeat scroll 150px center;" href="#" class="one">任务管理</a>
             <ul style="display: block;" class="sub-menu">
+                <li><a  href="${base_addr}/gtb/order/list" target="mainFrame">查询任务</a></li>
                 <li><a  href="${base_addr}/gtb/assignTask/toAssign" target="mainFrame">分配物料</a></li>
                 <li><a  href="${base_addr}/gtb/orderSupplier/list" target="mainFrame">生产加工单管理</a></li>
                 <li><a  href="${base_addr}/gtb/orderPrice/list" target="mainFrame">报价单管理</a></li>

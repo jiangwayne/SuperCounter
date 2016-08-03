@@ -146,21 +146,22 @@ CREATE TABLE `t_counter_template` (
 /*Table structure for table `t_object_child` */
 
 DROP TABLE IF EXISTS `t_object_child`;
-
 CREATE TABLE `t_object_child` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '子件名称',
   `qr_code` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '二维码',
-  `length` int(11)DEFAULT NULL COMMENT '长',
-  `width` int(11)DEFAULT NULL COMMENT '宽',
-  `height` int(11)DEFAULT NULL COMMENT '高',
+  `length` int(11) DEFAULT NULL COMMENT '长',
+  `width` int(11) DEFAULT NULL COMMENT '宽',
+  `height` int(11) DEFAULT NULL COMMENT '高',
   `pic_url` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `reduce` int(11) NOT NULL DEFAULT '0' COMMENT '出库数',
+  `count` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `remark` varchar(4000) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 /*Data for the table `t_object_child` */
 
@@ -187,6 +188,8 @@ CREATE TABLE `t_object_parent` (
   `material` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '材质',
   `content` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '内容',
   `site_no` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '位置编号',
+  `reduce` int(11) NOT NULL DEFAULT '0' COMMENT '出库数',
+  `counts` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `valid` int(11) DEFAULT NULL COMMENT '逻辑删除（1:有效数据,-1:已删除）',
   `remark` varchar(4000) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',

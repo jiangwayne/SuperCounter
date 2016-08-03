@@ -22,13 +22,15 @@
     <result column="site_no" jdbcType="VARCHAR" property="siteNo" />
     <result column="counter_id" jdbcType="VARCHAR" property="siteNo" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
+      <result column="counts" jdbcType="INTEGER" property="counts" />
+      <result column="reduce" jdbcType="INTEGER" property="reduce" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
     id, name, qr_code, org_id, brand_id,obj_parent_no, type, length, width, height, length_up, width_up, height_up,
-    pic_url, material, content, site_no,valid, remark, gmt_create, gmt_modify
+    pic_url, material, content, site_no,valid,counts,reduce, remark, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -113,6 +115,12 @@
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
+        <if test="counts != null">
+            and counts = #{counts,jdbcType=INTEGER}
+        </if>
+        <if test="reduce!= null">
+            and reduce= #{reduce,jdbcType=INTEGER}
+        </if>
       <if test="remark != null">
         and remark = #{remark,jdbcType=VARCHAR}
       </if>
@@ -195,6 +203,12 @@
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
+        <if test="counts != null">
+            and counts = #{counts,jdbcType=INTEGER}
+        </if>
+        <if test="reduce != null">
+            and reduce = #{reduce,jdbcType=INTEGER}
+        </if>
       <if test="remark != null">
         and remark like CONCAT('%',#{remark,jdbcType=VARCHAR},'%')
       </if>
@@ -215,7 +229,7 @@
       org_id,brand_id,counter_id,obj_parent_no, type, length,
       width, height, length_up, 
       width_up, height_up, pic_url, 
-      material, content, site_no,valid,
+      material, content, site_no,valid,counts,reduce,
       remark, gmt_create, gmt_modify
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, 
@@ -224,7 +238,7 @@
       #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, #{lengthUp,jdbcType=INTEGER}, 
       #{widthUp,jdbcType=INTEGER}, #{heightUp,jdbcType=INTEGER}, #{picUrl,jdbcType=VARCHAR}, 
       #{material,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},#{siteNo,jdbcType=VARCHAR},
-       #{valid,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+       #{valid,jdbcType=INTEGER},#{counts,jdbcType=INTEGER},#{reduce,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
        #{gmtModify,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -288,6 +302,12 @@
       <if test="valid != null">
         valid,
       </if>
+        <if test="counts != null">
+            counts,
+        </if>
+        <if test="reduce != null">
+            reduce,
+        </if>
       <if test="remark != null">
         remark,
       </if>
@@ -356,6 +376,12 @@
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
+        <if test="counts != null">
+            #{counts,jdbcType=INTEGER},
+        </if>
+        <if test="reduce != null">
+            #{reduce,jdbcType=INTEGER},
+        </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -424,6 +450,12 @@
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
+        <if test="counts != null">
+            counts = #{counts,jdbcType=INTEGER},
+        </if>
+        <if test="reduce != null">
+            reduce = #{reduce,jdbcType=INTEGER},
+        </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -456,6 +488,8 @@
       content = #{content,jdbcType=VARCHAR},
       site_no = #{siteNo,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
+      counts = #{counts,jdbcType=INTEGER},
+      reduce = #{reduce,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}

@@ -37,6 +37,8 @@
         <td width="5">&nbsp;</td>
         <td width="150"></td>
         <td>道具名称</td>
+        <td align="center">长宽高</td>
+        <td align="center">出血长宽高</td>
         <td align="center">数量</td>
         <td align="center">预入库完成日期</td>
         <td align="center">预出库完成日期</td>
@@ -48,7 +50,9 @@
 	      <tr class="con">
 	        <td bgcolor="#FFFFFF">&nbsp;</td>
 	        <td bgcolor="#FFFFFF">${s_index+1}</td>
-	        <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
+	        <td align="center" bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF">${s.objParent.length?if_exists}*${s.objParent.width?if_exists}*${s.objParent.height?if_exists}</td>
+            <td align="center" bgcolor="#FFFFFF">${s.objParent.lengthUp?if_exists}*${s.objParent.widthUp?if_exists}*${s.objParent.heightUp?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">
 	        	<input id="in_${s_index+1}" type="text" value="${(s.inStockTime?string("yyyy-MM-dd"))!''}" size="20" />

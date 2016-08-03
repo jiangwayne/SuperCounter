@@ -11,11 +11,13 @@
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
+      <result column="counts" jdbcType="INTEGER" property="counts" />
+      <result column="reduce" jdbcType="INTEGER" property="reduce" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, qr_code, length, width, height, pic_url, remark, valid, gmt_create, gmt_modify
+    id, name, qr_code, length, width, height, pic_url, remark, valid,counts,reduce, gmt_create, gmt_modify
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -64,6 +66,12 @@
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
+        <if test="counts != null">
+            and counts = #{counts,jdbcType=INTEGER}
+        </if>
+        <if test="reduce != null">
+            and reduce = #{reduce,jdbcType=INTEGER}
+        </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
       </if>
@@ -104,6 +112,12 @@
       <if test="valid != null">
         and valid = #{valid,jdbcType=INTEGER}
       </if>
+        <if test="counts != null">
+            and counts = #{counts,jdbcType=INTEGER}
+        </if>
+        <if test="reduce != null">
+            and reduce = #{reduce,jdbcType=INTEGER}
+        </if>
       <if test="gmtCreate != null">
         and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
       </if>
@@ -119,11 +133,11 @@
   <insert id="insert" keyProperty="id" parameterType="com.plus.server.model.ObjectChild" useGeneratedKeys="true">
     insert into t_object_child (id, name, qr_code, 
       length, width, height, 
-      pic_url, remark, valid, 
+      pic_url, remark, valid, counts,reduce,
       gmt_create, gmt_modify)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qrCode,jdbcType=VARCHAR}, 
       #{length,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
-      #{picUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+      #{picUrl,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER},#{counts,jdbcType=INTEGER},#{reduce,jdbcType=INTEGER},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyProperty="id" parameterType="com.plus.server.model.ObjectChild" useGeneratedKeys="true">
@@ -153,6 +167,12 @@
       <if test="remark != null">
         remark,
       </if>
+        <if test="counts != null">
+            counts,
+        </if>
+        <if test="reduce != null">
+            reduce,
+        </if>
       <if test="valid != null">
         valid,
       </if>
@@ -191,6 +211,12 @@
       <if test="valid != null">
         #{valid,jdbcType=INTEGER},
       </if>
+        <if test="counts != null">
+            #{counts,jdbcType=INTEGER},
+        </if>
+        <if test="reduce != null">
+            #{reduce,jdbcType=INTEGER},
+        </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -226,6 +252,12 @@
       <if test="valid != null">
         valid = #{valid,jdbcType=INTEGER},
       </if>
+        <if test="counts != null">
+            counts = #{counts,jdbcType=INTEGER},
+        </if>
+        <if test="reduce != null">
+            reduce = #{reduce,jdbcType=INTEGER},
+        </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -245,6 +277,8 @@
       pic_url = #{picUrl,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       valid = #{valid,jdbcType=INTEGER},
+      counts = #{counts,jdbcType=INTEGER},
+      reduce = #{reduce,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

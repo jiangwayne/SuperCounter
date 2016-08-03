@@ -9,6 +9,10 @@ public class Order {
 
     private Long userId;
 
+    private User user;
+
+    private Organization brand;
+
     private Long orgBrandId;
 
     private String comment;
@@ -81,5 +85,21 @@ public class Order {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Organization getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Organization brand) {
+        this.brand = brand;
     }
 }

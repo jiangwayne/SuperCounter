@@ -33,7 +33,7 @@ public class OrderCounterController extends BaseController {
     private AssignTaskService assignTaskService;
 
     @RequestMapping(value = "/list")
-    public ModelAndView list(Model model, Long counterId, Integer page, Integer pageSize) {
+    public ModelAndView list(Model model, Long counterId, Long orderId,Integer page, Integer pageSize) {
         ModelAndView mv = new ModelAndView("orderCounterList.ftl");
 
         Organization brand = (Organization)this.httpSession.getAttribute("brand");
@@ -46,6 +46,7 @@ public class OrderCounterController extends BaseController {
         model.addAttribute("counterId", counterId);
 
         OrderCounter orderCounter = new OrderCounter();
+        orderCounter.setOrderId(orderId);
         orderCounter.setValid(1);
         orderCounter.setOrgCounterId(counterId);
         PageInfo<OrderCounter> pageInfo = orderCounterService.selectByModel(orderCounter,page,pageSize);

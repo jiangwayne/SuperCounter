@@ -38,7 +38,8 @@
         <td width="150"></td>
         <td>道具名称</td>
         <td align="center">数量</td>
-
+        <td align="center">长宽高</td>
+        <td align="center">出血长宽高</td>
         <td align="center">添加日期</td>
         <td width="150" align="center">操作</td>
     </tr>
@@ -49,6 +50,8 @@
             <td bgcolor="#FFFFFF">${s_index+1}</td>
             <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.objParent.length?if_exists}*${s.objParent.width?if_exists}*${s.objParent.height?if_exists}</td>
+            <td bgcolor="#FFFFFF">${s.objParent.lengthUp?if_exists}*${s.objParent.widthUp?if_exists}*${s.objParent.heightUp?if_exists}</td>
 
             <td align="center" bgcolor="#FFFFFF">${(s.gmtCreate?string("yyyy-MM-dd HH:mm:ss"))!''}</td>
             <td align="center" bgcolor="#FFFFFF">
