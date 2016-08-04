@@ -39,6 +39,7 @@
         <td>道具名称</td>
           <td>长宽高</td>
           <td>出血长宽高</td>
+          <td>材质</td>
         <td align="center">数量</td>
         <td align="center">RMB单价</td>
         <td align="center">美元单价</td>
@@ -66,6 +67,7 @@
 	        <td bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
               <td bgcolor="#FFFFFF">${s.objParent.length?if_exists}*${s.objParent.width?if_exists}*${s.objParent.height?if_exists}</td>
               <td bgcolor="#FFFFFF">${s.objParent.lengthUp?if_exists}*${s.objParent.widthUp?if_exists}*${s.objParent.heightUp?if_exists}</td>
+              <td bgcolor="#FFFFFF">${s.objParent.material?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">${s.unitPriceCny?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">${s.unitPriceUsd?if_exists}</td>

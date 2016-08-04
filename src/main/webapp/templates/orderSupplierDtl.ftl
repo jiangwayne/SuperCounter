@@ -53,7 +53,8 @@
 	        <td align="center" bgcolor="#FFFFFF">${s.objParent.name?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.objParent.length?if_exists}*${s.objParent.width?if_exists}*${s.objParent.height?if_exists}</td>
             <td align="center" bgcolor="#FFFFFF">${s.objParent.lengthUp?if_exists}*${s.objParent.widthUp?if_exists}*${s.objParent.heightUp?if_exists}</td>
-	        <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
+              <td align="center" bgcolor="#FFFFFF">${s.objParent.material?if_exists}</td>
+              <td align="center" bgcolor="#FFFFFF">${s.objParentCount?if_exists}</td>
 	        <td align="center" bgcolor="#FFFFFF">
 	        	<input id="in_${s_index+1}" type="text" value="${(s.inStockTime?string("yyyy-MM-dd"))!''}" size="20" />
 		    	<script type="text/javascript">laydate({elem: '#in_${s_index+1}'});</script>

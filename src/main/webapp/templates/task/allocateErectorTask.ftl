@@ -55,23 +55,23 @@
     <td align="right" class="title2">安装工程师</td>
     <td class="con2">
     <select class="ip" id="select3">
-      <option>ＢＡ</option>
+      <#--<option>ＢＡ</option>-->
       <option>安装公司</option>     
     </select>
-    <select class="ip" id="select3">
-      <option>山东</option>
-      <option>河北</option>      
-      <option>北京</option>     
-      <option>上海</option>                          
-    </select>
-    <select class="ip" id="select3">
-      <option>北京</option>     
-      <option>上海</option>     
-      <option>济南</option>     
-      <option>青岛</option>     
-      <option>福州</option>     
-      <option>哈尔滨</option>                             
-    </select>
+    <#--<select class="ip" id="select3">-->
+      <#--<option>山东</option>-->
+      <#--<option>河北</option>      -->
+      <#--<option>北京</option>     -->
+      <#--<option>上海</option>                          -->
+    <#--</select>-->
+    <#--<select class="ip" id="select3">-->
+      <#--<option>北京</option>     -->
+      <#--<option>上海</option>     -->
+      <#--<option>济南</option>     -->
+      <#--<option>青岛</option>     -->
+      <#--<option>福州</option>     -->
+      <#--<option>哈尔滨</option>                             -->
+    <#--</select>-->
     <select name="userSetupId" class="ip" id="userSetupId">
     <#if userList??>
       <#list userList as s>

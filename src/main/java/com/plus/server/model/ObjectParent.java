@@ -32,6 +32,16 @@ public class ObjectParent {
 
     private Long orgId;
 
+    public Organization getOrg() {
+        return org;
+    }
+
+    public void setOrg(Organization org) {
+        this.org = org;
+    }
+
+    private Organization org;
+
     private Long brandId;
 
     public Long getCounterId() {

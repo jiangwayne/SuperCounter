@@ -21,7 +21,7 @@
     <td width="5">&nbsp;</td>
     <td width="20"><input name="checkbox" id="checkbox" type="checkbox"></td>
     <td width="150">名称</td>
-    <td>品牌</td>
+    <td align="center">品牌</td>
     <td align="center">媒介</td>
     <td align="center">样式</td>
     <td align="center">备注</td>

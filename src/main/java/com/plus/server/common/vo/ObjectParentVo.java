@@ -65,6 +65,26 @@ public class ObjectParentVo {
 
     private Date gmtModify;
 
+    public Integer getCounts() {
+        return counts;
+    }
+
+    public void setCounts(Integer counts) {
+        this.counts = counts;
+    }
+
+    public Integer getReduce() {
+        return reduce;
+    }
+
+    public void setReduce(Integer reduce) {
+        this.reduce = reduce;
+    }
+
+    private Integer counts;
+
+    private Integer reduce;
+
     public String getSiteNo() {
         return siteNo;
     }

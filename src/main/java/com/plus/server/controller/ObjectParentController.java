@@ -68,22 +68,21 @@ public class ObjectParentController extends BaseController {
 		if(pageInfo != null){
 			List<ObjectParent> opList = pageInfo.getList();
 			if(opList != null && opList.size() > 0){
-				List<ObjectParentVo> list = BeanMapper.mapList(opList, ObjectParentVo.class);
 				List<Long> orgIdList = Lists.newArrayList();
-				for(ObjectParentVo vo : list){
+				for(ObjectParent vo : opList){
 					orgIdList.add(vo.getOrgId());
 				}
 				Map<Long,Organization> orgMap = Maps.newHashMap();
 				if(orgIdList != null && orgIdList.size() > 0){
 					orgMap = selectOrgByIds(orgIdList);
 				}
-				for(ObjectParentVo vo : list){
+				for(ObjectParent vo : opList){
 					Organization org = orgMap.get(vo.getOrgId());
 					if(org != null){
-						vo.setOrgName(org.getName());
+						vo.setOrg(org);
 					}
 				}
-				model.addAttribute("list", list);
+				model.addAttribute("list", opList);
 			}
 			
 			model.addAttribute("pages",pageInfo.getPages());
